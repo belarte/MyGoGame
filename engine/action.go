@@ -1,13 +1,15 @@
 package engine
 
 type ActionBaseParameters struct {
-	level Level
-	agent int
+	level *Level
+	agent *Character
+	team  *Team
 	logs  [2]string
 }
 
-func NewActionBaseParameters(level Level, index int) ActionBaseParameters {
-	return ActionBaseParameters{level, index, [2]string{"", ""}}
+func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameters {
+	team := level.GetTeamOfCharacter(agent)
+	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
 
 type Action interface {
@@ -17,37 +19,47 @@ type Action interface {
 
 type MoveAction struct {
 	ActionBaseParameters
-	path []Coord
+	path path
 }
 
-func NewMoveAction(lvl Level, index int, to Coord) *MoveAction {
-	path := []Coord{to} // TODO: build path with A*
-	return &MoveAction{NewActionBaseParameters(lvl, index), path}
+func NewMoveAction(lvl *Level, agent *Character, to Coord) *MoveAction {
+	finder := NewPathFinder(lvl)
+	from := lvl.PositionOfCharacter(agent)
+	path := finder.ShortestPath(from, to)
+	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
 }
 
 func (self *MoveAction) IsDoable() bool {
+	result := self.path.size() > 0
+
+	if result {
+		self.logs[0] = self.agent.Name() + " can move."
+	} else {
+		self.logs[0] = self.agent.Name() + " cannot move."
+	}
 	// TODO: check action points
-	// TODO: check path
-	self.logs[0] = self.level.characters[self.agent].name + " can move."
-	return true
+
+	return result
 }
 
 func (self *MoveAction) Perform() {
-	for _, position := range self.path {
-		self.level.positions[self.agent] = position
+	for _, step := range self.path.path {
+		self.team.MoveCharacter(self.agent, step.coord)
+		// TODO: implement cost
 		// TODO: implement events
+		// TODO: log
 	}
 
-	self.logs[1] = self.level.characters[self.agent].name + " arrived at destination."
+	self.logs[1] = self.agent.Name() + " arrived at destination."
 }
 
 type AttackAction struct {
 	ActionBaseParameters
-	indexOfTarget int
+	target *Character
 }
 
-func NewAttackAction(lvl Level, index int, target int) *AttackAction {
-	return &AttackAction{NewActionBaseParameters(lvl, index), target}
+func NewAttackAction(lvl *Level, agent, target *Character) *AttackAction {
+	return &AttackAction{NewActionBaseParameters(lvl, agent), target}
 }
 
 func (self *AttackAction) IsDoable() bool {

@@ -9,14 +9,12 @@ type Character struct {
 	intelligence uint
 	vitality     uint
 
-	currentHP, maxHP  uint
-	xp, xpToNextLevel int
-	level             int
+	currentHP, maxHP uint
 }
 
 func NewCharacter(name string, str, dex, agi, intel, vita uint) *Character {
 	maxHP := 50 + 10*vita
-	return &Character{name, str, dex, agi, intel, vita, maxHP, maxHP, 0, 100, 1}
+	return &Character{name, str, dex, agi, intel, vita, maxHP, maxHP}
 }
 
 func (self *Character) Name() string {

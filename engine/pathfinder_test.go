@@ -5,7 +5,7 @@ import (
 )
 
 func TestPathToSelfTesting(t *testing.T) {
-	level := NewLevel(NewCoord(1, 1))
+	level := NewLevel(NewCoord(1, 1), 0)
 	finder := NewPathFinder(level)
 
 	shortest := finder.ShortestPath(Coord{0, 0}, Coord{0, 0})
@@ -20,7 +20,7 @@ func TestPathToSelfTesting(t *testing.T) {
 }
 
 func TestPathInLineTesting(t *testing.T) {
-	level := NewLevel(Coord{1, 5})
+	level := NewLevel(Coord{1, 5}, 0)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
@@ -43,7 +43,7 @@ func TestPathInLineTesting(t *testing.T) {
 }
 
 func TestPathInColumnTesting(t *testing.T) {
-	level := NewLevel(Coord{5, 1})
+	level := NewLevel(Coord{5, 1}, 0)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{4, 0})
@@ -66,7 +66,7 @@ func TestPathInColumnTesting(t *testing.T) {
 }
 
 func TestPathWithObstacleTesting(t *testing.T) {
-	level := NewLevel(Coord{2, 5})
+	level := NewLevel(Coord{2, 5}, 0)
 	level.maps.SetCell(Coord{0, 2}, WALL)
 	finder := NewPathFinder(level)
 
@@ -90,7 +90,7 @@ func TestPathWithObstacleTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesOverTesting(t *testing.T) {
-	level := NewLevel(Coord{2, 5})
+	level := NewLevel(Coord{2, 5}, 0)
 	level.maps.SetCell(Coord{0, 1}, DIFFICULT)
 	level.maps.SetCell(Coord{0, 2}, DIFFICULT)
 	level.maps.SetCell(Coord{0, 3}, DIFFICULT)
@@ -116,7 +116,7 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesCrossTesting(t *testing.T) {
-	level := NewLevel(Coord{2, 5})
+	level := NewLevel(Coord{2, 5}, 0)
 	level.maps.SetCell(Coord{0, 1}, DIFFICULT)
 	level.maps.SetCell(Coord{0, 2}, DIFFICULT)
 	level.maps.SetCell(Coord{0, 3}, DIFFICULT)
@@ -144,8 +144,8 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 
 func TestPathWithProtagonistTesting(t *testing.T) {
 	char := NewCharacter("", 0, 0, 0, 0, 0)
-	level := NewLevel(Coord{2, 5})
-	level.AddCharacter(char, Coord{0, 2})
+	level := NewLevel(Coord{2, 5}, 1)
+	level.AddCharacter(char, Coord{0, 2}, 0)
 
 	finder := NewPathFinder(level)
 
@@ -169,7 +169,7 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 }
 
 func TestPathNotPossibleTesting(t *testing.T) {
-	level := NewLevel(Coord{1, 5})
+	level := NewLevel(Coord{1, 5}, 0)
 	level.maps.SetCell(Coord{0, 2}, WALL)
 	finder := NewPathFinder(level)
 
@@ -219,7 +219,7 @@ func TestTIsInList(t *testing.T) {
 }
 
 func TestGetAdjacentCells(t *testing.T) {
-	level := NewLevel(Coord{3, 3})
+	level := NewLevel(Coord{3, 3}, 0)
 	finder := NewPathFinder(level)
 
 	results := [][]Coord{finder.getAdjacentCells(Coord{0, 0}),

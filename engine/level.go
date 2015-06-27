@@ -1,78 +1,59 @@
 package engine
 
-import (
-	"errors"
-)
-
 const (
 	MAX_PLAYERS_BY_TEAM = 5
 	MAX_PLAYERS         = 2 * MAX_PLAYERS_BY_TEAM
 )
 
 type Level struct {
-	maps       *Map
-	characters []*Character
-	positions  []Coord
+	maps  *Map
+	teams []*Team
 }
 
-func NewLevel(size Coord) *Level {
+func NewLevel(size Coord, numTeams int) *Level {
 	m := NewMap(size)
-	characters := make([]*Character, 0, 2*MAX_PLAYERS_BY_TEAM)
-	positions := make([]Coord, 0, 2*MAX_PLAYERS_BY_TEAM)
 
-	return &Level{m, characters, positions}
+	teams := make([]*Team, numTeams, numTeams)
+	for i := 0; i < numTeams; i++ {
+		teams[i] = NewTeam()
+	}
+
+	return &Level{m, teams}
 }
 
-func (self *Level) CharactersCount() int {
-	return len(self.characters)
-}
-
-func (self *Level) AddCharacter(c *Character, pos Coord) error {
+func (self *Level) AddCharacter(c *Character, pos Coord, team int) bool {
 	if self.maps.isWithinBounds(pos) {
-		return errors.New("Out of bound")
+		return false
 	}
 
-	if len(self.characters) >= MAX_PLAYERS {
-		return errors.New("Too much characters already")
-	}
-
-	self.characters = append(self.characters, c)
-	self.positions = append(self.positions, pos)
-
-	return self.checkConsistency()
+	return self.teams[team].AddCharacter(c, pos)
 }
 
-func (self *Level) CharacterID(char *Character) (int, error) {
-	for i, c := range self.characters {
-		if char == c {
-			return i, nil
+func (self *Level) GetTeamOfCharacter(char *Character) *Team {
+	for _, team := range self.teams {
+		if c, _ := team.GetCharacter(char); c != nil {
+			return team
+		}
+	}
+	return nil
+}
+
+func (self *Level) PositionOfCharacter(c *Character) Coord {
+	for _, team := range self.teams {
+		if char, coord := team.GetCharacter(c); char != nil {
+			return coord
 		}
 	}
 
-	return 0, errors.New("Character not found")
-}
-
-func (self *Level) GetCharacter(id int) *Character {
-	return self.characters[id]
-}
-
-func (self *Level) GetPosition(id int) Coord {
-	return self.positions[id]
+	return Coord{0, 0} // TODO: default return?
 }
 
 func (self *Level) IsCharacterAtPosition(pos Coord) bool {
-	for _, c := range self.positions {
-		if EqualCoord(c, pos) {
+	for _, team := range self.teams {
+		if team.IsCharacterAtPosition(pos) {
 			return true
 		}
 	}
+
 	return false
-}
-
-func (self *Level) checkConsistency() error {
-	if len(self.characters) != len(self.positions) {
-		return errors.New("#characters differs from #positions")
-	}
-
-	return nil
 }
