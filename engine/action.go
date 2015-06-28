@@ -30,16 +30,18 @@ func NewMoveAction(lvl *Level, agent *Character, to Coord) *MoveAction {
 }
 
 func (self *MoveAction) IsDoable() bool {
-	result := self.path.size() > 0
-
-	if result {
-		self.logs[0] = self.agent.Name() + " can move."
-	} else {
-		self.logs[0] = self.agent.Name() + " cannot move."
+	if self.path.size() == 0 {
+		self.logs[0] = self.agent.Name() + " cannot move: empty path"
+		return false
 	}
-	// TODO: check action points
 
-	return result
+	if self.agent.MovePoints() < self.path.cost() {
+		self.logs[0] = self.agent.Name() + " cannot move: not enough move points"
+		return false
+	}
+
+	self.logs[0] = self.agent.Name() + " can move."
+	return true
 }
 
 func (self *MoveAction) Perform() {
