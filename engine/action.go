@@ -35,7 +35,7 @@ func (self *MoveAction) IsDoable() bool {
 		return false
 	}
 
-	if self.agent.MovePoints() < self.path.cost() {
+	if self.agent.MovePoints() < int(self.path.cost()) {
 		self.logs[0] = self.agent.Name() + " cannot move: not enough move points"
 		return false
 	}

@@ -26,18 +26,28 @@ func TestPathInLineTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 4
+	expectedSize := 4
+	expectedCost := 4.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -49,18 +59,28 @@ func TestPathInColumnTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{4, 0})
 	shortest2 := finder.ShortestPath(Coord{4, 0}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 4
+	expectedSize := 4
+	expectedCost := 4.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -73,18 +93,28 @@ func TestPathWithObstacleTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 6
+	expectedSize := 6
+	expectedCost := 6.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -99,18 +129,28 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 6
+	expectedSize := 6
+	expectedCost := 6.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -126,18 +166,28 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	var expected = []int{4, 7, 4, 7}
+	expectedSize := 4
+	expectedCost := 7.0
 
-	for i, _ := range results {
-		if results[i] != expected[i] {
-			t.Errorf("Expected %d, got %d", expected[i], results[i])
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -152,18 +202,28 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 6
+	expectedSize := 6
+	expectedCost := 6.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }
@@ -176,18 +236,28 @@ func TestPathNotPossibleTesting(t *testing.T) {
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
-	var results = []int{
+	var sizes = []int{
 		shortest1.size(),
-		shortest1.cost(),
 		shortest2.size(),
+	}
+
+	var costs = []float64{
+		shortest1.cost(),
 		shortest2.cost(),
 	}
 
-	expected := 0
+	expectedSize := 0
+	expectedCost := 0.0
 
-	for _, res := range results {
-		if res != expected {
-			t.Errorf("Expected %d, got %d", expected, res)
+	for _, res := range sizes {
+		if res != expectedSize {
+			t.Errorf("Expected %d, got %d", expectedSize, res)
+		}
+	}
+
+	for _, res := range costs {
+		if res != expectedCost {
+			t.Errorf("Expected %d, got %d", expectedCost, res)
 		}
 	}
 }

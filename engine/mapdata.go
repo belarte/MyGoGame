@@ -55,14 +55,14 @@ func distance(from, to Coord) int {
  */
 type pathStep struct {
 	coord Coord
-	cost  int
+	cost  float64
 }
 
 type path struct {
 	path []pathStep
 }
 
-func (self *path) add(coord Coord, cost int) {
+func (self *path) add(coord Coord, cost float64) {
 	self.path = append(self.path, pathStep{coord, cost})
 }
 
@@ -70,8 +70,8 @@ func (self *path) size() int {
 	return len(self.path)
 }
 
-func (self *path) cost() int {
-	result := 0
+func (self *path) cost() float64 {
+	result := 0.0
 	for _, step := range self.path {
 		result += step.cost
 	}

@@ -133,11 +133,11 @@ func (self *PathFinder) retrievePath(start, dest Coord) path {
 	tmp := self.closedList[dest]
 	prev := tmp.parent
 	weight := CellWeight(self.level.maps.GetCell(dest))
-	result.add(dest, weight)
+	result.add(dest, float64(weight))
 
 	for !EqualCoord(prev, start) {
 		weight = CellWeight(self.level.maps.GetCell(prev))
-		result.add(prev, weight)
+		result.add(prev, float64(weight))
 
 		tmp = self.closedList[tmp.parent]
 		prev = tmp.parent
