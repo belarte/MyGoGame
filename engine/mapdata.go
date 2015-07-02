@@ -1,5 +1,9 @@
 package engine
 
+import (
+	"math"
+)
+
 const (
 	NORMAL = iota
 	DIFFICULT
@@ -8,14 +12,14 @@ const (
 
 type CellType uint
 
-func CellWeight(t CellType) int {
+func CellWeight(t CellType) float64 {
 	switch t {
 	case NORMAL:
-		return 1
+		return 1.
 	case DIFFICULT:
-		return 2
+		return 2.
 	default:
-		return 0xFFFFFF
+		return 123456789.0
 	}
 }
 
@@ -35,19 +39,16 @@ func EqualCoord(left, right Coord) bool {
 	return left.x == right.x && left.y == right.y
 }
 
-func distance(from, to Coord) int {
-	// Compute the Manhattan distance
-	x := from.x - to.x
-	y := from.y - to.y
-	if x < 0 {
-		x = -x
-	}
+func Distance(from, to Coord) float64 {
+	// Compute Euclidian distance
+	x := float64(from.x - to.x)
+	y := float64(from.y - to.y)
 
-	if y < 0 {
-		y = -y
-	}
+	return math.Sqrt(x*x + y*y)
+}
 
-	return x + y
+func CompareEpsilon(left, right float64) bool {
+	return left-right < 0.000001
 }
 
 /**

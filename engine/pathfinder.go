@@ -1,7 +1,7 @@
 package engine
 
 type node struct {
-	f_cost, g_cost, h_cost int
+	f_cost, g_cost, h_cost float64
 	parent                 Coord
 }
 
@@ -61,9 +61,9 @@ func (self *PathFinder) addAdjacentCells(c, dest Coord) {
 			!self.level.IsCharacterAtPosition(coord) {
 
 			cellWeight := CellWeight(self.level.maps.GetCell(coord))
-			dist := distance(coord, c)
+			dist := Distance(coord, c)
 			gcost := self.closedList[c].g_cost + dist*cellWeight
-			hcost := distance(coord, dest)
+			hcost := Distance(coord, dest)
 			fcost := gcost + hcost
 			tmp := node{fcost, gcost, hcost, c}
 
@@ -79,10 +79,10 @@ func (self *PathFinder) addAdjacentCells(c, dest Coord) {
 }
 
 func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
-	var result []Coord
-	xx := make([]int, 0, 2)
-	yy := make([]int, 0, 2)
 	size := self.level.maps.Size()
+
+	xx := make([]int, 0, 3)
+	xx = append(xx, c.x)
 
 	if c.x > 0 {
 		xx = append(xx, c.x-1)
@@ -90,6 +90,10 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 	if c.x < size.x-1 {
 		xx = append(xx, c.x+1)
 	}
+
+	yy := make([]int, 0, 3)
+	yy = append(yy, c.y)
+
 	if c.y > 0 {
 		yy = append(yy, c.y-1)
 	}
@@ -97,11 +101,13 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 		yy = append(yy, c.y+1)
 	}
 
+	var result []Coord
 	for _, x := range xx {
-		result = append(result, Coord{x, c.y})
-	}
-	for _, y := range yy {
-		result = append(result, Coord{c.x, y})
+		for _, y := range yy {
+			if !(x == c.x && y == c.y) {
+				result = append(result, Coord{x, y})
+			}
+		}
 	}
 
 	return result
@@ -109,7 +115,7 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 
 func (self *PathFinder) bestNode(list nodeList) Coord {
 	var result Coord
-	cost := 0xFFFFFF
+	cost := 123456789.0
 
 	for c, n := range list {
 		if n.f_cost < cost {
@@ -131,16 +137,16 @@ func (self *PathFinder) retrievePath(start, dest Coord) path {
 	var result path
 
 	tmp := self.closedList[dest]
-	prev := tmp.parent
-	weight := CellWeight(self.level.maps.GetCell(dest))
-	result.add(dest, float64(weight))
+	current := dest
+	previous := tmp.parent
 
-	for !EqualCoord(prev, start) {
-		weight = CellWeight(self.level.maps.GetCell(prev))
-		result.add(prev, float64(weight))
+	for !EqualCoord(current, start) {
+		weight := CellWeight(self.level.maps.GetCell(current)) * Distance(current, previous)
+		result.add(current, weight)
 
-		tmp = self.closedList[tmp.parent]
-		prev = tmp.parent
+		current = previous
+		tmp = self.closedList[previous]
+		previous = tmp.parent
 	}
 
 	result.reverse()

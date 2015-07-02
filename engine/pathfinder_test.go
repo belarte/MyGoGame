@@ -14,7 +14,7 @@ func TestPathToSelfTesting(t *testing.T) {
 		t.Error("shortest.size(): expected 0, got ", shortest.size())
 	}
 
-	if shortest.cost() != 0 {
+	if !CompareEpsilon(shortest.cost(), 0) {
 		t.Error("shortest.cost(): expected 0, got ", shortest.cost())
 	}
 }
@@ -46,8 +46,8 @@ func TestPathInLineTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -79,8 +79,8 @@ func TestPathInColumnTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -103,8 +103,8 @@ func TestPathWithObstacleTesting(t *testing.T) {
 		shortest2.cost(),
 	}
 
-	expectedSize := 6
-	expectedCost := 6.0
+	expectedSize := 4
+	expectedCost := 4.828427
 
 	for _, res := range sizes {
 		if res != expectedSize {
@@ -113,8 +113,8 @@ func TestPathWithObstacleTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -139,8 +139,8 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 		shortest2.cost(),
 	}
 
-	expectedSize := 6
-	expectedCost := 6.0
+	expectedSize := 4
+	expectedCost := 4.828427
 
 	for _, res := range sizes {
 		if res != expectedSize {
@@ -149,8 +149,8 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -186,8 +186,8 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -212,8 +212,8 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 		shortest2.cost(),
 	}
 
-	expectedSize := 6
-	expectedCost := 6.0
+	expectedSize := 4
+	expectedCost := 4.828427
 
 	for _, res := range sizes {
 		if res != expectedSize {
@@ -222,8 +222,8 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -256,8 +256,8 @@ func TestPathNotPossibleTesting(t *testing.T) {
 	}
 
 	for _, res := range costs {
-		if res != expectedCost {
-			t.Errorf("Expected %d, got %d", expectedCost, res)
+		if !CompareEpsilon(res, expectedCost) {
+			t.Errorf("Expected %f, got %f", expectedCost, res)
 		}
 	}
 }
@@ -303,11 +303,12 @@ func TestGetAdjacentCells(t *testing.T) {
 		finder.getAdjacentCells(Coord{2, 2}),
 	}
 
-	expected := []int{2, 3, 2, 3, 4, 3, 2, 3, 2}
+	expected := []int{3, 5, 3, 5, 8, 5, 3, 5, 3}
 
 	for i, _ := range results {
 		if expected[i] != len(results[i]) {
-			t.Errorf("Expected %d, got %d", expected[i], results[i])
+			t.Errorf("%d", results[i])
+			t.Errorf("Expected %d, got %d", expected[i], len(results[i]))
 		}
 	}
 }
