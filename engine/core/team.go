@@ -1,4 +1,4 @@
-package engine
+package core
 
 type Team struct {
 	characters map[*Character]Coord

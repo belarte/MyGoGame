@@ -1,4 +1,4 @@
-package engine
+package core
 
 type Character struct {
 	name string

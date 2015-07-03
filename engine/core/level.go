@@ -1,4 +1,4 @@
-package engine
+package core
 
 const (
 	MAX_PLAYERS_BY_TEAM = 5
@@ -19,6 +19,10 @@ func NewLevel(size Coord, numTeams int) *Level {
 	}
 
 	return &Level{m, teams}
+}
+
+func (self *Level) Map() *Map {
+	return self.maps
 }
 
 func (self *Level) AddCharacter(c *Character, pos Coord, team int) bool {

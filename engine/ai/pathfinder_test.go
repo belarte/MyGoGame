@@ -1,6 +1,7 @@
 package engine
 
 import (
+	. "github.com/belarte/MyGoGame/engine/core"
 	"testing"
 )
 
@@ -10,12 +11,12 @@ func TestPathToSelfTesting(t *testing.T) {
 
 	shortest := finder.ShortestPath(Coord{0, 0}, Coord{0, 0})
 
-	if shortest.size() != 0 {
-		t.Error("shortest.size(): expected 0, got ", shortest.size())
+	if shortest.Size() != 0 {
+		t.Error("shortest.Size(): expected 0, got ", shortest.Size())
 	}
 
-	if !CompareEpsilon(shortest.cost(), 0) {
-		t.Error("shortest.cost(): expected 0, got ", shortest.cost())
+	if !CompareEpsilon(shortest.Cost(), 0) {
+		t.Error("shortest.Cost(): expected 0, got ", shortest.Cost())
 	}
 }
 
@@ -27,13 +28,13 @@ func TestPathInLineTesting(t *testing.T) {
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
@@ -60,47 +61,47 @@ func TestPathInColumnTesting(t *testing.T) {
 	shortest2 := finder.ShortestPath(Coord{4, 0}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
 	expectedCost := 4.0
 
-	for _, res := range sizes {
+	for i, res := range sizes {
 		if res != expectedSize {
-			t.Errorf("Expected %d, got %d", expectedSize, res)
+			t.Errorf("%d: Expected size %d, got %d", i, expectedSize, res)
 		}
 	}
 
-	for _, res := range costs {
+	for i, res := range costs {
 		if !CompareEpsilon(res, expectedCost) {
-			t.Errorf("Expected %f, got %f", expectedCost, res)
+			t.Errorf("%d: Expected cost %f, got %f", i, expectedCost, res)
 		}
 	}
 }
 
 func TestPathWithObstacleTesting(t *testing.T) {
 	level := NewLevel(Coord{2, 5}, 0)
-	level.maps.SetCell(Coord{0, 2}, WALL)
+	level.Map().SetCell(Coord{0, 2}, WALL)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
@@ -121,22 +122,22 @@ func TestPathWithObstacleTesting(t *testing.T) {
 
 func TestPathWithDifficultiesOverTesting(t *testing.T) {
 	level := NewLevel(Coord{2, 5}, 0)
-	level.maps.SetCell(Coord{0, 1}, DIFFICULT)
-	level.maps.SetCell(Coord{0, 2}, DIFFICULT)
-	level.maps.SetCell(Coord{0, 3}, DIFFICULT)
+	level.Map().SetCell(Coord{0, 1}, DIFFICULT)
+	level.Map().SetCell(Coord{0, 2}, DIFFICULT)
+	level.Map().SetCell(Coord{0, 3}, DIFFICULT)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
@@ -157,23 +158,23 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 
 func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 	level := NewLevel(Coord{2, 5}, 0)
-	level.maps.SetCell(Coord{0, 1}, DIFFICULT)
-	level.maps.SetCell(Coord{0, 2}, DIFFICULT)
-	level.maps.SetCell(Coord{0, 3}, DIFFICULT)
-	level.maps.SetCell(Coord{1, 2}, WALL)
+	level.Map().SetCell(Coord{0, 1}, DIFFICULT)
+	level.Map().SetCell(Coord{0, 2}, DIFFICULT)
+	level.Map().SetCell(Coord{0, 3}, DIFFICULT)
+	level.Map().SetCell(Coord{1, 2}, WALL)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
@@ -203,13 +204,13 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 4
@@ -230,20 +231,20 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 
 func TestPathNotPossibleTesting(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 0)
-	level.maps.SetCell(Coord{0, 2}, WALL)
+	level.Map().SetCell(Coord{0, 2}, WALL)
 	finder := NewPathFinder(level)
 
 	shortest1 := finder.ShortestPath(Coord{0, 0}, Coord{0, 4})
 	shortest2 := finder.ShortestPath(Coord{0, 4}, Coord{0, 0})
 
 	var sizes = []int{
-		shortest1.size(),
-		shortest2.size(),
+		shortest1.Size(),
+		shortest2.Size(),
 	}
 
 	var costs = []float64{
-		shortest1.cost(),
-		shortest2.cost(),
+		shortest1.Cost(),
+		shortest2.Cost(),
 	}
 
 	expectedSize := 0
@@ -308,7 +309,7 @@ func TestGetAdjacentCells(t *testing.T) {
 	for i, _ := range results {
 		if expected[i] != len(results[i]) {
 			t.Errorf("%d", results[i])
-			t.Errorf("Expected %d, got %d", expected[i], len(results[i]))
+			t.Errorf("%d: Expected %d, got %d", i, expected[i], len(results[i]))
 		}
 	}
 }

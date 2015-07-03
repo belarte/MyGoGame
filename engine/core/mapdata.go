@@ -1,4 +1,4 @@
-package engine
+package core
 
 import (
 	"math"
@@ -28,7 +28,7 @@ func CellWeight(t CellType) float64 {
  * Base class for Map
  */
 type Coord struct {
-	x, y int
+	X, Y int
 }
 
 func NewCoord(x, y int) Coord {
@@ -36,13 +36,13 @@ func NewCoord(x, y int) Coord {
 }
 
 func EqualCoord(left, right Coord) bool {
-	return left.x == right.x && left.y == right.y
+	return left.X == right.X && left.Y == right.Y
 }
 
 func Distance(from, to Coord) float64 {
 	// Compute Euclidian distance
-	x := float64(from.x - to.x)
-	y := float64(from.y - to.y)
+	x := float64(from.X - to.X)
+	y := float64(from.Y - to.Y)
 
 	return math.Sqrt(x*x + y*y)
 }
@@ -55,33 +55,33 @@ func CompareEpsilon(left, right float64) bool {
  * path class for pathFinder and MoveAction
  */
 type pathStep struct {
-	coord Coord
-	cost  float64
+	Coord Coord
+	Cost  float64
 }
 
-type path struct {
-	path []pathStep
+type Path struct {
+	Path []pathStep
 }
 
-func (self *path) add(coord Coord, cost float64) {
-	self.path = append(self.path, pathStep{coord, cost})
+func (self *Path) Add(coord Coord, cost float64) {
+	self.Path = append(self.Path, pathStep{coord, cost})
 }
 
-func (self *path) size() int {
-	return len(self.path)
+func (self *Path) Size() int {
+	return len(self.Path)
 }
 
-func (self *path) cost() float64 {
+func (self *Path) Cost() float64 {
 	result := 0.0
-	for _, step := range self.path {
-		result += step.cost
+	for _, step := range self.Path {
+		result += step.Cost
 	}
 
 	return result
 }
 
-func (self *path) reverse() {
-	for i, j := 0, len(self.path)-1; i < j; i, j = i+1, j-1 {
-		self.path[i], self.path[j] = self.path[j], self.path[i]
+func (self *Path) Reverse() {
+	for i, j := 0, len(self.Path)-1; i < j; i, j = i+1, j-1 {
+		self.Path[i], self.Path[j] = self.Path[j], self.Path[i]
 	}
 }

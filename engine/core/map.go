@@ -1,4 +1,4 @@
-package engine
+package core
 
 import (
 	"errors"
@@ -11,7 +11,7 @@ type Map struct {
 }
 
 func NewMap(size Coord) *Map {
-	grid := make([]CellType, size.x*size.y)
+	grid := make([]CellType, size.X*size.Y)
 	return &Map{size, grid}
 }
 
@@ -30,16 +30,16 @@ func (self *Map) SetCell(coord Coord, t CellType) {
 }
 
 func (self *Map) getIndex(coord Coord) (int, error) {
-	if coord.x > self.size.x || coord.y > self.size.y {
+	if coord.X > self.size.X || coord.Y > self.size.Y {
 		return 0, errors.New("Coordinates out of range: (" +
-			strconv.Itoa(int(coord.x)) + ", " +
-			strconv.Itoa(int(coord.y)) + ")")
+			strconv.Itoa(int(coord.X)) + ", " +
+			strconv.Itoa(int(coord.Y)) + ")")
 	}
 
-	return coord.y*self.size.x + coord.x, nil
+	return coord.Y*self.size.X + coord.X, nil
 }
 
 func (self *Map) isWithinBounds(pos Coord) bool {
 	size := self.Size()
-	return size.x < pos.x && size.y < pos.y
+	return size.X < pos.X && size.Y < pos.Y
 }

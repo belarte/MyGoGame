@@ -1,5 +1,9 @@
 package engine
 
+import (
+	. "github.com/belarte/MyGoGame/engine/core"
+)
+
 type node struct {
 	f_cost, g_cost, h_cost float64
 	parent                 Coord
@@ -16,7 +20,7 @@ func NewPathFinder(level *Level) *PathFinder {
 	return &PathFinder{level, make(map[Coord]node), make(map[Coord]node)}
 }
 
-func (self *PathFinder) ShortestPath(start, dest Coord) path {
+func (self *PathFinder) ShortestPath(start, dest Coord) Path {
 	self.openList = make(map[Coord]node)
 	self.closedList = make(map[Coord]node)
 
@@ -33,7 +37,7 @@ func (self *PathFinder) ShortestPath(start, dest Coord) path {
 		self.addAdjacentCells(current, dest)
 	}
 
-	var result path
+	var result Path
 
 	if EqualCoord(current, dest) && !EqualCoord(start, dest) {
 		result = self.retrievePath(start, dest)
@@ -57,10 +61,10 @@ func (self *PathFinder) addAdjacentCells(c, dest Coord) {
 
 	for _, coord := range coords {
 		if !self.isInList(coord, self.closedList) &&
-			self.level.maps.GetCell(coord) != WALL &&
+			self.level.Map().GetCell(coord) != WALL &&
 			!self.level.IsCharacterAtPosition(coord) {
 
-			cellWeight := CellWeight(self.level.maps.GetCell(coord))
+			cellWeight := CellWeight(self.level.Map().GetCell(coord))
 			dist := Distance(coord, c)
 			gcost := self.closedList[c].g_cost + dist*cellWeight
 			hcost := Distance(coord, dest)
@@ -79,32 +83,32 @@ func (self *PathFinder) addAdjacentCells(c, dest Coord) {
 }
 
 func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
-	size := self.level.maps.Size()
+	size := self.level.Map().Size()
 
 	xx := make([]int, 0, 3)
-	xx = append(xx, c.x)
+	xx = append(xx, c.X)
 
-	if c.x > 0 {
-		xx = append(xx, c.x-1)
+	if c.X > 0 {
+		xx = append(xx, c.X-1)
 	}
-	if c.x < size.x-1 {
-		xx = append(xx, c.x+1)
+	if c.X < size.X-1 {
+		xx = append(xx, c.X+1)
 	}
 
 	yy := make([]int, 0, 3)
-	yy = append(yy, c.y)
+	yy = append(yy, c.Y)
 
-	if c.y > 0 {
-		yy = append(yy, c.y-1)
+	if c.Y > 0 {
+		yy = append(yy, c.Y-1)
 	}
-	if c.y < size.y-1 {
-		yy = append(yy, c.y+1)
+	if c.Y < size.Y-1 {
+		yy = append(yy, c.Y+1)
 	}
 
 	var result []Coord
 	for _, x := range xx {
 		for _, y := range yy {
-			if !(x == c.x && y == c.y) {
+			if !(x == c.X && y == c.Y) {
 				result = append(result, Coord{x, y})
 			}
 		}
@@ -133,23 +137,23 @@ func (self *PathFinder) addToCloseList(c Coord) {
 	delete(self.openList, c)
 }
 
-func (self *PathFinder) retrievePath(start, dest Coord) path {
-	var result path
+func (self *PathFinder) retrievePath(start, dest Coord) Path {
+	var result Path
 
 	tmp := self.closedList[dest]
 	current := dest
 	previous := tmp.parent
 
 	for !EqualCoord(current, start) {
-		weight := CellWeight(self.level.maps.GetCell(current)) * Distance(current, previous)
-		result.add(current, weight)
+		weight := CellWeight(self.level.Map().GetCell(current)) * Distance(current, previous)
+		result.Add(current, weight)
 
 		current = previous
 		tmp = self.closedList[previous]
 		previous = tmp.parent
 	}
 
-	result.reverse()
+	result.Reverse()
 
 	return result
 }

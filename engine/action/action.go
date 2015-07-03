@@ -1,13 +1,17 @@
-package engine
+package action
+
+import (
+	"github.com/belarte/MyGoGame/engine/core"
+)
 
 type ActionBaseParameters struct {
-	level *Level
-	agent *Character
-	team  *Team
+	level *core.Level
+	agent *core.Character
+	team  *core.Team
 	logs  [2]string
 }
 
-func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameters {
+func NewActionBaseParameters(level *core.Level, agent *core.Character) ActionBaseParameters {
 	team := level.GetTeamOfCharacter(agent)
 	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
@@ -19,23 +23,20 @@ type Action interface {
 
 type MoveAction struct {
 	ActionBaseParameters
-	path path
+	path core.Path
 }
 
-func NewMoveAction(lvl *Level, agent *Character, to Coord) *MoveAction {
-	finder := NewPathFinder(lvl)
-	from := lvl.PositionOfCharacter(agent)
-	path := finder.ShortestPath(from, to)
+func NewMoveAction(lvl *core.Level, agent *core.Character, path core.Path) *MoveAction {
 	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
 }
 
 func (self *MoveAction) IsDoable() bool {
-	if self.path.size() == 0 {
+	if self.path.Size() == 0 {
 		self.logs[0] = self.agent.Name() + " cannot move: empty path"
 		return false
 	}
 
-	if self.agent.MovePoints() < int(self.path.cost()) {
+	if self.agent.MovePoints() < int(self.path.Cost()) {
 		self.logs[0] = self.agent.Name() + " cannot move: not enough move points"
 		return false
 	}
@@ -45,8 +46,8 @@ func (self *MoveAction) IsDoable() bool {
 }
 
 func (self *MoveAction) Perform() {
-	for _, step := range self.path.path {
-		self.team.MoveCharacter(self.agent, step.coord)
+	for _, step := range self.path.Path {
+		self.team.MoveCharacter(self.agent, step.Coord)
 		// TODO: implement cost
 		// TODO: implement events
 		// TODO: log
@@ -57,10 +58,10 @@ func (self *MoveAction) Perform() {
 
 type AttackAction struct {
 	ActionBaseParameters
-	target *Character
+	target *core.Character
 }
 
-func NewAttackAction(lvl *Level, agent, target *Character) *AttackAction {
+func NewAttackAction(lvl *core.Level, agent, target *core.Character) *AttackAction {
 	return &AttackAction{NewActionBaseParameters(lvl, agent), target}
 }
 
