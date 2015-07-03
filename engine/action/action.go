@@ -1,17 +1,17 @@
 package action
 
 import (
-	"github.com/belarte/MyGoGame/engine/core"
+	. "github.com/belarte/MyGoGame/engine/core"
 )
 
 type ActionBaseParameters struct {
-	level *core.Level
-	agent *core.Character
-	team  *core.Team
+	level *Level
+	agent *Character
+	team  *Team
 	logs  [2]string
 }
 
-func NewActionBaseParameters(level *core.Level, agent *core.Character) ActionBaseParameters {
+func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameters {
 	team := level.GetTeamOfCharacter(agent)
 	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
@@ -23,10 +23,10 @@ type Action interface {
 
 type MoveAction struct {
 	ActionBaseParameters
-	path core.Path
+	path Path
 }
 
-func NewMoveAction(lvl *core.Level, agent *core.Character, path core.Path) *MoveAction {
+func NewMoveAction(lvl *Level, agent *Character, path Path) *MoveAction {
 	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
 }
 
@@ -58,10 +58,10 @@ func (self *MoveAction) Perform() {
 
 type AttackAction struct {
 	ActionBaseParameters
-	target *core.Character
+	target *Character
 }
 
-func NewAttackAction(lvl *core.Level, agent, target *core.Character) *AttackAction {
+func NewAttackAction(lvl *Level, agent, target *Character) *AttackAction {
 	return &AttackAction{NewActionBaseParameters(lvl, agent), target}
 }
 
