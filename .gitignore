@@ -3,6 +3,9 @@
 *.a
 *.so
 
+# TODO file
+TODO.txt
+
 # Folders
 _obj
 _test
