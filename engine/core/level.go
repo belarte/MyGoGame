@@ -1,5 +1,9 @@
 package core
 
+import (
+	. "github.com/belarte/MyGoGame/engine/utils"
+)
+
 const (
 	MAX_PLAYERS_BY_TEAM = 5
 	MAX_PLAYERS         = 2 * MAX_PLAYERS_BY_TEAM

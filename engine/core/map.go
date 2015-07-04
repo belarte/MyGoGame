@@ -2,6 +2,7 @@ package core
 
 import (
 	"errors"
+	. "github.com/belarte/MyGoGame/engine/utils"
 	"strconv"
 )
 

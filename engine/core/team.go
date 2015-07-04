@@ -1,5 +1,9 @@
 package core
 
+import (
+	. "github.com/belarte/MyGoGame/engine/utils"
+)
+
 type Team struct {
 	characters map[*Character]Coord
 }

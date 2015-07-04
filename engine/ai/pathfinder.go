@@ -2,6 +2,7 @@ package engine
 
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
+	. "github.com/belarte/MyGoGame/engine/utils"
 )
 
 type node struct {

@@ -1,6 +1,7 @@
 package core
 
 import (
+	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
 )
 
