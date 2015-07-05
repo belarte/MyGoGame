@@ -1,4 +1,8 @@
-package utils
+package core
+
+import (
+	. "github.com/belarte/MyGoGame/engine/utils"
+)
 
 /**
  * path class for pathFinder and MoveAction

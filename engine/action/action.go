@@ -2,7 +2,6 @@ package action
 
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 )
 
 type ActionBaseParameters struct {
