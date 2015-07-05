@@ -2,6 +2,7 @@ package action
 
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
+	. "github.com/belarte/MyGoGame/engine/utils"
 )
 
 type ActionBaseParameters struct {
@@ -44,8 +45,8 @@ func (self *MoveAction) Perform() bool {
 	movePoints := float64(self.agent.MovePoints())
 	for _, step := range self.path.Path {
 		if movePoints < self.path.Cost() {
-			self.logs[1] = self.agent.Name() + "  has not enough move points, action terminated."
-			return false
+			self.logs[1] += self.agent.Name() + "  does not have enough move points, action terminated. "
+			break
 		}
 
 		self.team.MoveCharacter(self.agent, step.Coord)
@@ -53,8 +54,13 @@ func (self *MoveAction) Perform() bool {
 		// TODO: implement events
 	}
 
-	self.logs[1] = self.agent.Name() + " arrived at destination."
-	return true
+	result := EqualCoord(self.level.PositionOfCharacter(self.agent), self.path.Path[len(self.path.Path)-1].Coord)
+	if result {
+		self.logs[1] += self.agent.Name() + " arrived at destination."
+	} else {
+		self.logs[1] += "Something happened to " + self.agent.Name() + " while moving."
+	}
+	return result
 }
 
 type AttackAction struct {
