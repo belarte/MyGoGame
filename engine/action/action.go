@@ -18,26 +18,21 @@ func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameter
 
 type Action interface {
 	IsDoable() bool
-	Perform()
+	Perform() bool
 }
 
 type MoveAction struct {
 	ActionBaseParameters
-	path Path
+	path *Path
 }
 
-func NewMoveAction(lvl *Level, agent *Character, path Path) *MoveAction {
+func NewMoveAction(lvl *Level, agent *Character, path *Path) *MoveAction {
 	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
 }
 
 func (self *MoveAction) IsDoable() bool {
-	if self.path.Size() == 0 {
+	if self.path == nil || self.path.Size() == 0 {
 		self.logs[0] = self.agent.Name() + " cannot move: empty path"
-		return false
-	}
-
-	if self.agent.MovePoints() < int(self.path.Cost()) {
-		self.logs[0] = self.agent.Name() + " cannot move: not enough move points"
 		return false
 	}
 
@@ -45,15 +40,21 @@ func (self *MoveAction) IsDoable() bool {
 	return true
 }
 
-func (self *MoveAction) Perform() {
+func (self *MoveAction) Perform() bool {
+	movePoints := float64(self.agent.MovePoints())
 	for _, step := range self.path.Path {
+		if movePoints < self.path.Cost() {
+			self.logs[1] = self.agent.Name() + "  has not enough move points, action terminated."
+			return false
+		}
+
 		self.team.MoveCharacter(self.agent, step.Coord)
-		// TODO: implement cost
+		movePoints -= self.path.Cost()
 		// TODO: implement events
-		// TODO: log
 	}
 
 	self.logs[1] = self.agent.Name() + " arrived at destination."
+	return true
 }
 
 type AttackAction struct {
@@ -69,5 +70,6 @@ func (self *AttackAction) IsDoable() bool {
 	return false
 }
 
-func (self *AttackAction) Perform() {
+func (self *AttackAction) Perform() bool {
+	return false
 }
