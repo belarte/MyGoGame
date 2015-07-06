@@ -185,3 +185,41 @@ func TestLineComplex(t *testing.T) {
 		}
 	}
 }
+
+func TestCircle(t *testing.T) {
+	result := Circle(Coord{9, 9}, 7)
+	expectedSize := 40
+
+	if len(result) != expectedSize {
+		t.Errorf("Expected size=%d, got %d", expectedSize, len(result))
+	}
+
+	var expected = map[Coord]bool{
+		Coord{16, 9}: true, Coord{16, 10}: true,
+		Coord{16, 11}: true, Coord{15, 12}: true,
+		Coord{15, 13}: true, Coord{14, 14}: true,
+		Coord{13, 15}: true, Coord{12, 15}: true,
+		Coord{11, 16}: true, Coord{10, 16}: true,
+		Coord{9, 16}: true, Coord{8, 16}: true,
+		Coord{7, 16}: true, Coord{6, 15}: true,
+		Coord{5, 15}: true, Coord{4, 14}: true,
+		Coord{3, 13}: true, Coord{3, 12}: true,
+		Coord{2, 11}: true, Coord{2, 10}: true,
+		Coord{2, 9}: true, Coord{2, 8}: true,
+		Coord{2, 7}: true, Coord{3, 6}: true,
+		Coord{3, 5}: true, Coord{4, 4}: true,
+		Coord{5, 3}: true, Coord{6, 3}: true,
+		Coord{7, 2}: true, Coord{8, 2}: true,
+		Coord{9, 2}: true, Coord{10, 2}: true,
+		Coord{11, 2}: true, Coord{12, 3}: true,
+		Coord{13, 3}: true, Coord{14, 4}: true,
+		Coord{15, 5}: true, Coord{15, 6}: true,
+		Coord{16, 7}: true, Coord{16, 8}: true,
+	}
+
+	for i, c := range result {
+		if !expected[c] {
+			t.Errorf("%d: %+v is not an expected result", i, c)
+		}
+	}
+}

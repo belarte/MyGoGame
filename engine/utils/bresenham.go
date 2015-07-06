@@ -49,3 +49,40 @@ func getParameters(from, to Coord) (dx, dy, sx, sy int) {
 
 	return
 }
+
+// Midpoint circle drawing algorithm
+func Circle(centre Coord, radius int) (result []Coord) {
+	x := radius
+	y := 0
+	decisionOver2 := 1 - x
+
+	// buffer is required to qvoid duplicates
+	buffer := make(map[Coord]bool)
+
+	for x >= y {
+		addCoordToCircle(x, y, centre, buffer)
+		y++
+		if decisionOver2 <= 0 {
+			decisionOver2 += 2*y + 1
+		} else {
+			x--
+			decisionOver2 += 2*(y-x) + 1
+		}
+	}
+
+	for key, _ := range buffer {
+		result = append(result, key)
+	}
+	return
+}
+
+func addCoordToCircle(x, y int, centre Coord, buffer map[Coord]bool) {
+	buffer[Coord{x + centre.X, y + centre.Y}] = true
+	buffer[Coord{y + centre.X, x + centre.Y}] = true
+	buffer[Coord{-x + centre.X, y + centre.Y}] = true
+	buffer[Coord{-y + centre.X, x + centre.Y}] = true
+	buffer[Coord{-x + centre.X, -y + centre.Y}] = true
+	buffer[Coord{-y + centre.X, -x + centre.Y}] = true
+	buffer[Coord{x + centre.X, -y + centre.Y}] = true
+	buffer[Coord{y + centre.X, -x + centre.Y}] = true
+}
