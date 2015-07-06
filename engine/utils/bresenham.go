@@ -1,6 +1,8 @@
 package utils
 
-func Bresenham(from, to Coord) (result []Coord) {
+// Bresenham line drawing algorithm.
+// The return line does NOT contain the 'from' point.
+func Line(from, to Coord) (result []Coord) {
 	dx, dy, sx, sy := getParameters(from, to)
 	err := dx - dy
 

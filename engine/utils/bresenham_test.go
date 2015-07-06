@@ -4,8 +4,8 @@ import (
 	"testing"
 )
 
-func TestBresenhamFromEqualsTo(t *testing.T) {
-	result := Bresenham(Coord{0, 0}, Coord{0, 0})
+func TestLineFromEqualsTo(t *testing.T) {
+	result := Line(Coord{0, 0}, Coord{0, 0})
 	expectedSize := 0
 
 	if len(result) != expectedSize {
@@ -13,8 +13,8 @@ func TestBresenhamFromEqualsTo(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineLeft(t *testing.T) {
-	result := Bresenham(Coord{4, 0}, Coord{0, 0})
+func TestLineLineLeft(t *testing.T) {
+	result := Line(Coord{4, 0}, Coord{0, 0})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -32,8 +32,8 @@ func TestBresenhamLineLeft(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineRight(t *testing.T) {
-	result := Bresenham(Coord{0, 0}, Coord{4, 0})
+func TestLineLineRight(t *testing.T) {
+	result := Line(Coord{0, 0}, Coord{4, 0})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -51,8 +51,8 @@ func TestBresenhamLineRight(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineUp(t *testing.T) {
-	result := Bresenham(Coord{0, 0}, Coord{0, 4})
+func TestLineLineUp(t *testing.T) {
+	result := Line(Coord{0, 0}, Coord{0, 4})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -70,8 +70,8 @@ func TestBresenhamLineUp(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineDown(t *testing.T) {
-	result := Bresenham(Coord{0, 4}, Coord{0, 0})
+func TestLineLineDown(t *testing.T) {
+	result := Line(Coord{0, 4}, Coord{0, 0})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -89,8 +89,8 @@ func TestBresenhamLineDown(t *testing.T) {
 	}
 }
 
-func TestBresenhamBresenhamLineLeftUp(t *testing.T) {
-	result := Bresenham(Coord{4, 0}, Coord{0, 4})
+func TestLineLineLineLeftUp(t *testing.T) {
+	result := Line(Coord{4, 0}, Coord{0, 4})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -108,8 +108,8 @@ func TestBresenhamBresenhamLineLeftUp(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineRightUp(t *testing.T) {
-	result := Bresenham(Coord{0, 0}, Coord{4, 4})
+func TestLineLineRightUp(t *testing.T) {
+	result := Line(Coord{0, 0}, Coord{4, 4})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -127,8 +127,8 @@ func TestBresenhamLineRightUp(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineLeftDown(t *testing.T) {
-	result := Bresenham(Coord{4, 4}, Coord{0, 0})
+func TestLineLineLeftDown(t *testing.T) {
+	result := Line(Coord{4, 4}, Coord{0, 0})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -146,8 +146,8 @@ func TestBresenhamLineLeftDown(t *testing.T) {
 	}
 }
 
-func TestBresenhamLineRightDown(t *testing.T) {
-	result := Bresenham(Coord{0, 4}, Coord{4, 0})
+func TestLineLineRightDown(t *testing.T) {
+	result := Line(Coord{0, 4}, Coord{4, 0})
 	expectedSize := 4
 
 	if len(result) != expectedSize {
@@ -165,8 +165,8 @@ func TestBresenhamLineRightDown(t *testing.T) {
 	}
 }
 
-func TestBresenhamComplex(t *testing.T) {
-	result := Bresenham(Coord{0, 0}, Coord{15, 10})
+func TestLineComplex(t *testing.T) {
+	result := Line(Coord{0, 0}, Coord{15, 10})
 	expectedSize := 15
 
 	if len(result) != expectedSize {
