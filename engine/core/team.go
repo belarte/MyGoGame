@@ -23,6 +23,14 @@ func (self *Team) AddCharacter(c *Character, pos Coord) bool {
 	return true
 }
 
+func (self *Team) GetCharacters() (result []*Character) {
+	for char, _ := range self.characters {
+		result = append(result, char)
+	}
+
+	return
+}
+
 func (self *Team) GetCharacter(char *Character) (*Character, Coord) {
 	for c, pos := range self.characters {
 		if c == char {
@@ -36,25 +44,6 @@ func (self *Team) GetCharacter(char *Character) (*Character, Coord) {
 func (self *Team) MoveCharacter(char *Character, pos Coord) {
 	self.characters[char] = pos
 }
-
-/*
-func (self *Team) CharacterID(char *Character) (int, error) {
-	for i, c := range self.characters {
-		if char == c {
-			return i, nil
-		}
-	}
-
-	return -1, errors.New("Character not found")
-}
-
-func (self *Team) GetCharacter(id int) *Character {
-	return self.characters[id]
-}
-
-func (self *Team) GetPosition(id int) Coord {
-	return self.positions[id]
-}*/
 
 func (self *Team) CharactersCount() int {
 	return len(self.characters)
