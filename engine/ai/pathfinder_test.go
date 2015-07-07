@@ -1,4 +1,4 @@
-package engine
+package ai
 
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
