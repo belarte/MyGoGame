@@ -37,7 +37,7 @@ func (self *Level) AddCharacter(c *Character, pos Coord, team int) bool {
 	return self.teams[team].AddCharacter(c, pos)
 }
 
-func (self *Level) GetTeamOfCharacter(char *Character) *Team {
+func (self *Level) GetTeamOf(char *Character) *Team {
 	for _, team := range self.teams {
 		if c, _ := team.GetCharacter(char); c != nil {
 			return team
@@ -46,7 +46,17 @@ func (self *Level) GetTeamOfCharacter(char *Character) *Team {
 	return nil
 }
 
-func (self *Level) PositionOfCharacter(c *Character) Coord {
+func (self *Level) GetOpponentsOf(char *Character) (result []*Character) {
+	team := self.GetTeamOf(char)
+	for  _, t := range self.teams {
+		if t != team {
+			result = append(result, t.GetCharacters()...)
+		}
+	}
+	return
+}
+
+func (self *Level) PositionOf(c *Character) Coord {
 	for _, team := range self.teams {
 		if char, coord := team.GetCharacter(c); char != nil {
 			return coord

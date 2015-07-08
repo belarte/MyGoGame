@@ -13,7 +13,7 @@ type ActionBaseParameters struct {
 }
 
 func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameters {
-	team := level.GetTeamOfCharacter(agent)
+	team := level.GetTeamOf(agent)
 	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
 
@@ -54,7 +54,7 @@ func (self *MoveAction) Perform() bool {
 		// TODO: implement events
 	}
 
-	result := EqualCoord(self.level.PositionOfCharacter(self.agent), self.path.Path[len(self.path.Path)-1].Coord)
+	result := EqualCoord(self.level.PositionOf(self.agent), self.path.Path[len(self.path.Path)-1].Coord)
 	if result {
 		self.logs[1] += self.agent.Name() + " arrived at destination."
 	} else {
