@@ -1,5 +1,9 @@
 package core
 
+const (
+	DEFAULT_VISIBILITY = 8
+)
+
 type Character struct {
 	name string
 
@@ -43,4 +47,8 @@ func (self Character) MovePoints() int {
 
 func (self Character) ActionPoints() int {
 	return 1 + self.dexterity
+}
+
+func (self *Character) Visibility() int {
+	return DEFAULT_VISIBILITY
 }
