@@ -48,7 +48,7 @@ func (self *Level) GetTeamOf(char *Character) *Team {
 
 func (self *Level) GetOpponentsOf(char *Character) (result []*Character) {
 	team := self.GetTeamOf(char)
-	for  _, t := range self.teams {
+	for _, t := range self.teams {
 		if t != team {
 			result = append(result, t.GetCharacters()...)
 		}
