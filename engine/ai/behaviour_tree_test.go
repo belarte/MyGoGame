@@ -8,7 +8,7 @@ import (
 
 func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 	char := NewCharacter("", 0, 0, 0, 0, 0)
-	context := &Context{nil, char, Coord{0, 0}, nil, nil, nil}
+	context := &Context{agent: char}
 	task := NewGetVisibleEnemies(context)
 
 	if task.CheckConditions() {
@@ -18,7 +18,7 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 
 func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
 	level := NewLevel(Coord{0, 0}, 0)
-	context := &Context{level, nil, Coord{0, 0}, nil, nil, nil}
+	context := &Context{level: level}
 	task := NewGetVisibleEnemies(context)
 
 	if task.CheckConditions() {
@@ -78,7 +78,7 @@ func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 }
 
 func TestGetClosestEnemyCheckConditionsNoVisibleEnemies(t *testing.T) {
-	context := &Context{nil, nil, Coord{0, 0}, make([]charPosDist, 0, 0), nil, nil}
+	context := &Context{}
 	task := NewGetClosestEnemies(context)
 
 	if task.CheckConditions() {
@@ -87,7 +87,7 @@ func TestGetClosestEnemyCheckConditionsNoVisibleEnemies(t *testing.T) {
 }
 
 func TestGetClosestEnemyCheckConditionsVisibleEnemies(t *testing.T) {
-	context := &Context{nil, nil, Coord{0, 0}, make([]charPosDist, 1, 1), nil, nil}
+	context := &Context{visibleEnemies: make([]charPosDist, 1, 1)}
 	task := NewGetClosestEnemies(context)
 
 	if !task.CheckConditions() {
@@ -99,7 +99,7 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 	char := NewCharacter("", 0, 0, 0, 0, 0)
 	position := Coord{0, 1}
 	opponents := []charPosDist{charPosDist{char, &position, 1}}
-	context := &Context{nil, nil, Coord{0, 0}, opponents, nil, nil}
+	context := &Context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
 	if !task.Perform() {
@@ -128,7 +128,7 @@ func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
 		charPosDist{char1, &position1, 1},
 		charPosDist{char2, &position2, 2},
 	}
-	context := &Context{nil, nil, Coord{0, 0}, opponents, nil, nil}
+	context := &Context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
 	if !task.Perform() {
