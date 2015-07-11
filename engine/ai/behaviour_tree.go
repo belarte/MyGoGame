@@ -7,7 +7,7 @@ import (
 
 type charPosDist struct {
 	char *Character
-	pos  *Coord
+	pos  Coord
 	dist float64
 }
 
@@ -17,11 +17,11 @@ type Context struct {
 	positionOfAgent      Coord
 	visibleEnemies       []charPosDist
 	closestEnemy         *Character
-	closestEnemyPosition *Coord
+	closestEnemyPosition Coord
 }
 
 func NewContext(level *Level, agent *Character) *Context {
-	return &Context{level, agent, level.PositionOf(agent), make([]charPosDist, 0, 4), nil, nil}
+	return &Context{level: level, agent: agent, positionOfAgent: level.PositionOf(agent)}
 }
 
 type Task interface {
@@ -53,7 +53,7 @@ func (self *GetVisibleEnemies) Perform() bool {
 		position := self.context.level.PositionOf(opponent)
 		distance := Distance(self.context.positionOfAgent, position)
 		if distance <= float64(self.context.agent.Visibility()) {
-			char := charPosDist{opponent, &position, distance}
+			char := charPosDist{opponent, position, distance}
 			self.context.visibleEnemies = append(self.context.visibleEnemies, char)
 		}
 	}

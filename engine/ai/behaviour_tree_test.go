@@ -98,7 +98,7 @@ func TestGetClosestEnemyCheckConditionsVisibleEnemies(t *testing.T) {
 func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 	char := NewCharacter("", 0, 0, 0, 0, 0)
 	position := Coord{0, 1}
-	opponents := []charPosDist{charPosDist{char, &position, 1}}
+	opponents := []charPosDist{charPosDist{char, position, 1}}
 	context := &Context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
@@ -110,7 +110,7 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 		t.Errorf("Expected %+v, got %+v", char, context.closestEnemy)
 	}
 
-	if !EqualCoord(*(context.closestEnemyPosition), position) {
+	if context.closestEnemyPosition != position {
 		t.Errorf("Expected %+v, got %+v", position, context.closestEnemyPosition)
 	}
 }
@@ -124,9 +124,9 @@ func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
 	position3 := Coord{0, 3}
 
 	opponents := []charPosDist{
-		charPosDist{char3, &position3, 3},
-		charPosDist{char1, &position1, 1},
-		charPosDist{char2, &position2, 2},
+		charPosDist{char3, position3, 3},
+		charPosDist{char1, position1, 1},
+		charPosDist{char2, position2, 2},
 	}
 	context := &Context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
@@ -139,7 +139,7 @@ func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
 		t.Errorf("Expected %v, got %+v", char1, context.closestEnemy)
 	}
 
-	if !EqualCoord(*(context.closestEnemyPosition), position1) {
+	if context.closestEnemyPosition != position1 {
 		t.Errorf("Expected %+v, got %+v", position1, context.closestEnemyPosition)
 	}
 }
