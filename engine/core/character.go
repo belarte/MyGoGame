@@ -2,6 +2,7 @@ package core
 
 const (
 	DEFAULT_VISIBILITY = 8
+	DEFAULT_RANGE      = 1
 )
 
 type Character struct {
@@ -51,4 +52,8 @@ func (self Character) ActionPoints() int {
 
 func (self *Character) Visibility() int {
 	return DEFAULT_VISIBILITY
+}
+
+func (self *Character) Range() int {
+	return DEFAULT_RANGE
 }
