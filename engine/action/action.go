@@ -2,7 +2,6 @@ package action
 
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 )
 
 type ActionBaseParameters struct {
@@ -54,7 +53,7 @@ func (self *MoveAction) Perform() bool {
 		// TODO: implement events
 	}
 
-	result := EqualCoord(self.level.PositionOf(self.agent), self.path.Path[len(self.path.Path)-1].Coord)
+	result := self.level.PositionOf(self.agent) == self.path.Path[len(self.path.Path)-1].Coord
 	if result {
 		self.logs[1] += self.agent.Name() + " arrived at destination."
 	} else {

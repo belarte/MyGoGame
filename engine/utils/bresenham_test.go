@@ -26,7 +26,7 @@ func TestLineLineLeft(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -45,7 +45,7 @@ func TestLineLineRight(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -64,7 +64,7 @@ func TestLineLineUp(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -83,7 +83,7 @@ func TestLineLineDown(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -102,7 +102,7 @@ func TestLineLineLineLeftUp(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -121,7 +121,7 @@ func TestLineLineRightUp(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -140,7 +140,7 @@ func TestLineLineLeftDown(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -159,7 +159,7 @@ func TestLineLineRightDown(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}
@@ -180,7 +180,7 @@ func TestLineComplex(t *testing.T) {
 	}
 
 	for i, c := range result {
-		if !EqualCoord(c, expected[i]) {
+		if c != expected[i] {
 			t.Errorf("%d: expected %+v, got %+v", i, expected[i], result[i])
 		}
 	}

@@ -63,7 +63,7 @@ func TestMoveActionPerformOk(t *testing.T) {
 	}
 
 	pos := level.PositionOf(char)
-	if !EqualCoord(pos, dest) {
+	if pos != dest {
 		t.Errorf("Desitnation not reached, expected %+v, is %+v.", dest, pos)
 	}
 }

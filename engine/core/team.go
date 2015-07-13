@@ -51,7 +51,7 @@ func (self *Team) CharactersCount() int {
 
 func (self *Team) IsCharacterAtPosition(pos Coord) bool {
 	for _, p := range self.characters {
-		if EqualCoord(p, pos) {
+		if p == pos {
 			return true
 		}
 	}

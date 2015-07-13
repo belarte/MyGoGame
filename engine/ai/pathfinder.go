@@ -32,7 +32,7 @@ func (self *PathFinder) ShortestPath(start, dest Coord) Path {
 	self.addToCloseList(current)
 	self.addAdjacentCells(current, dest)
 
-	for !EqualCoord(current, dest) && len(self.openList) > 0 {
+	for current != dest && len(self.openList) > 0 {
 		current = self.bestNode(self.openList)
 		self.addToCloseList(current)
 		self.addAdjacentCells(current, dest)
@@ -40,7 +40,7 @@ func (self *PathFinder) ShortestPath(start, dest Coord) Path {
 
 	var result Path
 
-	if EqualCoord(current, dest) && !EqualCoord(start, dest) {
+	if current == dest && start != dest {
 		result = self.retrievePath(start, dest)
 	}
 
@@ -49,7 +49,7 @@ func (self *PathFinder) ShortestPath(start, dest Coord) Path {
 
 func (self *PathFinder) isInList(pos Coord, list nodeList) bool {
 	for p, _ := range list {
-		if EqualCoord(pos, p) {
+		if pos == p {
 			return true
 		}
 	}
@@ -145,7 +145,7 @@ func (self *PathFinder) retrievePath(start, dest Coord) Path {
 	current := dest
 	previous := tmp.parent
 
-	for !EqualCoord(current, start) {
+	for current != start {
 		weight := CellWeight(self.level.Map().GetCell(current)) * Distance(current, previous)
 		result.Add(current, weight)
 

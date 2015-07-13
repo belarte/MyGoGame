@@ -16,10 +16,6 @@ func NewCoord(x, y int) Coord {
 	return Coord{x, y}
 }
 
-func EqualCoord(left, right Coord) bool {
-	return left.X == right.X && left.Y == right.Y
-}
-
 func Distance(from, to Coord) float64 {
 	// Compute Euclidian distance
 	x := float64(from.X - to.X)
