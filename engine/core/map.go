@@ -40,7 +40,7 @@ func (self *Map) getIndex(coord Coord) (int, error) {
 	return coord.Y*self.size.X + coord.X, nil
 }
 
-func (self *Map) isWithinBounds(pos Coord) bool {
+func (self *Map) IsWithinBounds(pos Coord) bool {
 	size := self.Size()
 	return size.X < pos.X && size.Y < pos.Y
 }

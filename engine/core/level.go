@@ -30,7 +30,7 @@ func (self *Level) Map() *Map {
 }
 
 func (self *Level) AddCharacter(c *Character, pos Coord, team int) bool {
-	if self.maps.isWithinBounds(pos) {
+	if self.maps.IsWithinBounds(pos) {
 		return false
 	}
 
