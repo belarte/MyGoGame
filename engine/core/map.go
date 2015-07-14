@@ -42,5 +42,5 @@ func (self *Map) getIndex(coord Coord) (int, error) {
 
 func (self *Map) IsWithinBounds(pos Coord) bool {
 	size := self.Size()
-	return size.X < pos.X && size.Y < pos.Y
+	return pos.X >= 0 && pos.X < size.X && pos.Y >= 0 && pos.Y < size.Y
 }
