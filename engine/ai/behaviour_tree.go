@@ -32,6 +32,6 @@ func NewContext(level *Level, agent *Character) *Context {
 }
 
 type Task interface {
-	CheckConditions()
+	CheckConditions() bool
 	Perform() bool
 }
