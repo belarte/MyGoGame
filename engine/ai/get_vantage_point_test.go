@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
-	context := &Context{closestEnemyPosition: Coord{-1, -1}}
+	context := &Context{closestEnemyPosition: NilCoord}
 	task := NewGetVantagePoint(context)
 
 	if task.CheckConditions() {

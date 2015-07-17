@@ -9,7 +9,7 @@ type GetClosestEnemy struct {
 }
 
 func NewGetClosestEnemies(context *Context) *GetClosestEnemy {
-	context.closestEnemyPosition = Coord{-1, -1}
+	context.closestEnemyPosition = NilCoord
 	return &GetClosestEnemy{context}
 }
 

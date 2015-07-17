@@ -16,6 +16,10 @@ func NewCoord(x, y int) Coord {
 	return Coord{x, y}
 }
 
+var (
+	NilCoord = Coord{-1, -1}
+)
+
 func Distance(from, to Coord) float64 {
 	// Compute Euclidian distance
 	x := float64(from.X - to.X)

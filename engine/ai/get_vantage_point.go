@@ -16,14 +16,14 @@ func NewGetVantagePoint(context *Context) *GetVantagePoint {
 func (self *GetVantagePoint) CheckConditions() bool {
 	return self.context.level != nil &&
 		self.context.agent != nil &&
-		self.context.closestEnemyPosition != Coord{-1, -1}
+		self.context.closestEnemyPosition != NilCoord
 }
 
 func (self *GetVantagePoint) Perform() bool {
 	positions := Circle(self.context.closestEnemyPosition, self.context.agent.Range())
 
 	distance := 123456789.0
-	self.context.destination = Coord{-1, -1}
+	self.context.destination = NilCoord
 	maps := self.context.level.Map()
 	for _, position := range positions {
 		if !maps.IsWithinBounds(position) || self.isSightBlocked(maps, position) {
@@ -37,7 +37,7 @@ func (self *GetVantagePoint) Perform() bool {
 		}
 	}
 
-	return self.context.destination != Coord{-1, -1}
+	return self.context.destination != NilCoord
 }
 
 func (self *GetVantagePoint) isSightBlocked(maps *Map, pos Coord) bool {

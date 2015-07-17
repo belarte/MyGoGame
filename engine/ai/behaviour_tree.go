@@ -23,9 +23,12 @@ type Context struct {
 
 func NewContext(level *Level, agent *Character) *Context {
 	return &Context{
-		level:           level,
-		agent:           agent,
-		positionOfAgent: level.PositionOf(agent)}
+		level:                level,
+		agent:                agent,
+		positionOfAgent:      level.PositionOf(agent),
+		closestEnemyPosition: NilCoord,
+		destination:          NilCoord,
+	}
 }
 
 type Task interface {
