@@ -18,6 +18,7 @@ type Context struct {
 	visibleEnemies       []charPosDist
 	closestEnemy         *Character
 	closestEnemyPosition Coord
+	destination          Coord
 }
 
 func NewContext(level *Level, agent *Character) *Context {
@@ -66,6 +67,7 @@ type GetClosestEnemy struct {
 }
 
 func NewGetClosestEnemies(context *Context) *GetClosestEnemy {
+	context.closestEnemyPosition = Coord{-1, -1}
 	return &GetClosestEnemy{context}
 }
 
@@ -84,4 +86,50 @@ func (self *GetClosestEnemy) Perform() bool {
 	}
 
 	return true
+}
+
+type GetVantagePoint struct {
+	context *Context
+}
+
+func NewGetVantagePoint(context *Context) *GetVantagePoint {
+	return &GetVantagePoint{context}
+}
+
+func (self *GetVantagePoint) CheckConditions() bool {
+	return self.context.level != nil &&
+		self.context.agent != nil &&
+		self.context.closestEnemyPosition != Coord{-1, -1}
+}
+
+func (self *GetVantagePoint) Perform() bool {
+	positions := Circle(self.context.closestEnemyPosition, self.context.agent.Range())
+
+	distance := 123456789.0
+	self.context.destination = Coord{-1, -1}
+	maps := self.context.level.Map()
+	for _, position := range positions {
+		if !maps.IsWithinBounds(position) || self.isSightBlocked(maps, position) {
+			continue
+		}
+
+		distToAgent := Distance(self.context.positionOfAgent, position)
+		if distToAgent < distance {
+			distance = distToAgent
+			self.context.destination = position
+		}
+	}
+
+	return self.context.destination != Coord{-1, -1}
+}
+
+func (self *GetVantagePoint) isSightBlocked(maps *Map, pos Coord) bool {
+	line := Line(self.context.closestEnemyPosition, pos)
+	for _, pos := range line {
+		if maps.GetCell(pos) == WALL {
+			return true
+		}
+	}
+
+	return false
 }
