@@ -21,6 +21,18 @@ type Action interface {
 	Perform() bool
 }
 
+type MockAction struct {
+	IsDoableMock, PerformMock bool
+}
+
+func (self *MockAction) IsDoable() bool {
+	return self.IsDoableMock
+}
+
+func (self *MockAction) Perform() bool {
+	return self.PerformMock
+}
+
 type MoveAction struct {
 	ActionBaseParameters
 	path *Path
