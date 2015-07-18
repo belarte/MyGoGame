@@ -35,3 +35,16 @@ type Task interface {
 	CheckConditions() bool
 	Perform() bool
 }
+
+type MockTask struct {
+	CheckConditionsMock bool
+	PerformMock         bool
+}
+
+func (self *MockTask) CheckConditions() bool {
+	return self.CheckConditionsMock
+}
+
+func (self *MockTask) Perform() bool {
+	return self.PerformMock
+}
