@@ -264,7 +264,7 @@ func TestPathNotPossibleTesting(t *testing.T) {
 	}
 }
 
-func TestTIsInList(t *testing.T) {
+func TestIsInList(t *testing.T) {
 	fakeNode := node{0, 0, 0, Coord{0, 0}}
 	list := nodeList{Coord{0, 0}: fakeNode,
 		Coord{2, 1}: fakeNode,
