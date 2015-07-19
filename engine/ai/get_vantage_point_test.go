@@ -62,3 +62,24 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 		t.Errorf("Expected position: %+v, got %+v", expectedPosition, charPosition)
 	}
 }
+
+func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
+	agent := &MockCharacter{RangeMock: 3}
+	level := NewLevel(Coord{4, 5}, 1)
+	level.AddCharacter(agent, Coord{0, 0}, 0)
+	level.Map().SetCell(Coord{0, 3}, WALL)
+	level.Map().SetCell(Coord{1, 3}, WALL)
+	level.Map().SetCell(Coord{2, 3}, WALL)
+	context := &Context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
+	task := NewGetVantagePoint(context)
+
+	if !task.Perform() {
+		t.Errorf("Perform should return true, context=%+v", context)
+	}
+
+	charPosition := context.destination
+	expectedPosition := Coord{3, 4}
+	if charPosition != expectedPosition {
+		t.Errorf("Expected position: %+v, got %+v", expectedPosition, charPosition)
+	}
+}
