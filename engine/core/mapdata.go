@@ -1,5 +1,9 @@
 package core
 
+import (
+	"math"
+)
+
 const (
 	NORMAL = iota
 	DIFFICULT
@@ -15,6 +19,6 @@ func CellWeight(t CellType) float64 {
 	case DIFFICULT:
 		return 2.
 	default:
-		return 123456789.0
+		return math.MaxFloat64
 	}
 }

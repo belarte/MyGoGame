@@ -3,6 +3,7 @@ package ai
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
 	. "github.com/belarte/MyGoGame/engine/utils"
+	"math"
 )
 
 type node struct {
@@ -120,7 +121,7 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 
 func (self *PathFinder) bestNode(list nodeList) Coord {
 	var result Coord
-	cost := 123456789.0
+	cost := math.MaxFloat64
 
 	for c, n := range list {
 		if n.f_cost < cost {

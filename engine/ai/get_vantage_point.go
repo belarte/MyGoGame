@@ -3,6 +3,7 @@ package ai
 import (
 	. "github.com/belarte/MyGoGame/engine/core"
 	. "github.com/belarte/MyGoGame/engine/utils"
+	"math"
 )
 
 type GetVantagePoint struct {
@@ -22,7 +23,7 @@ func (self *GetVantagePoint) CheckConditions() bool {
 func (self *GetVantagePoint) Perform() bool {
 	positions := Circle(self.context.closestEnemyPosition, self.context.agent.Range())
 
-	distance := 123456789.0
+	distance := math.MaxFloat64
 	self.context.destination = NilCoord
 	maps := self.context.level.Map()
 	for _, position := range positions {

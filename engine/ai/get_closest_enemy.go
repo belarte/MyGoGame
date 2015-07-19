@@ -2,6 +2,7 @@ package ai
 
 import (
 	. "github.com/belarte/MyGoGame/engine/utils"
+	"math"
 )
 
 type GetClosestEnemy struct {
@@ -18,7 +19,7 @@ func (self *GetClosestEnemy) CheckConditions() bool {
 }
 
 func (self *GetClosestEnemy) Perform() bool {
-	distance := 123456789.0
+	distance := math.MaxFloat64
 	for _, opponent := range self.context.visibleEnemies {
 		if opponent.dist < distance {
 			self.context.closestEnemy = opponent.char
