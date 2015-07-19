@@ -5,7 +5,44 @@ const (
 	DEFAULT_RANGE      = 1
 )
 
-type Character struct {
+type Character interface {
+	Name() string
+	MovePoints() int
+	ActionPoints() int
+	Visibility() int
+	Range() int
+}
+
+type MockCharacter struct {
+	NameMock         string
+	MovePointsMock   int
+	ActionPointsMock int
+	VisibilityMock   int
+	RangeMock        int
+}
+
+func (self *MockCharacter) Name() string {
+	return self.NameMock
+}
+
+func (self *MockCharacter) MovePoints() int {
+	return self.MovePointsMock
+}
+
+func (self *MockCharacter) ActionPoints() int {
+	return self.ActionPointsMock
+}
+
+func (self *MockCharacter) Visibility() int {
+	return self.VisibilityMock
+}
+
+func (self *MockCharacter) Range() int {
+	return self.RangeMock
+}
+
+/*
+type Protagonist struct {
 	name string
 
 	strength     int
@@ -17,43 +54,44 @@ type Character struct {
 	currentHP, maxHP int
 }
 
-func NewCharacter(name string, str, dex, agi, intel, vita int) *Character {
+func NewProtagonist(name string, str, dex, agi, intel, vita int) *Protagonist {
 	maxHP := 50 + 10*vita
-	return &Character{name, str, dex, agi, intel, vita, maxHP, maxHP}
+	return &Protagonist{name, str, dex, agi, intel, vita, maxHP, maxHP}
 }
 
-func (self *Character) Name() string {
+func (self *Protagonist) Name() string {
 	return self.name
 }
 
-func (self Character) Attack() int {
+func (self Protagonist) Attack() int {
 	return 1 + self.strength
 }
 
-func (self Character) MAttack() int {
+func (self Protagonist) MAttack() int {
 	return 1 + self.intelligence
 }
 
-func (self Character) Defense() int {
+func (self Protagonist) Defense() int {
 	return 1 + self.strength
 }
 
-func (self Character) MDefense() int {
+func (self Protagonist) MDefense() int {
 	return 1 + self.intelligence
 }
 
-func (self Character) MovePoints() int {
+func (self Protagonist) MovePoints() int {
 	return 1 + self.agility
 }
 
-func (self Character) ActionPoints() int {
+func (self Protagonist) ActionPoints() int {
 	return 1 + self.dexterity
 }
 
-func (self *Character) Visibility() int {
+func (self *Protagonist) Visibility() int {
 	return DEFAULT_VISIBILITY
 }
 
-func (self *Character) Range() int {
+func (self *Protagonist) Range() int {
 	return DEFAULT_RANGE
 }
+*/

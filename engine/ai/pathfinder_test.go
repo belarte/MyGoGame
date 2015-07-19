@@ -195,7 +195,7 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 }
 
 func TestPathWithProtagonistTesting(t *testing.T) {
-	char := NewCharacter("", 0, 0, 0, 0, 0)
+	char := &MockCharacter{}
 	level := NewLevel(Coord{2, 5}, 1)
 	level.AddCharacter(char, Coord{0, 2}, 0)
 

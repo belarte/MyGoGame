@@ -8,7 +8,7 @@ import (
 
 func TestMoveActionIsDoableEmptyPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := NewCharacter("", 0, 0, 0, 0, 0)
+	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, &Path{})
@@ -20,7 +20,7 @@ func TestMoveActionIsDoableEmptyPath(t *testing.T) {
 
 func TestMoveActionIsDoableNilPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := NewCharacter("", 0, 0, 0, 0, 0)
+	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, nil)
@@ -32,7 +32,7 @@ func TestMoveActionIsDoableNilPath(t *testing.T) {
 
 func TestMoveActionIsDoableOK(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := NewCharacter("", 0, 0, 0, 0, 0)
+	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -46,7 +46,7 @@ func TestMoveActionIsDoableOK(t *testing.T) {
 
 func TestMoveActionPerformOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := NewCharacter("", 0, 0, 10, 0, 0)
+	char := &MockCharacter{MovePointsMock: 10}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
@@ -70,7 +70,7 @@ func TestMoveActionPerformOk(t *testing.T) {
 
 func TestMoveActionPerformNotOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := NewCharacter("", 0, 0, 10, 0, 0)
+	char := &MockCharacter{MovePointsMock: 10}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path

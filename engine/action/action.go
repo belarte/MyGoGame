@@ -6,12 +6,12 @@ import (
 
 type ActionBaseParameters struct {
 	level *Level
-	agent *Character
+	agent Character
 	team  *Team
 	logs  [2]string
 }
 
-func NewActionBaseParameters(level *Level, agent *Character) ActionBaseParameters {
+func NewActionBaseParameters(level *Level, agent Character) ActionBaseParameters {
 	team := level.GetTeamOf(agent)
 	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
@@ -38,7 +38,7 @@ type MoveAction struct {
 	path *Path
 }
 
-func NewMoveAction(lvl *Level, agent *Character, path *Path) *MoveAction {
+func NewMoveAction(lvl *Level, agent Character, path *Path) *MoveAction {
 	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
 }
 
@@ -76,10 +76,10 @@ func (self *MoveAction) Perform() bool {
 
 type AttackAction struct {
 	ActionBaseParameters
-	target *Character
+	target Character
 }
 
-func NewAttackAction(lvl *Level, agent, target *Character) *AttackAction {
+func NewAttackAction(lvl *Level, agent, target Character) *AttackAction {
 	return &AttackAction{NewActionBaseParameters(lvl, agent), target}
 }
 

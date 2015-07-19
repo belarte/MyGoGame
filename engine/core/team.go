@@ -5,15 +5,15 @@ import (
 )
 
 type Team struct {
-	characters map[*Character]Coord
+	characters map[Character]Coord
 }
 
 func NewTeam() *Team {
-	characters := make(map[*Character]Coord)
+	characters := make(map[Character]Coord)
 	return &Team{characters}
 }
 
-func (self *Team) AddCharacter(c *Character, pos Coord) bool {
+func (self *Team) AddCharacter(c Character, pos Coord) bool {
 	if self.IsFull() {
 		return false
 	}
@@ -23,7 +23,7 @@ func (self *Team) AddCharacter(c *Character, pos Coord) bool {
 	return true
 }
 
-func (self *Team) GetCharacters() (result []*Character) {
+func (self *Team) GetCharacters() (result []Character) {
 	for char, _ := range self.characters {
 		result = append(result, char)
 	}
@@ -31,7 +31,7 @@ func (self *Team) GetCharacters() (result []*Character) {
 	return
 }
 
-func (self *Team) GetCharacter(char *Character) (*Character, Coord) {
+func (self *Team) GetCharacter(char Character) (Character, Coord) {
 	for c, pos := range self.characters {
 		if c == char {
 			return c, pos
@@ -41,7 +41,7 @@ func (self *Team) GetCharacter(char *Character) (*Character, Coord) {
 	return nil, Coord{0, 0}
 }
 
-func (self *Team) MoveCharacter(char *Character, pos Coord) {
+func (self *Team) MoveCharacter(char Character, pos Coord) {
 	self.characters[char] = pos
 }
 
