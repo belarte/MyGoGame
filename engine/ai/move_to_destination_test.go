@@ -2,8 +2,24 @@ package ai
 
 import (
 	. "github.com/belarte/MyGoGame/engine/action"
+	. "github.com/belarte/MyGoGame/engine/core"
+	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
 )
+
+func TestMoveToDestinationConstruction(t *testing.T) {
+	context := &Context{
+		level:           NewLevel(Coord{1, 1}, 1),
+		positionOfAgent: Coord{0, 0},
+		destination:     Coord{0, 0},
+	}
+
+	task := NewMoveToDestination(context)
+
+	if task == nil {
+		t.Errorf("Construction failed: context=%+v", context)
+	}
+}
 
 func TestMoveToDestinationCheckConditionsIsDoableFail(t *testing.T) {
 	action := &MockAction{IsDoableMock: false}
