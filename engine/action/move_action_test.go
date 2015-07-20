@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestMoveActionIsDoableEmptyPath(t *testing.T) {
+func TestIsDoableEmptyPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
@@ -18,7 +18,7 @@ func TestMoveActionIsDoableEmptyPath(t *testing.T) {
 	}
 }
 
-func TestMoveActionIsDoableNilPath(t *testing.T) {
+func TestIsDoableNilPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
@@ -30,7 +30,7 @@ func TestMoveActionIsDoableNilPath(t *testing.T) {
 	}
 }
 
-func TestMoveActionIsDoableOK(t *testing.T) {
+func TestIsDoableOK(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
@@ -44,7 +44,7 @@ func TestMoveActionIsDoableOK(t *testing.T) {
 	}
 }
 
-func TestMoveActionPerformOk(t *testing.T) {
+func TestPerformOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{MovePointsMock: 10}
 	level.AddCharacter(char, Coord{0, 0}, 0)
@@ -68,7 +68,7 @@ func TestMoveActionPerformOk(t *testing.T) {
 	}
 }
 
-func TestMoveActionPerformNotOk(t *testing.T) {
+func TestPerformNotOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{MovePointsMock: 10}
 	level.AddCharacter(char, Coord{0, 0}, 0)
@@ -80,12 +80,4 @@ func TestMoveActionPerformNotOk(t *testing.T) {
 	if !action.IsDoable() {
 		t.Error("Move action should be doable")
 	}
-}
-
-func TestAttackActionIsDoable(t *testing.T) {
-	t.Error("TODO")
-}
-
-func TestAttackActionPerform(t *testing.T) {
-	t.Error("TODO")
 }

@@ -1,92 +1,58 @@
+// Package action implements actions doable by a Character.
 package action
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core"
 )
 
-type ActionBaseParameters struct {
-	level *Level
-	agent Character
-	team  *Team
+type actionBaseParameters struct {
+	level *core.Level
+	agent core.Character
+	team  *core.Team
 	logs  [2]string
 }
 
-func NewActionBaseParameters(level *Level, agent Character) ActionBaseParameters {
+func newactionBaseParameters(level *core.Level, agent core.Character) actionBaseParameters {
 	team := level.GetTeamOf(agent)
-	return ActionBaseParameters{level, agent, team, [2]string{"", ""}}
+	return actionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
 
+// Action defines an action that is doable by a character on a level.
 type Action interface {
 	IsDoable() bool
 	Perform() bool
 }
 
+// MockAction mocks an ction, for testing purposes.
 type MockAction struct {
 	IsDoableMock, PerformMock bool
 }
 
-func (self *MockAction) IsDoable() bool {
-	return self.IsDoableMock
+// IsDoable return the parameter given on initialisation.
+func (action *MockAction) IsDoable() bool {
+	return action.IsDoableMock
 }
 
-func (self *MockAction) Perform() bool {
-	return self.PerformMock
+// Perform return the parameter given on initialisation.
+func (action *MockAction) Perform() bool {
+	return action.PerformMock
 }
 
-type MoveAction struct {
-	ActionBaseParameters
-	path *Path
-}
-
-func NewMoveAction(lvl *Level, agent Character, path *Path) *MoveAction {
-	return &MoveAction{NewActionBaseParameters(lvl, agent), path}
-}
-
-func (self *MoveAction) IsDoable() bool {
-	if self.path == nil || self.path.Size() == 0 {
-		self.logs[0] = self.agent.Name() + " cannot move: empty path"
-		return false
-	}
-
-	self.logs[0] = self.agent.Name() + " can move."
-	return true
-}
-
-func (self *MoveAction) Perform() bool {
-	movePoints := float64(self.agent.MovePoints())
-	for _, step := range self.path.Path {
-		if movePoints < self.path.Cost() {
-			self.logs[1] += self.agent.Name() + "  does not have enough move points, action terminated. "
-			break
-		}
-
-		self.team.MoveCharacter(self.agent, step.Coord)
-		movePoints -= self.path.Cost()
-		// TODO: implement events
-	}
-
-	result := self.level.PositionOf(self.agent) == self.path.Path[len(self.path.Path)-1].Coord
-	if result {
-		self.logs[1] += self.agent.Name() + " arrived at destination."
-	} else {
-		self.logs[1] += "Something happened to " + self.agent.Name() + " while moving."
-	}
-	return result
-}
-
+/*
 type AttackAction struct {
-	ActionBaseParameters
-	target Character
+	actionBaseParameters
+	target core.Character
 }
 
-func NewAttackAction(lvl *Level, agent, target Character) *AttackAction {
-	return &AttackAction{NewActionBaseParameters(lvl, agent), target}
+func NewAttackAction(lvl *core.Level, agent, target core.Character) *AttackAction {
+	return &AttackAction{newactionBaseParameters(lvl, agent), target}
 }
 
-func (self *AttackAction) IsDoable() bool {
+func (action *AttackAction) IsDoable() bool {
 	return false
 }
 
-func (self *AttackAction) Perform() bool {
+func (action *AttackAction) Perform() bool {
 	return false
 }
+*/
