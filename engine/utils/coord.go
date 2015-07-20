@@ -27,3 +27,8 @@ func Distance(from, to Coord) float64 {
 
 	return math.Sqrt(x*x + y*y)
 }
+
+// AreAdjacent checks if two Coord are adjacent.
+func AreAdjacent(from, to Coord) bool {
+	return Distance(from, to) < 1.5
+}
