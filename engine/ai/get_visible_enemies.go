@@ -5,10 +5,10 @@ import (
 )
 
 type GetVisibleEnemies struct {
-	context *Context
+	context *context
 }
 
-func NewGetVisibleEnemies(context *Context) *GetVisibleEnemies {
+func NewGetVisibleEnemies(context *context) *GetVisibleEnemies {
 	return &GetVisibleEnemies{context}
 }
 

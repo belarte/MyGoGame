@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetClosestEnemyCheckConditionsNoVisibleEnemies(t *testing.T) {
-	context := &Context{}
+	context := &context{}
 	task := NewGetClosestEnemies(context)
 
 	if task.CheckConditions() {
@@ -16,7 +16,7 @@ func TestGetClosestEnemyCheckConditionsNoVisibleEnemies(t *testing.T) {
 }
 
 func TestGetClosestEnemyCheckConditionsVisibleEnemies(t *testing.T) {
-	context := &Context{visibleEnemies: make([]charPosDist, 1, 1)}
+	context := &context{visibleEnemies: make([]charPosDist, 1, 1)}
 	task := NewGetClosestEnemies(context)
 
 	if !task.CheckConditions() {
@@ -28,7 +28,7 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 	char := &MockCharacter{}
 	position := Coord{0, 1}
 	opponents := []charPosDist{charPosDist{char, position, 1}}
-	context := &Context{visibleEnemies: opponents}
+	context := &context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
 	if !task.Perform() {
@@ -57,7 +57,7 @@ func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
 		charPosDist{char1, position1, 1},
 		charPosDist{char2, position2, 2},
 	}
-	context := &Context{visibleEnemies: opponents}
+	context := &context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
 	if !task.Perform() {

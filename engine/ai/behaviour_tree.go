@@ -1,50 +1,56 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
+	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 type charPosDist struct {
-	char Character
-	pos  Coord
+	char core.Character
+	pos  utils.Coord
 	dist float64
 }
 
-type Context struct {
-	level                *Level
-	agent                Character
-	positionOfAgent      Coord
+type context struct {
+	level                *core.Level
+	agent                core.Character
+	positionOfAgent      utils.Coord
 	visibleEnemies       []charPosDist
-	closestEnemy         Character
-	closestEnemyPosition Coord
-	destination          Coord
+	closestEnemy         core.Character
+	closestEnemyPosition utils.Coord
+	destination          utils.Coord
 }
 
-func NewContext(level *Level, agent Character) *Context {
-	return &Context{
+func newContext(level *core.Level, agent core.Character) *context {
+	return &context{
 		level:                level,
 		agent:                agent,
 		positionOfAgent:      level.PositionOf(agent),
-		closestEnemyPosition: NilCoord,
-		destination:          NilCoord,
+		closestEnemyPosition: utils.NilCoord,
+		destination:          utils.NilCoord,
 	}
 }
 
+// Task represents an abstract task.
+// A task is comosed by two methods:
+// CheckConditions and Perform.
 type Task interface {
 	CheckConditions() bool
 	Perform() bool
 }
 
+// MockTask is a mock implementation of a task.
 type MockTask struct {
 	CheckConditionsMock bool
 	PerformMock         bool
 }
 
-func (self *MockTask) CheckConditions() bool {
-	return self.CheckConditionsMock
+// CheckConditions implementation for MockTask
+func (mock *MockTask) CheckConditions() bool {
+	return mock.CheckConditionsMock
 }
 
-func (self *MockTask) Perform() bool {
-	return self.PerformMock
+// Perform implementation for MockTask.
+func (mock *MockTask) Perform() bool {
+	return mock.PerformMock
 }

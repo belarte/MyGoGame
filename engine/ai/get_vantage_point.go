@@ -7,10 +7,10 @@ import (
 )
 
 type GetVantagePoint struct {
-	context *Context
+	context *context
 }
 
-func NewGetVantagePoint(context *Context) *GetVantagePoint {
+func NewGetVantagePoint(context *context) *GetVantagePoint {
 	return &GetVantagePoint{context}
 }
 

@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
-	context := &Context{closestEnemyPosition: NilCoord}
+	context := &context{closestEnemyPosition: NilCoord}
 	task := NewGetVantagePoint(context)
 
 	if task.CheckConditions() {
@@ -18,7 +18,7 @@ func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
 func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 	agent := &MockCharacter{}
 	level := NewLevel(Coord{0, 0}, 0)
-	context := &Context{agent: agent, level: level, closestEnemyPosition: Coord{0, 0}}
+	context := &context{agent: agent, level: level, closestEnemyPosition: Coord{0, 0}}
 	task := NewGetVantagePoint(context)
 
 	if !task.CheckConditions() {
@@ -30,7 +30,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	agent := &MockCharacter{RangeMock: DEFAULT_RANGE}
 	level := NewLevel(Coord{1, 5}, 1)
 	level.AddCharacter(agent, Coord{0, 0}, 0)
-	context := &Context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
+	context := &context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -49,7 +49,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 	level := NewLevel(Coord{2, 5}, 1)
 	level.AddCharacter(agent, Coord{0, 0}, 0)
 	level.Map().SetCell(Coord{0, 3}, WALL)
-	context := &Context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
+	context := &context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -70,7 +70,7 @@ func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	level.Map().SetCell(Coord{0, 3}, WALL)
 	level.Map().SetCell(Coord{1, 3}, WALL)
 	level.Map().SetCell(Coord{2, 3}, WALL)
-	context := &Context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
+	context := &context{agent: agent, level: level, closestEnemyPosition: Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {

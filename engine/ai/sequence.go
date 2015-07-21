@@ -1,11 +1,11 @@
 package ai
 
 type Sequence struct {
-	context *Context
+	context *context
 	tasks   []Task
 }
 
-func NewSequence(context *Context) *Sequence {
+func NewSequence(context *context) *Sequence {
 	return &Sequence{}
 }
 

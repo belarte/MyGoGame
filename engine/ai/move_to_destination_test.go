@@ -8,7 +8,7 @@ import (
 )
 
 func TestMoveToDestinationConstruction(t *testing.T) {
-	context := &Context{
+	context := &context{
 		level:           NewLevel(Coord{1, 1}, 1),
 		positionOfAgent: Coord{0, 0},
 		destination:     Coord{0, 0},

@@ -5,11 +5,11 @@ import (
 )
 
 type MoveToDestination struct {
-	context    *Context
+	context    *context
 	moveAction Action
 }
 
-func NewMoveToDestination(context *Context) *MoveToDestination {
+func NewMoveToDestination(context *context) *MoveToDestination {
 	finder := NewPathFinder(context.level)
 	path := finder.ShortestPath(context.positionOfAgent, context.destination)
 	action := NewMoveAction(context.level, context.agent, &path)

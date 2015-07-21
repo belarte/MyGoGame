@@ -6,10 +6,10 @@ import (
 )
 
 type GetClosestEnemy struct {
-	context *Context
+	context *context
 }
 
-func NewGetClosestEnemies(context *Context) *GetClosestEnemy {
+func NewGetClosestEnemies(context *context) *GetClosestEnemy {
 	context.closestEnemyPosition = NilCoord
 	return &GetClosestEnemy{context}
 }
