@@ -4,24 +4,18 @@ import (
 	"math"
 )
 
-/**
- * class Coord
- * Base class for Map
- */
+// Coord struct. It has visible fields for access purpose.
 type Coord struct {
 	X, Y int
 }
 
-func NewCoord(x, y int) Coord {
-	return Coord{x, y}
-}
-
 var (
+	// NilCoord is to be used as an undefined Coord.
 	NilCoord = Coord{-1, -1}
 )
 
+// Distance compute the Euclidian distance between two Coords.
 func Distance(from, to Coord) float64 {
-	// Compute Euclidian distance
 	x := float64(from.X - to.X)
 	y := float64(from.Y - to.Y)
 

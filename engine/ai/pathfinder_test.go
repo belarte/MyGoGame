@@ -8,7 +8,7 @@ import (
 )
 
 func TestPathToSelfTesting(t *testing.T) {
-	level := core.NewLevel(utils.NewCoord(1, 1), 0)
+	level := core.NewLevel(utils.Coord{1, 1}, 0)
 	finder := NewPathFinder(level)
 
 	shortest := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 0})

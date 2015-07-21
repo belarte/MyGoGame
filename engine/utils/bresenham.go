@@ -1,6 +1,7 @@
 package utils
 
-// Bresenham line drawing algorithm.
+// Line computes a straight line between two Coords.
+// It uses the Bresenham line drawing algorithm.
 // The return line does NOT contain the 'from' point.
 func Line(from, to Coord) (result []Coord) {
 	dx, dy, sx, sy := getParameters(from, to)
@@ -50,7 +51,8 @@ func getParameters(from, to Coord) (dx, dy, sx, sy int) {
 	return
 }
 
-// Midpoint circle drawing algorithm
+// Circle compute the circle centered on given Coord with given radius.
+// It uses the Midpoint circle drawing algorithm.
 func Circle(centre Coord, radius int) (result []Coord) {
 	x := radius
 	y := 0
@@ -70,7 +72,7 @@ func Circle(centre Coord, radius int) (result []Coord) {
 		}
 	}
 
-	for key, _ := range buffer {
+	for key := range buffer {
 		result = append(result, key)
 	}
 	return
