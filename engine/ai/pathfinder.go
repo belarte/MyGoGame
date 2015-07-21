@@ -1,55 +1,59 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
+	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/utils"
 	"math"
 )
 
 type node struct {
-	f_cost, g_cost, h_cost float64
-	parent                 Coord
+	fCost, gCost, hCost float64
+	parent              utils.Coord
 }
 
-type nodeList map[Coord]node
+type nodeList map[utils.Coord]node
 
+// PathFinder compute the shortest path betwin two coordinates.
+// It handles the topography of the map.
 type PathFinder struct {
-	level                *Level
+	level                *core.Level
 	closedList, openList nodeList
 }
 
-func NewPathFinder(level *Level) *PathFinder {
-	return &PathFinder{level, make(map[Coord]node), make(map[Coord]node)}
+// NewPathFinder constructs a new PathFinder
+func NewPathFinder(level *core.Level) *PathFinder {
+	return &PathFinder{level, make(map[utils.Coord]node), make(map[utils.Coord]node)}
 }
 
-func (self *PathFinder) ShortestPath(start, dest Coord) Path {
-	self.openList = make(map[Coord]node)
-	self.closedList = make(map[Coord]node)
+// ShortestPath computes the shortest path.
+func (finder *PathFinder) ShortestPath(start, dest utils.Coord) core.Path {
+	finder.openList = make(map[utils.Coord]node)
+	finder.closedList = make(map[utils.Coord]node)
 
 	startNode := node{0, 0, 0, start}
 	current := start
 
-	self.openList[current] = startNode
-	self.addToCloseList(current)
-	self.addAdjacentCells(current, dest)
+	finder.openList[current] = startNode
+	finder.addToCloseList(current)
+	finder.addAdjacentCells(current, dest)
 
-	for current != dest && len(self.openList) > 0 {
-		current = self.bestNode(self.openList)
-		self.addToCloseList(current)
-		self.addAdjacentCells(current, dest)
+	for current != dest && len(finder.openList) > 0 {
+		current = finder.bestNode(finder.openList)
+		finder.addToCloseList(current)
+		finder.addAdjacentCells(current, dest)
 	}
 
-	var result Path
+	var result core.Path
 
 	if current == dest && start != dest {
-		result = self.retrievePath(start, dest)
+		result = finder.retrievePath(start, dest)
 	}
 
 	return result
 }
 
-func (self *PathFinder) isInList(pos Coord, list nodeList) bool {
-	for p, _ := range list {
+func (finder *PathFinder) isInList(pos utils.Coord, list nodeList) bool {
+	for p := range list {
 		if pos == p {
 			return true
 		}
@@ -58,34 +62,34 @@ func (self *PathFinder) isInList(pos Coord, list nodeList) bool {
 	return false
 }
 
-func (self *PathFinder) addAdjacentCells(c, dest Coord) {
-	coords := self.getAdjacentCells(c)
+func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
+	coords := finder.getAdjacentCells(c)
 
 	for _, coord := range coords {
-		if !self.isInList(coord, self.closedList) &&
-			self.level.Map().GetCell(coord) != WALL &&
-			!self.level.IsCharacterAtPosition(coord) {
+		if !finder.isInList(coord, finder.closedList) &&
+			finder.level.Map().GetCell(coord) != core.WALL &&
+			!finder.level.IsCharacterAtPosition(coord) {
 
-			cellWeight := CellWeight(self.level.Map().GetCell(coord))
-			dist := Distance(coord, c)
-			gcost := self.closedList[c].g_cost + dist*cellWeight
-			hcost := Distance(coord, dest)
+			cellWeight := core.CellWeight(finder.level.Map().GetCell(coord))
+			dist := utils.Distance(coord, c)
+			gcost := finder.closedList[c].gCost + dist*cellWeight
+			hcost := utils.Distance(coord, dest)
 			fcost := gcost + hcost
 			tmp := node{fcost, gcost, hcost, c}
 
-			if self.isInList(coord, self.openList) {
-				if fcost < self.openList[coord].f_cost {
-					self.openList[coord] = tmp
+			if finder.isInList(coord, finder.openList) {
+				if fcost < finder.openList[coord].fCost {
+					finder.openList[coord] = tmp
 				}
 			} else {
-				self.openList[coord] = tmp
+				finder.openList[coord] = tmp
 			}
 		}
 	}
 }
 
-func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
-	size := self.level.Map().Size()
+func (finder *PathFinder) getAdjacentCells(c utils.Coord) []utils.Coord {
+	size := finder.level.Map().Size()
 
 	xx := make([]int, 0, 3)
 	xx = append(xx, c.X)
@@ -107,11 +111,11 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 		yy = append(yy, c.Y+1)
 	}
 
-	var result []Coord
+	var result []utils.Coord
 	for _, x := range xx {
 		for _, y := range yy {
 			if !(x == c.X && y == c.Y) {
-				result = append(result, Coord{x, y})
+				result = append(result, utils.Coord{x, y})
 			}
 		}
 	}
@@ -119,13 +123,13 @@ func (self *PathFinder) getAdjacentCells(c Coord) []Coord {
 	return result
 }
 
-func (self *PathFinder) bestNode(list nodeList) Coord {
-	var result Coord
+func (finder *PathFinder) bestNode(list nodeList) utils.Coord {
+	var result utils.Coord
 	cost := math.MaxFloat64
 
 	for c, n := range list {
-		if n.f_cost < cost {
-			cost = n.f_cost
+		if n.fCost < cost {
+			cost = n.fCost
 			result = c
 		}
 	}
@@ -133,25 +137,25 @@ func (self *PathFinder) bestNode(list nodeList) Coord {
 	return result
 }
 
-func (self *PathFinder) addToCloseList(c Coord) {
-	n := self.openList[c]
-	self.closedList[c] = n
-	delete(self.openList, c)
+func (finder *PathFinder) addToCloseList(c utils.Coord) {
+	n := finder.openList[c]
+	finder.closedList[c] = n
+	delete(finder.openList, c)
 }
 
-func (self *PathFinder) retrievePath(start, dest Coord) Path {
-	var result Path
+func (finder *PathFinder) retrievePath(start, dest utils.Coord) core.Path {
+	var result core.Path
 
-	tmp := self.closedList[dest]
+	tmp := finder.closedList[dest]
 	current := dest
 	previous := tmp.parent
 
 	for current != start {
-		weight := CellWeight(self.level.Map().GetCell(current)) * Distance(current, previous)
+		weight := core.CellWeight(finder.level.Map().GetCell(current)) * utils.Distance(current, previous)
 		result.Add(current, weight)
 
 		current = previous
-		tmp = self.closedList[previous]
+		tmp = finder.closedList[previous]
 		previous = tmp.parent
 	}
 
