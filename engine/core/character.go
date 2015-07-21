@@ -7,38 +7,50 @@ const (
 
 type Character interface {
 	Name() string
-	MovePoints() int
+
+	MovePoints() float64
+	ConsumeMovePoints(float64)
+	Reset()
+
 	ActionPoints() int
+
 	Visibility() int
 	Range() int
 }
 
 type MockCharacter struct {
 	NameMock         string
-	MovePointsMock   int
+	MovePointsMock   float64
 	ActionPointsMock int
 	VisibilityMock   int
 	RangeMock        int
 }
 
-func (self *MockCharacter) Name() string {
-	return self.NameMock
+func (mock *MockCharacter) Name() string {
+	return mock.NameMock
 }
 
-func (self *MockCharacter) MovePoints() int {
-	return self.MovePointsMock
+func (mock *MockCharacter) MovePoints() float64 {
+	return mock.MovePointsMock
 }
 
-func (self *MockCharacter) ActionPoints() int {
-	return self.ActionPointsMock
+func (mock *MockCharacter) ConsumeMovePoints(points float64) {
+	mock.MovePointsMock -= points
 }
 
-func (self *MockCharacter) Visibility() int {
-	return self.VisibilityMock
+func (mock *MockCharacter) Reset() {
 }
 
-func (self *MockCharacter) Range() int {
-	return self.RangeMock
+func (mock *MockCharacter) ActionPoints() int {
+	return mock.ActionPointsMock
+}
+
+func (mock *MockCharacter) Visibility() int {
+	return mock.VisibilityMock
+}
+
+func (mock *MockCharacter) Range() int {
+	return mock.RangeMock
 }
 
 /*

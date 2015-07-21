@@ -30,6 +30,20 @@ func TestIsDoableNilPath(t *testing.T) {
 	}
 }
 
+func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
+	level := NewLevel(Coord{1, 5}, 1)
+	char := &MockCharacter{}
+	level.AddCharacter(char, Coord{0, 0}, 0)
+
+	var path Path
+	path.Add(Coord{0, 4}, 1)
+	action := NewMoveAction(level, char, &path)
+
+	if action.IsDoable() {
+		t.Error("Move action should not be doable")
+	}
+}
+
 func TestIsDoableOK(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
 	char := &MockCharacter{}
@@ -68,16 +82,49 @@ func TestPerformOk(t *testing.T) {
 	}
 }
 
-func TestPerformNotOk(t *testing.T) {
+func TestPerformNotEnoughMovePoints(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{MovePointsMock: 10}
+	char := &MockCharacter{MovePointsMock: 1}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
 	path.Add(Coord{0, 1}, 1)
+	path.Add(Coord{0, 2}, 1)
+	path.Add(Coord{0, 3}, 1)
 	action := NewMoveAction(level, char, &path)
 
 	if !action.IsDoable() {
 		t.Error("Move action should be doable")
+	}
+
+	if action.Perform() {
+		t.Errorf("Should not be able to perfrom: path=%+v, action=%+v", path, action)
+	}
+
+	pos := level.PositionOf(char)
+	dest := Coord{0, 3}
+	if pos == dest {
+		t.Errorf("Position of character is %+v, should be different than %+v", pos, dest)
+	}
+}
+
+func TestPerformHasConsumedMovePoints(t *testing.T) {
+	level := NewLevel(Coord{1, 5}, 1)
+	char := &MockCharacter{MovePointsMock: 10}
+	level.AddCharacter(char, Coord{0, 0}, 0)
+	dest := Coord{0, 1}
+
+	var path Path
+	path.Add(dest, 1)
+	action := NewMoveAction(level, char, &path)
+
+	oldValue := char.MovePoints()
+	if !action.Perform() {
+		t.Error("Move action should have performed.")
+	}
+
+	newValue := char.MovePoints()
+	if oldValue == newValue {
+		t.Error("Move points should have been consumed.")
 	}
 }

@@ -2,6 +2,7 @@ package action
 
 import (
 	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 // MoveAction move a character along the given path.
@@ -18,7 +19,12 @@ func NewMoveAction(lvl *core.Level, agent core.Character, path *core.Path) *Move
 // IsDoable checks if the path is valid.
 func (action *MoveAction) IsDoable() bool {
 	if action.path == nil || action.path.Size() == 0 {
-		action.logs[0] = action.agent.Name() + " cannot move: empty path"
+		action.logs[0] = action.agent.Name() + " cannot move: empty path."
+		return false
+	}
+
+	if !utils.AreAdjacent(action.level.PositionOf(action.agent), action.path.Path[0].Coord) {
+		action.logs[0] = "Inconsistant path: does not start next to agent."
 		return false
 	}
 
@@ -31,15 +37,15 @@ func (action *MoveAction) IsDoable() bool {
 // Return false if the agent lacked MP to reach destination
 // or if an event occured while moving.
 func (action *MoveAction) Perform() bool {
-	movePoints := float64(action.agent.MovePoints())
 	for _, step := range action.path.Path {
-		if movePoints < action.path.Cost() {
+		movePoints := float64(action.agent.MovePoints())
+		if movePoints < step.Cost {
 			action.logs[1] += action.agent.Name() + "  does not have enough move points, action terminated. "
 			break
 		}
 
 		action.team.MoveCharacter(action.agent, step.Coord)
-		movePoints -= action.path.Cost()
+		action.agent.ConsumeMovePoints(step.Cost)
 		// TODO: implement events
 	}
 
