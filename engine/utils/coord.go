@@ -24,5 +24,5 @@ func Distance(from, to Coord) float64 {
 
 // AreAdjacent checks if two Coord are adjacent.
 func AreAdjacent(from, to Coord) bool {
-	return Distance(from, to) < 1.5
+	return from != to && Distance(from, to) < 1.5
 }
