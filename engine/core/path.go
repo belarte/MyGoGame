@@ -1,40 +1,44 @@
 package core
 
 import (
-	. "github.com/belarte/MyGoGame/engine/utils"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
-/**
- * path class for pathFinder and MoveAction
- */
 type pathStep struct {
-	Coord Coord
+	Coord utils.Coord
 	Cost  float64
 }
 
+// Path is a list of adjacent weighted Coords.
 type Path struct {
 	Path []pathStep
 }
 
-func (self *Path) Add(coord Coord, cost float64) {
-	self.Path = append(self.Path, pathStep{coord, cost})
+// Add adds a weighted Coord to the path.
+func (path *Path) Add(coord utils.Coord, cost float64) {
+	if path.Size() == 0 || utils.AreAdjacent(path.Path[len(path.Path)-1].Coord, coord) {
+		path.Path = append(path.Path, pathStep{coord, cost})
+	}
 }
 
-func (self *Path) Size() int {
-	return len(self.Path)
+// Size return the number of steps in the path.
+func (path *Path) Size() int {
+	return len(path.Path)
 }
 
-func (self *Path) Cost() float64 {
+// Cost return the aggregated sum of the costs.
+func (path *Path) Cost() float64 {
 	result := 0.0
-	for _, step := range self.Path {
+	for _, step := range path.Path {
 		result += step.Cost
 	}
 
 	return result
 }
 
-func (self *Path) Reverse() {
-	for i, j := 0, len(self.Path)-1; i < j; i, j = i+1, j-1 {
-		self.Path[i], self.Path[j] = self.Path[j], self.Path[i]
+// Reverse reverses the path.
+func (path *Path) Reverse() {
+	for i, j := 0, len(path.Path)-1; i < j; i, j = i+1, j-1 {
+		path.Path[i], path.Path[j] = path.Path[j], path.Path[i]
 	}
 }
