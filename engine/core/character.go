@@ -1,10 +1,12 @@
 package core
 
+// Default values for character's stats.
 const (
 	DEFAULT_VISIBILITY = 8
 	DEFAULT_RANGE      = 1
 )
 
+// Character represents a player in the game.
 type Character interface {
 	Name() string
 
@@ -18,6 +20,7 @@ type Character interface {
 	Range() int
 }
 
+// MockCharacter mock
 type MockCharacter struct {
 	NameMock         string
 	MovePointsMock   float64
@@ -26,29 +29,36 @@ type MockCharacter struct {
 	RangeMock        int
 }
 
+// Name mock
 func (mock *MockCharacter) Name() string {
 	return mock.NameMock
 }
 
+// MovePoints mock
 func (mock *MockCharacter) MovePoints() float64 {
 	return mock.MovePointsMock
 }
 
+// ConsumeMovePoints mock
 func (mock *MockCharacter) ConsumeMovePoints(points float64) {
 	mock.MovePointsMock -= points
 }
 
+// Reset mock
 func (mock *MockCharacter) Reset() {
 }
 
+// ActionPoints mock
 func (mock *MockCharacter) ActionPoints() int {
 	return mock.ActionPointsMock
 }
 
+// Visibility mock
 func (mock *MockCharacter) Visibility() int {
 	return mock.VisibilityMock
 }
 
+// Range mock
 func (mock *MockCharacter) Range() int {
 	return mock.RangeMock
 }

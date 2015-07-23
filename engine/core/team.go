@@ -1,56 +1,64 @@
 package core
 
 import (
-	. "github.com/belarte/MyGoGame/engine/utils"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
+// Team represents a team of Character with given positions.
 type Team struct {
-	characters map[Character]Coord
+	characters map[Character]utils.Coord
 }
 
+// NewTeam returns a new team.
 func NewTeam() *Team {
-	characters := make(map[Character]Coord)
+	characters := make(map[Character]utils.Coord)
 	return &Team{characters}
 }
 
-func (self *Team) AddCharacter(c Character, pos Coord) bool {
-	if self.IsFull() {
+// AddCharacter adds a Character at a given position to the team.
+func (team *Team) AddCharacter(c Character, pos utils.Coord) bool {
+	if team.IsFull() {
 		return false
 	}
 
-	self.characters[c] = pos
+	team.characters[c] = pos
 
 	return true
 }
 
-func (self *Team) GetCharacters() (result []Character) {
-	for char, _ := range self.characters {
+// GetCharacters returns a list of all the Characters in the team.
+func (team *Team) GetCharacters() (result []Character) {
+	for char := range team.characters {
 		result = append(result, char)
 	}
 
 	return
 }
 
-func (self *Team) GetCharacter(char Character) (Character, Coord) {
-	for c, pos := range self.characters {
+// GetCharacter return a Character and its position.
+func (team *Team) GetCharacter(char Character) (Character, utils.Coord) {
+	for c, pos := range team.characters {
 		if c == char {
 			return c, pos
 		}
 	}
 
-	return nil, Coord{0, 0}
+	return nil, utils.NilCoord
 }
 
-func (self *Team) MoveCharacter(char Character, pos Coord) {
-	self.characters[char] = pos
+// MoveCharacter moves the given Character to the given position.
+func (team *Team) MoveCharacter(char Character, pos utils.Coord) {
+	team.characters[char] = pos
 }
 
-func (self *Team) CharactersCount() int {
-	return len(self.characters)
+// CharactersCount return the current number of Character in the team.
+func (team *Team) CharactersCount() int {
+	return len(team.characters)
 }
 
-func (self *Team) IsCharacterAtPosition(pos Coord) bool {
-	for _, p := range self.characters {
+// IsCharacterAtPosition checks if one of the Character is at the given position.
+func (team *Team) IsCharacterAtPosition(pos utils.Coord) bool {
+	for _, p := range team.characters {
 		if p == pos {
 			return true
 		}
@@ -58,6 +66,7 @@ func (self *Team) IsCharacterAtPosition(pos Coord) bool {
 	return false
 }
 
-func (self *Team) IsFull() bool {
-	return len(self.characters) == MAX_PLAYERS_BY_TEAM
+// IsFull checks if the team is at maximum capacity.
+func (team *Team) IsFull() bool {
+	return len(team.characters) == MAX_PLAYERS_BY_TEAM
 }

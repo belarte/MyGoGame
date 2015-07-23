@@ -2,45 +2,52 @@ package core
 
 import (
 	"errors"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"strconv"
+
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
+// Map represents a grid of cells.
 type Map struct {
-	size Coord
+	size utils.Coord
 	grid []CellType
 }
 
-func NewMap(size Coord) *Map {
+//NewMap returns the new Map.
+func NewMap(size utils.Coord) *Map {
 	grid := make([]CellType, size.X*size.Y)
 	return &Map{size, grid}
 }
 
-func (self *Map) Size() Coord {
-	return self.size
+// Size returns the size of the grid.
+func (m *Map) Size() utils.Coord {
+	return m.size
 }
 
-func (self *Map) GetCell(coord Coord) CellType {
-	index, _ := self.getIndex(coord)
-	return self.grid[index]
+// GetCell returns the type of the given cell.
+func (m *Map) GetCell(coord utils.Coord) CellType {
+	index, _ := m.getIndex(coord)
+	return m.grid[index]
 }
 
-func (self *Map) SetCell(coord Coord, t CellType) {
-	index, _ := self.getIndex(coord)
-	self.grid[index] = t
+// SetCell set the type of the given cell.
+func (m *Map) SetCell(coord utils.Coord, t CellType) {
+	index, _ := m.getIndex(coord)
+	m.grid[index] = t
 }
 
-func (self *Map) getIndex(coord Coord) (int, error) {
-	if coord.X > self.size.X || coord.Y > self.size.Y {
+func (m *Map) getIndex(coord utils.Coord) (int, error) {
+	if coord.X > m.size.X || coord.Y > m.size.Y {
 		return 0, errors.New("Coordinates out of range: (" +
 			strconv.Itoa(int(coord.X)) + ", " +
 			strconv.Itoa(int(coord.Y)) + ")")
 	}
 
-	return coord.Y*self.size.X + coord.X, nil
+	return coord.Y*m.size.X + coord.X, nil
 }
 
-func (self *Map) IsWithinBounds(pos Coord) bool {
-	size := self.Size()
+// IsWithinBounds checks if the given cell is within the grid.
+func (m *Map) IsWithinBounds(pos utils.Coord) bool {
+	size := m.Size()
 	return pos.X >= 0 && pos.X < size.X && pos.Y >= 0 && pos.Y < size.Y
 }
