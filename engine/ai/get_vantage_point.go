@@ -1,50 +1,59 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"math"
+
+	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
+// GetVantagePoint computes the safest place where an attack is possible
+// on the closest enemy. The computed position will be at range and the
+// enemy will be reachable from an attack in line.
 type GetVantagePoint struct {
 	context *context
 }
 
+// NewGetVantagePoint returns the new task.
 func NewGetVantagePoint(context *context) *GetVantagePoint {
 	return &GetVantagePoint{context}
 }
 
-func (self *GetVantagePoint) CheckConditions() bool {
-	return self.context.level != nil &&
-		self.context.agent != nil &&
-		self.context.closestEnemyPosition != NilCoord
+// CheckConditions checks that the level, the agent and the closest
+// enemy's position are not nil.
+func (task *GetVantagePoint) CheckConditions() bool {
+	return task.context.level != nil &&
+		task.context.agent != nil &&
+		task.context.closestEnemyPosition != utils.NilCoord
 }
 
-func (self *GetVantagePoint) Perform() bool {
-	positions := Circle(self.context.closestEnemyPosition, self.context.agent.Range())
+// Perform computes the targeted position. It Computes the circle with radius agent.range
+// from where the target will be reachable for a direct attack.
+func (task *GetVantagePoint) Perform() bool {
+	positions := utils.Circle(task.context.closestEnemyPosition, task.context.agent.Range())
 
 	distance := math.MaxFloat64
-	self.context.destination = NilCoord
-	maps := self.context.level.Map()
+	task.context.destination = utils.NilCoord
+	maps := task.context.level.Map()
 	for _, position := range positions {
-		if !maps.IsWithinBounds(position) || self.isSightBlocked(maps, position) {
+		if !maps.IsWithinBounds(position) || task.isSightBlocked(maps, position) {
 			continue
 		}
 
-		distToAgent := Distance(self.context.positionOfAgent, position)
+		distToAgent := utils.Distance(task.context.positionOfAgent, position)
 		if distToAgent < distance {
 			distance = distToAgent
-			self.context.destination = position
+			task.context.destination = position
 		}
 	}
 
-	return self.context.destination != NilCoord
+	return task.context.destination != utils.NilCoord
 }
 
-func (self *GetVantagePoint) isSightBlocked(maps *Map, pos Coord) bool {
-	line := Line(self.context.closestEnemyPosition, pos)
+func (task *GetVantagePoint) isSightBlocked(maps *core.Map, pos utils.Coord) bool {
+	line := utils.Line(task.context.closestEnemyPosition, pos)
 	for _, pos := range line {
-		if maps.GetCell(pos) == WALL {
+		if maps.GetCell(pos) == core.WALL {
 			return true
 		}
 	}

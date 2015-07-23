@@ -1,37 +1,43 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/utils"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
+// GetVisibleEnemies gets all enemies that are visible by the agent
+// or one of its team member.
 type GetVisibleEnemies struct {
 	context *context
 }
 
+// NewGetVisibleEnemies returns the new task.
 func NewGetVisibleEnemies(context *context) *GetVisibleEnemies {
 	return &GetVisibleEnemies{context}
 }
 
-func (self *GetVisibleEnemies) CheckConditions() bool {
-	return self.context.level != nil && self.context.agent != nil
+// CheckConditions checks that the agent and the level are not nil.
+func (task *GetVisibleEnemies) CheckConditions() bool {
+	return task.context.level != nil && task.context.agent != nil
 }
 
-func (self *GetVisibleEnemies) Perform() bool {
-	opponents := self.context.level.GetOpponentsOf(self.context.agent)
-	self.context.visibleEnemies = make([]charPosDist, 0, 4)
+// Perform gets the visible enemies.
+// It fails if no visible enemies are found.
+func (task *GetVisibleEnemies) Perform() bool {
+	opponents := task.context.level.GetOpponentsOf(task.context.agent)
+	task.context.visibleEnemies = make([]charPosDist, 0, 4)
 
 	if len(opponents) == 0 {
 		return false
 	}
 
 	for _, opponent := range opponents {
-		position := self.context.level.PositionOf(opponent)
-		distance := Distance(self.context.positionOfAgent, position)
-		if distance <= float64(self.context.agent.Visibility()) {
+		position := task.context.level.PositionOf(opponent)
+		distance := utils.Distance(task.context.positionOfAgent, position)
+		if distance <= float64(task.context.agent.Visibility()) {
 			char := charPosDist{opponent, position, distance}
-			self.context.visibleEnemies = append(self.context.visibleEnemies, char)
+			task.context.visibleEnemies = append(task.context.visibleEnemies, char)
 		}
 	}
 
-	return len(self.context.visibleEnemies) > 0
+	return len(task.context.visibleEnemies) > 0
 }

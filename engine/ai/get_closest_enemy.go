@@ -1,29 +1,35 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"math"
+
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
+// GetClosestEnemy computes the closest enemy.
 type GetClosestEnemy struct {
 	context *context
 }
 
+// NewGetClosestEnemies returns the new task.
 func NewGetClosestEnemies(context *context) *GetClosestEnemy {
-	context.closestEnemyPosition = NilCoord
+	context.closestEnemyPosition = utils.NilCoord
 	return &GetClosestEnemy{context}
 }
 
-func (self *GetClosestEnemy) CheckConditions() bool {
-	return len(self.context.visibleEnemies) > 0
+// CheckConditions checks thqt a least one enemy is visible.
+func (task *GetClosestEnemy) CheckConditions() bool {
+	return len(task.context.visibleEnemies) > 0
 }
 
-func (self *GetClosestEnemy) Perform() bool {
+// Perform finds the enemy with the shortest Euclidian distance
+// from the agent.
+func (task *GetClosestEnemy) Perform() bool {
 	distance := math.MaxFloat64
-	for _, opponent := range self.context.visibleEnemies {
+	for _, opponent := range task.context.visibleEnemies {
 		if opponent.dist < distance {
-			self.context.closestEnemy = opponent.char
-			self.context.closestEnemyPosition = opponent.pos
+			task.context.closestEnemy = opponent.char
+			task.context.closestEnemyPosition = opponent.pos
 			distance = opponent.dist
 		}
 	}
