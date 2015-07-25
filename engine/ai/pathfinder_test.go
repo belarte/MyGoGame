@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -196,7 +197,7 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 }
 
 func TestPathWithProtagonistTesting(t *testing.T) {
-	char := &core.MockCharacter{}
+	char := &character.Mock{}
 	level := core.NewLevel(utils.Coord{2, 5}, 1)
 	level.AddCharacter(char, utils.Coord{0, 2}, 0)
 

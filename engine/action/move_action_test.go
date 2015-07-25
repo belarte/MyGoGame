@@ -1,14 +1,16 @@
 package action
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
+
+	. "github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/character"
+	. "github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestIsDoableEmptyPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{}
+	char := &character.Mock{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, &Path{})
@@ -20,7 +22,7 @@ func TestIsDoableEmptyPath(t *testing.T) {
 
 func TestIsDoableNilPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{}
+	char := &character.Mock{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, nil)
@@ -32,7 +34,7 @@ func TestIsDoableNilPath(t *testing.T) {
 
 func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{}
+	char := &character.Mock{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -46,7 +48,7 @@ func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 
 func TestIsDoableOK(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{}
+	char := &character.Mock{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -60,7 +62,7 @@ func TestIsDoableOK(t *testing.T) {
 
 func TestPerformOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{MovePointsMock: 10}
+	char := &character.Mock{MovePointsMock: 10, ConsumeMPMock: true}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
@@ -84,7 +86,7 @@ func TestPerformOk(t *testing.T) {
 
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{MovePointsMock: 1}
+	char := &character.Mock{MovePointsMock: 1}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -110,7 +112,7 @@ func TestPerformNotEnoughMovePoints(t *testing.T) {
 
 func TestPerformHasConsumedMovePoints(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &MockCharacter{MovePointsMock: 10}
+	char := &character.Mock{MovePointsMock: 10, ConsumeMPMock: true}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 

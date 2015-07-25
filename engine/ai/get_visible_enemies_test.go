@@ -1,13 +1,15 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
+
+	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
-	char := &MockCharacter{}
+	char := &character.Mock{}
 	context := &context{agent: char}
 	task := NewGetVisibleEnemies(context)
 
@@ -17,7 +19,7 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
-	level := NewLevel(Coord{0, 0}, 0)
+	level := core.NewLevel(utils.Coord{0, 0}, 0)
 	context := &context{level: level}
 	task := NewGetVisibleEnemies(context)
 
@@ -27,8 +29,8 @@ func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
-	level := NewLevel(Coord{0, 0}, 0)
-	char := &MockCharacter{}
+	level := core.NewLevel(utils.Coord{0, 0}, 0)
+	char := &character.Mock{}
 	context := newContext(level, char)
 	task := NewGetVisibleEnemies(context)
 
@@ -38,9 +40,9 @@ func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
-	level := NewLevel(Coord{0, 0}, 2)
-	char := &MockCharacter{}
-	level.AddCharacter(char, Coord{0, 0}, 0)
+	level := core.NewLevel(utils.Coord{0, 0}, 2)
+	char := &character.Mock{}
+	level.AddCharacter(char, utils.Coord{0, 0}, 0)
 	context := newContext(level, char)
 	task := NewGetVisibleEnemies(context)
 
@@ -50,11 +52,11 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisible(t *testing.T) {
-	level := NewLevel(Coord{1, 10}, 2)
-	char1 := &MockCharacter{}
-	char2 := &MockCharacter{}
-	level.AddCharacter(char1, Coord{0, 0}, 0)
-	level.AddCharacter(char2, Coord{0, 9}, 1)
+	level := core.NewLevel(utils.Coord{1, 10}, 2)
+	char1 := &character.Mock{}
+	char2 := &character.Mock{}
+	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	level.AddCharacter(char2, utils.Coord{0, 9}, 1)
 	context := newContext(level, char1)
 	task := NewGetVisibleEnemies(context)
 
@@ -64,11 +66,11 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisible(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
-	level := NewLevel(Coord{1, 10}, 2)
-	char1 := &MockCharacter{VisibilityMock: DEFAULT_VISIBILITY}
-	char2 := &MockCharacter{}
-	level.AddCharacter(char1, Coord{0, 0}, 0)
-	level.AddCharacter(char2, Coord{0, 5}, 1)
+	level := core.NewLevel(utils.Coord{1, 10}, 2)
+	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
+	char2 := &character.Mock{}
+	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	level.AddCharacter(char2, utils.Coord{0, 5}, 1)
 	context := newContext(level, char1)
 	task := NewGetVisibleEnemies(context)
 

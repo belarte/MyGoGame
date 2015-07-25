@@ -1,22 +1,23 @@
 package core
 
 import (
+	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 // Team represents a team of Character with given positions.
 type Team struct {
-	characters map[Character]utils.Coord
+	characters map[character.Character]utils.Coord
 }
 
 // NewTeam returns a new team.
 func NewTeam() *Team {
-	characters := make(map[Character]utils.Coord)
+	characters := make(map[character.Character]utils.Coord)
 	return &Team{characters}
 }
 
 // AddCharacter adds a Character at a given position to the team.
-func (team *Team) AddCharacter(c Character, pos utils.Coord) bool {
+func (team *Team) AddCharacter(c character.Character, pos utils.Coord) bool {
 	if team.IsFull() {
 		return false
 	}
@@ -27,7 +28,7 @@ func (team *Team) AddCharacter(c Character, pos utils.Coord) bool {
 }
 
 // GetCharacters returns a list of all the Characters in the team.
-func (team *Team) GetCharacters() (result []Character) {
+func (team *Team) GetCharacters() (result []character.Character) {
 	for char := range team.characters {
 		result = append(result, char)
 	}
@@ -36,7 +37,7 @@ func (team *Team) GetCharacters() (result []Character) {
 }
 
 // GetCharacter return a Character and its position.
-func (team *Team) GetCharacter(char Character) (Character, utils.Coord) {
+func (team *Team) GetCharacter(char character.Character) (character.Character, utils.Coord) {
 	for c, pos := range team.characters {
 		if c == char {
 			return c, pos
@@ -47,7 +48,7 @@ func (team *Team) GetCharacter(char Character) (Character, utils.Coord) {
 }
 
 // MoveCharacter moves the given Character to the given position.
-func (team *Team) MoveCharacter(char Character, pos utils.Coord) {
+func (team *Team) MoveCharacter(char character.Character, pos utils.Coord) {
 	team.characters[char] = pos
 }
 

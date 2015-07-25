@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -35,7 +36,7 @@ func (lvl *Level) Map() *Map {
 }
 
 // AddCharacter adds a Character at a position to the given team.
-func (lvl *Level) AddCharacter(c Character, pos utils.Coord, team int) bool {
+func (lvl *Level) AddCharacter(c character.Character, pos utils.Coord, team int) bool {
 	if !lvl.maps.IsWithinBounds(pos) {
 		return false
 	}
@@ -44,7 +45,7 @@ func (lvl *Level) AddCharacter(c Character, pos utils.Coord, team int) bool {
 }
 
 // GetTeamOf return the team of the given Character.
-func (lvl *Level) GetTeamOf(char Character) *Team {
+func (lvl *Level) GetTeamOf(char character.Character) *Team {
 	for _, team := range lvl.teams {
 		if c, _ := team.GetCharacter(char); c != nil {
 			return team
@@ -54,7 +55,7 @@ func (lvl *Level) GetTeamOf(char Character) *Team {
 }
 
 // GetOpponentsOf returns all the Characters that are not in the team of the given Character.
-func (lvl *Level) GetOpponentsOf(char Character) (result []Character) {
+func (lvl *Level) GetOpponentsOf(char character.Character) (result []character.Character) {
 	team := lvl.GetTeamOf(char)
 	for _, t := range lvl.teams {
 		if t != team {
@@ -65,7 +66,7 @@ func (lvl *Level) GetOpponentsOf(char Character) (result []Character) {
 }
 
 // PositionOf returns the position of the given Character.
-func (lvl *Level) PositionOf(c Character) utils.Coord {
+func (lvl *Level) PositionOf(c character.Character) utils.Coord {
 	for _, team := range lvl.teams {
 		if char, coord := team.GetCharacter(c); char != nil {
 			return coord

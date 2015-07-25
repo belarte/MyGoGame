@@ -3,16 +3,17 @@ package action
 
 import (
 	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/character"
 )
 
 type actionBaseParameters struct {
 	level *core.Level
-	agent core.Character
+	agent character.Character
 	team  *core.Team
 	logs  [2]string
 }
 
-func newactionBaseParameters(level *core.Level, agent core.Character) actionBaseParameters {
+func newactionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
 	team := level.GetTeamOf(agent)
 	return actionBaseParameters{level, agent, team, [2]string{"", ""}}
 }
@@ -24,17 +25,17 @@ type Action interface {
 }
 
 // MockAction mocks an ction, for testing purposes.
-type MockAction struct {
+type Mock struct {
 	IsDoableMock, PerformMock bool
 }
 
 // IsDoable return the parameter given on initialisation.
-func (action *MockAction) IsDoable() bool {
+func (action *Mock) IsDoable() bool {
 	return action.IsDoableMock
 }
 
 // Perform return the parameter given on initialisation.
-func (action *MockAction) Perform() bool {
+func (action *Mock) Perform() bool {
 	return action.PerformMock
 }
 

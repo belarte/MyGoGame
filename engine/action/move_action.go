@@ -2,6 +2,7 @@ package action
 
 import (
 	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -12,7 +13,7 @@ type MoveAction struct {
 }
 
 // NewMoveAction initialise a new Action.
-func NewMoveAction(lvl *core.Level, agent core.Character, path *core.Path) *MoveAction {
+func NewMoveAction(lvl *core.Level, agent character.Character, path *core.Path) *MoveAction {
 	return &MoveAction{newactionBaseParameters(lvl, agent), path}
 }
 
@@ -38,14 +39,13 @@ func (action *MoveAction) IsDoable() bool {
 // or if an event occured while moving.
 func (action *MoveAction) Perform() bool {
 	for _, step := range action.path.Path {
-		movePoints := float64(action.agent.MovePoints())
-		if movePoints < step.Cost {
+		consumed := action.agent.ConsumeMovePoints(step.Cost)
+		if !consumed {
 			action.logs[1] += action.agent.Name() + "  does not have enough move points, action terminated. "
 			break
 		}
 
 		action.team.MoveCharacter(action.agent, step.Coord)
-		action.agent.ConsumeMovePoints(step.Cost)
 		// TODO: implement events
 	}
 

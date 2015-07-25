@@ -1,17 +1,18 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/action"
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
+
+	"github.com/belarte/MyGoGame/engine/action"
+	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestMoveToDestinationConstruction(t *testing.T) {
 	context := &context{
-		level:           NewLevel(Coord{1, 1}, 1),
-		positionOfAgent: Coord{0, 0},
-		destination:     Coord{0, 0},
+		level:           core.NewLevel(utils.Coord{1, 1}, 1),
+		positionOfAgent: utils.Coord{0, 0},
+		destination:     utils.Coord{0, 0},
 	}
 
 	task := NewMoveToDestination(context)
@@ -22,7 +23,7 @@ func TestMoveToDestinationConstruction(t *testing.T) {
 }
 
 func TestMoveToDestinationCheckConditionsIsDoableFail(t *testing.T) {
-	action := &MockAction{IsDoableMock: false}
+	action := &action.Mock{IsDoableMock: false}
 	task := MoveToDestination{moveAction: action}
 
 	if task.CheckConditions() {
@@ -31,7 +32,7 @@ func TestMoveToDestinationCheckConditionsIsDoableFail(t *testing.T) {
 }
 
 func TestMoveToDestinationCheckConditionsIsDoableSuccess(t *testing.T) {
-	action := &MockAction{IsDoableMock: true}
+	action := &action.Mock{IsDoableMock: true}
 	task := MoveToDestination{moveAction: action}
 
 	if !task.CheckConditions() {
@@ -40,7 +41,7 @@ func TestMoveToDestinationCheckConditionsIsDoableSuccess(t *testing.T) {
 }
 
 func TestMoveToDestinationPerformActionPerformFail(t *testing.T) {
-	action := &MockAction{IsDoableMock: false}
+	action := &action.Mock{IsDoableMock: false}
 	task := MoveToDestination{moveAction: action}
 
 	if task.CheckConditions() {
@@ -49,7 +50,7 @@ func TestMoveToDestinationPerformActionPerformFail(t *testing.T) {
 }
 
 func TestMoveToDestinationPerformActionPerformSuccess(t *testing.T) {
-	action := &MockAction{PerformMock: true}
+	action := &action.Mock{PerformMock: true}
 	task := MoveToDestination{moveAction: action}
 
 	if !task.Perform() {

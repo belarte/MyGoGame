@@ -1,9 +1,10 @@
 package ai
 
 import (
-	. "github.com/belarte/MyGoGame/engine/core"
-	. "github.com/belarte/MyGoGame/engine/utils"
 	"testing"
+
+	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestGetClosestEnemyCheckConditionsNoVisibleEnemies(t *testing.T) {
@@ -25,8 +26,8 @@ func TestGetClosestEnemyCheckConditionsVisibleEnemies(t *testing.T) {
 }
 
 func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
-	char := &MockCharacter{}
-	position := Coord{0, 1}
+	char := &character.Mock{}
+	position := utils.Coord{0, 1}
 	opponents := []charPosDist{charPosDist{char, position, 1}}
 	context := &context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
@@ -45,12 +46,12 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 }
 
 func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
-	char1 := &MockCharacter{}
-	char2 := &MockCharacter{}
-	char3 := &MockCharacter{}
-	position1 := Coord{0, 1}
-	position2 := Coord{0, 2}
-	position3 := Coord{0, 3}
+	char1 := &character.Mock{}
+	char2 := &character.Mock{}
+	char3 := &character.Mock{}
+	position1 := utils.Coord{0, 1}
+	position2 := utils.Coord{0, 2}
+	position3 := utils.Coord{0, 3}
 
 	opponents := []charPosDist{
 		charPosDist{char3, position3, 3},
