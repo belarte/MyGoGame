@@ -24,7 +24,7 @@ type Action interface {
 	Perform() bool
 }
 
-// MockAction mocks an ction, for testing purposes.
+// Mock action
 type Mock struct {
 	IsDoableMock, PerformMock bool
 }
