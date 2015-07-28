@@ -3,18 +3,18 @@ package log
 import "testing"
 
 func TestPrintWithoutChannel(t *testing.T) {
-	Print = true
+	doPrint = true
 	msg := "This is a test!"
 	Log(msg)
 }
 
 func TestWithChannel(t *testing.T) {
-	Channel = make(chan string)
+	channel = make(chan string)
 
 	msg := "This is a test!"
 	go func() { Log(msg) }()
 
-	result := <-Channel
+	result := <-channel
 	if msg != result {
 		t.Errorf("Expected=%s, got=%s", msg, result)
 	}
