@@ -30,7 +30,7 @@ func (action *MoveAction) IsDoable() bool {
 		return false
 	}
 
-	action.logs[0] = action.agent.Name() + " can move."
+	l.Log(action.agent.Name() + " can move.")
 	return true
 }
 

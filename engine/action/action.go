@@ -10,12 +10,11 @@ type actionBaseParameters struct {
 	level *core.Level
 	agent character.Character
 	team  *core.Team
-	logs  [2]string
 }
 
 func newactionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
 	team := level.GetTeamOf(agent)
-	return actionBaseParameters{level, agent, team, [2]string{"", ""}}
+	return actionBaseParameters{level, agent, team}
 }
 
 // Action defines an action that is doable by a character on a level.
