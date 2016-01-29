@@ -10,7 +10,7 @@ type Sequence struct {
 
 // NewSequence initialise a new Sequence.
 func NewSequence(context *context) *Sequence {
-	return &Sequence{}
+	return &Sequence{context: context}
 }
 
 // Add add a sub task to the list.
@@ -25,8 +25,8 @@ func (task *Sequence) CheckConditions() bool {
 
 // Perform executes each tasks in the given order.
 func (task *Sequence) Perform() bool {
-	for _, task := range task.tasks {
-		if !task.CheckConditions() || !task.Perform() {
+	for _, t := range task.tasks {
+		if !t.CheckConditions() || !t.Perform() {
 			return false
 		}
 	}
