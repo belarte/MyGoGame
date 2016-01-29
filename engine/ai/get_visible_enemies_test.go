@@ -49,6 +49,13 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 	if task.Perform() {
 		t.Errorf("Perform should be false, context=%+v", context)
 	}
+
+	expectedVisible := 0
+	resultVisible := len(context.visibleEnemies)
+
+	if resultVisible != expectedVisible {
+		t.Errorf("Wrong number of visible enemies\nresult=%d, expected=%d", resultVisible, expectedVisible)
+	}
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisible(t *testing.T) {
@@ -63,6 +70,13 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisible(t *testing.T) {
 	if task.Perform() {
 		t.Errorf("Perform should be false, context=%+v", context)
 	}
+
+	expectedVisible := 0
+	resultVisible := len(context.visibleEnemies)
+
+	if resultVisible != expectedVisible {
+		t.Errorf("Wrong number of visible enemies\nresult=%d, expected=%d", resultVisible, expectedVisible)
+	}
 }
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
@@ -76,5 +90,12 @@ func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 
 	if !task.Perform() {
 		t.Errorf("Perform should be true, context=%+v", context)
+	}
+
+	expectedVisible := 1
+	resultVisible := len(context.visibleEnemies)
+
+	if resultVisible != expectedVisible {
+		t.Errorf("Wrong number of visible enemies\nresult=%d, expected=%d", resultVisible, expectedVisible)
 	}
 }
