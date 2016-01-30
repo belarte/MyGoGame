@@ -27,13 +27,14 @@ func newContext(level *core.Level, agent character.Character) *context {
 		level:                level,
 		agent:                agent,
 		positionOfAgent:      level.PositionOf(agent),
+		visibleEnemies:       make([]charPosDist, 0, 4),
 		closestEnemyPosition: utils.NilCoord,
 		destination:          utils.NilCoord,
 	}
 }
 
 // Task represents an abstract task.
-// A task is comosed by two methods:
+// A task is composed by two methods:
 // CheckConditions and Perform.
 type Task interface {
 	CheckConditions() bool
