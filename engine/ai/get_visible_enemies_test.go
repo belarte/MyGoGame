@@ -58,12 +58,34 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 	}
 }
 
-func TestGetVisibleEnemiesPerformNoEnemiesVisible(t *testing.T) {
+func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
 	level := core.NewLevel(utils.Coord{1, 10}, 2)
-	char1 := &character.Mock{}
+	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
 	char2 := &character.Mock{}
 	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
 	level.AddCharacter(char2, utils.Coord{0, 9}, 1)
+	context := newContext(level, char1)
+	task := NewGetVisibleEnemies(context)
+
+	if task.Perform() {
+		t.Errorf("Perform should be false, context=%+v", context)
+	}
+
+	expectedVisible := 0
+	resultVisible := len(context.visibleEnemies)
+
+	if resultVisible != expectedVisible {
+		t.Errorf("Wrong number of visible enemies\nresult=%d, expected=%d", resultVisible, expectedVisible)
+	}
+}
+
+func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
+	level := core.NewLevel(utils.Coord{1, 10}, 2)
+	level.Map().SetCell(utils.Coord{0, 1}, core.WALL)
+	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
+	char2 := &character.Mock{}
+	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	level.AddCharacter(char2, utils.Coord{0, 4}, 1)
 	context := newContext(level, char1)
 	task := NewGetVisibleEnemies(context)
 

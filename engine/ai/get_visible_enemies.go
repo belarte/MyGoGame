@@ -12,7 +12,7 @@ type GetVisibleEnemies struct {
 
 // NewGetVisibleEnemies returns the new task.
 func NewGetVisibleEnemies(context *context) *GetVisibleEnemies {
-	return &GetVisibleEnemies{context}
+	return &GetVisibleEnemies{context: context}
 }
 
 // CheckConditions checks that the agent and the level are not nil.
