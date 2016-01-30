@@ -10,7 +10,10 @@ type Sequence struct {
 
 // NewSequence initialise a new Sequence.
 func NewSequence(context *context) *Sequence {
-	return &Sequence{context: context}
+	return &Sequence{
+		context: context,
+		tasks:   make([]Task, 0, 4),
+	}
 }
 
 // Add add a sub task to the list.
