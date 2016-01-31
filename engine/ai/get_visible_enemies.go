@@ -34,10 +34,24 @@ func (task *GetVisibleEnemies) Perform() bool {
 		position := task.context.level.PositionOf(opponent)
 		distance := utils.Distance(task.context.positionOfAgent, position)
 		if distance <= float64(task.context.agent.Visibility()) {
-			char := charPosDist{opponent, position, distance}
-			task.context.visibleEnemies = append(task.context.visibleEnemies, char)
+			if task.isEnemyAtPositionVisible(position) {
+				char := charPosDist{opponent, position, distance}
+				task.context.visibleEnemies = append(task.context.visibleEnemies, char)
+			}
 		}
 	}
 
 	return len(task.context.visibleEnemies) > 0
+}
+
+func (task *GetVisibleEnemies) isEnemyAtPositionVisible(pos utils.Coord) bool {
+	path := utils.Line(task.context.positionOfAgent, pos)
+
+	for _, coord := range path {
+		if task.context.level.IsObstacleAtPosition(coord) {
+			return false
+		}
+	}
+
+	return true
 }
