@@ -15,7 +15,7 @@ type MoveAction struct {
 
 // NewMoveAction initialise a new Action.
 func NewMoveAction(lvl *core.Level, agent character.Character, path *core.Path) *MoveAction {
-	return &MoveAction{newactionBaseParameters(lvl, agent), path}
+	return &MoveAction{newActionBaseParameters(lvl, agent), path}
 }
 
 // IsDoable checks if the path is valid.

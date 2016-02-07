@@ -12,7 +12,7 @@ type actionBaseParameters struct {
 	team  *core.Team
 }
 
-func newactionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
+func newActionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
 	team := level.GetTeamOf(agent)
 	return actionBaseParameters{level, agent, team}
 }
