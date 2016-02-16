@@ -60,7 +60,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
 	level := core.NewLevel(utils.Coord{1, 10}, 2)
-	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
+	char1 := &character.Mock{VisibilityMock: character.DefaultVisibility}
 	char2 := &character.Mock{}
 	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
 	level.AddCharacter(char2, utils.Coord{0, 9}, 1)
@@ -82,7 +82,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	level := core.NewLevel(utils.Coord{1, 10}, 2)
 	level.Map().SetCell(utils.Coord{0, 1}, core.WALL)
-	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
+	char1 := &character.Mock{VisibilityMock: character.DefaultVisibility}
 	char2 := &character.Mock{}
 	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
 	level.AddCharacter(char2, utils.Coord{0, 4}, 1)
@@ -103,7 +103,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 	level := core.NewLevel(utils.Coord{1, 10}, 2)
-	char1 := &character.Mock{VisibilityMock: character.DEFAULT_VISIBILITY}
+	char1 := &character.Mock{VisibilityMock: character.DefaultVisibility}
 	char2 := &character.Mock{}
 	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
 	level.AddCharacter(char2, utils.Coord{0, 5}, 1)

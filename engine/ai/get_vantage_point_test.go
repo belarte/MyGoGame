@@ -29,7 +29,7 @@ func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 }
 
 func TestGetVantagePointPerformNoObstacle(t *testing.T) {
-	agent := &character.Mock{RangeMock: character.DEFAULT_RANGE}
+	agent := &character.Mock{RangeMock: character.DefaultRange}
 	level := core.NewLevel(utils.Coord{1, 5}, 1)
 	level.AddCharacter(agent, utils.Coord{0, 0}, 0)
 	context := &context{agent: agent, level: level, closestEnemyPosition: utils.Coord{0, 4}}
@@ -47,7 +47,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 }
 
 func TestGetVantagePointPerformObstacle(t *testing.T) {
-	agent := &character.Mock{RangeMock: character.DEFAULT_RANGE}
+	agent := &character.Mock{RangeMock: character.DefaultRange}
 	level := core.NewLevel(utils.Coord{2, 5}, 1)
 	level.AddCharacter(agent, utils.Coord{0, 0}, 0)
 	level.Map().SetCell(utils.Coord{0, 3}, core.WALL)

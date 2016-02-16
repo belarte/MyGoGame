@@ -2,9 +2,9 @@ package character
 
 // Default values for character's stats.
 const (
-	DEFAULT_VISIBILITY = 8
-	DEFAULT_RANGE      = 1
-	DEFAULT_AP         = 5
+	DefaultVisibility = 8
+	DefaultRange      = 1
+	DefaultAP         = 5
 )
 
 // Character represents a player in the game.
@@ -40,17 +40,17 @@ func (p *Protagonist) Name() string {
 
 // ActionPoints returns the current action points.
 func (p *Protagonist) ActionPoints() int {
-	return DEFAULT_AP
+	return DefaultAP
 }
 
 // Visibility returns the visibility.
 func (p *Protagonist) Visibility() int {
-	return DEFAULT_VISIBILITY
+	return DefaultVisibility
 }
 
 // Range returns the range.
 func (p *Protagonist) Range() int {
-	return DEFAULT_RANGE
+	return DefaultRange
 }
 
 type movePointsHandler struct {

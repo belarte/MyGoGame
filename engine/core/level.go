@@ -7,8 +7,8 @@ import (
 
 // Default max values.
 const (
-	MAX_PLAYERS_BY_TEAM = 5
-	MAX_PLAYERS         = 2 * MAX_PLAYERS_BY_TEAM
+	MaxPlayersByTeam = 5
+	MaxPlayers       = 2 * MaxPlayersByTeam
 )
 
 // Level represents a level of the game.
@@ -87,6 +87,7 @@ func (lvl *Level) IsCharacterAtPosition(pos utils.Coord) bool {
 	return false
 }
 
+// IsObstacleAtPosition checks for obstacles at given position.
 func (lvl *Level) IsObstacleAtPosition(pos utils.Coord) bool {
 	return lvl.maps.GetCell(pos) == WALL
 }

@@ -69,5 +69,5 @@ func (team *Team) IsCharacterAtPosition(pos utils.Coord) bool {
 
 // IsFull checks if the team is at maximum capacity.
 func (team *Team) IsFull() bool {
-	return len(team.characters) == MAX_PLAYERS_BY_TEAM
+	return len(team.characters) == MaxPlayersByTeam
 }
