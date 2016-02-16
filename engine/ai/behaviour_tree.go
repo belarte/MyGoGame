@@ -41,18 +41,18 @@ type Task interface {
 	Perform() bool
 }
 
-// MockTask is a mock implementation of a task.
-type MockTask struct {
-	CheckConditionsMock bool
-	PerformMock         bool
+// Fake is a task implementation for testing purposes.
+type Fake struct {
+	FakeCheckConditions bool
+	FakePerform         bool
 }
 
 // CheckConditions implementation for MockTask
-func (mock *MockTask) CheckConditions() bool {
-	return mock.CheckConditionsMock
+func (task *Fake) CheckConditions() bool {
+	return task.FakeCheckConditions
 }
 
 // Perform implementation for MockTask.
-func (mock *MockTask) Perform() bool {
-	return mock.PerformMock
+func (task *Fake) Perform() bool {
+	return task.FakePerform
 }

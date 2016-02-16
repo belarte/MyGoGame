@@ -13,7 +13,7 @@ func TestSequenceCheckConditionsNoTasks(t *testing.T) {
 }
 
 func TestSequenceCheckConditionsTasksListNotEmpty(t *testing.T) {
-	subTask := &MockTask{}
+	subTask := &Fake{}
 	task := NewSequence(nil)
 	task.Add(subTask)
 
@@ -23,7 +23,7 @@ func TestSequenceCheckConditionsTasksListNotEmpty(t *testing.T) {
 }
 
 func TestSequencePerformSubTaskCheckConditionsFailed(t *testing.T) {
-	subTask := &MockTask{CheckConditionsMock: false}
+	subTask := &Fake{FakeCheckConditions: false}
 	task := NewSequence(nil)
 	task.Add(subTask)
 
@@ -33,7 +33,7 @@ func TestSequencePerformSubTaskCheckConditionsFailed(t *testing.T) {
 }
 
 func TestSequencePerformSubTaskPerformFailed(t *testing.T) {
-	subTask := &MockTask{CheckConditionsMock: true, PerformMock: false}
+	subTask := &Fake{FakeCheckConditions: true, FakePerform: false}
 	task := NewSequence(nil)
 	task.Add(subTask)
 
@@ -43,7 +43,7 @@ func TestSequencePerformSubTaskPerformFailed(t *testing.T) {
 }
 
 func TestSequencePerformSubTaskPerformSucceeded(t *testing.T) {
-	subTask := &MockTask{CheckConditionsMock: true, PerformMock: true}
+	subTask := &Fake{FakeCheckConditions: true, FakePerform: true}
 	task := NewSequence(nil)
 	task.Add(subTask)
 	task.Add(subTask)
