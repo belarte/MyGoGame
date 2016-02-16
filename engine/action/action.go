@@ -23,36 +23,17 @@ type Action interface {
 	Perform() bool
 }
 
-// Mock action
-type Mock struct {
-	IsDoableMock, PerformMock bool
+// Fake action
+type Fake struct {
+	FakeIsDoable, FakePerform bool
 }
 
 // IsDoable return the parameter given on initialisation.
-func (action *Mock) IsDoable() bool {
-	return action.IsDoableMock
+func (action *Fake) IsDoable() bool {
+	return action.FakeIsDoable
 }
 
 // Perform return the parameter given on initialisation.
-func (action *Mock) Perform() bool {
-	return action.PerformMock
+func (action *Fake) Perform() bool {
+	return action.FakePerform
 }
-
-/*
-type AttackAction struct {
-	actionBaseParameters
-	target core.Character
-}
-
-func NewAttackAction(lvl *core.Level, agent, target core.Character) *AttackAction {
-	return &AttackAction{newactionBaseParameters(lvl, agent), target}
-}
-
-func (action *AttackAction) IsDoable() bool {
-	return false
-}
-
-func (action *AttackAction) Perform() bool {
-	return false
-}
-*/

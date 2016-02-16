@@ -23,7 +23,7 @@ func TestMoveToDestinationConstruction(t *testing.T) {
 }
 
 func TestMoveToDestinationCheckConditionsIsDoableFail(t *testing.T) {
-	action := &action.Mock{IsDoableMock: false}
+	action := &action.Fake{FakeIsDoable: false}
 	task := MoveToDestination{moveAction: action}
 
 	if task.CheckConditions() {
@@ -32,7 +32,7 @@ func TestMoveToDestinationCheckConditionsIsDoableFail(t *testing.T) {
 }
 
 func TestMoveToDestinationCheckConditionsIsDoableSuccess(t *testing.T) {
-	action := &action.Mock{IsDoableMock: true}
+	action := &action.Fake{FakeIsDoable: true}
 	task := MoveToDestination{moveAction: action}
 
 	if !task.CheckConditions() {
@@ -41,7 +41,7 @@ func TestMoveToDestinationCheckConditionsIsDoableSuccess(t *testing.T) {
 }
 
 func TestMoveToDestinationPerformActionPerformFail(t *testing.T) {
-	action := &action.Mock{IsDoableMock: false}
+	action := &action.Fake{FakeIsDoable: false}
 	task := MoveToDestination{moveAction: action}
 
 	if task.CheckConditions() {
@@ -50,7 +50,7 @@ func TestMoveToDestinationPerformActionPerformFail(t *testing.T) {
 }
 
 func TestMoveToDestinationPerformActionPerformSuccess(t *testing.T) {
-	action := &action.Mock{PerformMock: true}
+	action := &action.Fake{FakePerform: true}
 	task := MoveToDestination{moveAction: action}
 
 	if !task.Perform() {
