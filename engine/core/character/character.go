@@ -83,49 +83,49 @@ func (handler *movePointsHandler) Reset() {
 	handler.currentMP = handler.baseMP + handler.bonus
 }
 
-// Mock Character
-type Mock struct {
-	NameMock         string
-	MovePointsMock   float64
-	ConsumeMPMock    bool
-	ActionPointsMock int
-	VisibilityMock   int
-	RangeMock        int
+// Fake Character
+type Fake struct {
+	FakeName         string
+	FakeMovePoints   float64
+	FakeConsumeMP    bool
+	FakeActionPoints int
+	FakeVisibility   int
+	FakeRange        int
 }
 
 // Name mock
-func (mock *Mock) Name() string {
-	return mock.NameMock
+func (mock *Fake) Name() string {
+	return mock.FakeName
 }
 
 // MovePoints mock
-func (mock *Mock) MovePoints() float64 {
-	return mock.MovePointsMock
+func (mock *Fake) MovePoints() float64 {
+	return mock.FakeMovePoints
 }
 
 // ConsumeMovePoints mock
-func (mock *Mock) ConsumeMovePoints(points float64) bool {
-	mock.MovePointsMock -= points
-	return mock.ConsumeMPMock
+func (mock *Fake) ConsumeMovePoints(points float64) bool {
+	mock.FakeMovePoints -= points
+	return mock.FakeConsumeMP
 }
 
 // Reset mock
-func (mock *Mock) Reset() {
+func (mock *Fake) Reset() {
 }
 
 // ActionPoints mock
-func (mock *Mock) ActionPoints() int {
-	return mock.ActionPointsMock
+func (mock *Fake) ActionPoints() int {
+	return mock.FakeActionPoints
 }
 
 // Visibility mock
-func (mock *Mock) Visibility() int {
-	return mock.VisibilityMock
+func (mock *Fake) Visibility() int {
+	return mock.FakeVisibility
 }
 
 // Range mock
-func (mock *Mock) Range() int {
-	return mock.RangeMock
+func (mock *Fake) Range() int {
+	return mock.FakeRange
 }
 
 /*

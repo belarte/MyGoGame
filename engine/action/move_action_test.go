@@ -10,7 +10,7 @@ import (
 
 func TestIsDoableEmptyPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{}
+	char := &character.Fake{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, &Path{})
@@ -22,7 +22,7 @@ func TestIsDoableEmptyPath(t *testing.T) {
 
 func TestIsDoableNilPath(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{}
+	char := &character.Fake{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	action := NewMoveAction(level, char, nil)
@@ -34,7 +34,7 @@ func TestIsDoableNilPath(t *testing.T) {
 
 func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{}
+	char := &character.Fake{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -48,7 +48,7 @@ func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 
 func TestIsDoableOK(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{}
+	char := &character.Fake{}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -62,7 +62,7 @@ func TestIsDoableOK(t *testing.T) {
 
 func TestPerformOk(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{MovePointsMock: 10, ConsumeMPMock: true}
+	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
@@ -86,7 +86,7 @@ func TestPerformOk(t *testing.T) {
 
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{MovePointsMock: 1}
+	char := &character.Fake{FakeMovePoints: 1}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path Path
@@ -112,7 +112,7 @@ func TestPerformNotEnoughMovePoints(t *testing.T) {
 
 func TestPerformHasConsumedMovePoints(t *testing.T) {
 	level := NewLevel(Coord{1, 5}, 1)
-	char := &character.Mock{MovePointsMock: 10, ConsumeMPMock: true}
+	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
 	level.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
