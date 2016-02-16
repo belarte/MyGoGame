@@ -93,76 +93,37 @@ type Fake struct {
 	FakeRange        int
 }
 
-// Name mock
-func (mock *Fake) Name() string {
-	return mock.FakeName
+// Name character
+func (character *Fake) Name() string {
+	return character.FakeName
 }
 
-// MovePoints mock
-func (mock *Fake) MovePoints() float64 {
-	return mock.FakeMovePoints
+// MovePoints character
+func (character *Fake) MovePoints() float64 {
+	return character.FakeMovePoints
 }
 
-// ConsumeMovePoints mock
-func (mock *Fake) ConsumeMovePoints(points float64) bool {
-	mock.FakeMovePoints -= points
-	return mock.FakeConsumeMP
+// ConsumeMovePoints character
+func (character *Fake) ConsumeMovePoints(points float64) bool {
+	character.FakeMovePoints -= points
+	return character.FakeConsumeMP
 }
 
-// Reset mock
-func (mock *Fake) Reset() {
+// Reset character
+func (character *Fake) Reset() {
 }
 
-// ActionPoints mock
-func (mock *Fake) ActionPoints() int {
-	return mock.FakeActionPoints
+// ActionPoints character
+func (character *Fake) ActionPoints() int {
+	return character.FakeActionPoints
 }
 
-// Visibility mock
-func (mock *Fake) Visibility() int {
-	return mock.FakeVisibility
+// Visibility character
+func (character *Fake) Visibility() int {
+	return character.FakeVisibility
 }
 
-// Range mock
-func (mock *Fake) Range() int {
-	return mock.FakeRange
+// Range character
+func (character *Fake) Range() int {
+	return character.FakeRange
 }
-
-/*
-type Protagonist struct {
-	name string
-
-	strength     int
-	dexterity    int
-	agility      int
-	intelligence int
-	vitality     int
-
-	currentHP, maxHP int
-}
-
-func NewProtagonist(name string, str, dex, agi, intel, vita int) *Protagonist {
-	maxHP := 50 + 10*vita
-	return &Protagonist{name, str, dex, agi, intel, vita, maxHP, maxHP}
-}
-
-func (self *Protagonist) Name() string {
-	return self.name
-}
-
-func (self Protagonist) Attack() int {
-	return 1 + self.strength
-}
-
-func (self Protagonist) MAttack() int {
-	return 1 + self.intelligence
-}
-
-func (self Protagonist) Defense() int {
-	return 1 + self.strength
-}
-
-func (self Protagonist) MDefense() int {
-	return 1 + self.intelligence
-}
-*/
