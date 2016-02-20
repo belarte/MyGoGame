@@ -1,4 +1,4 @@
-package ai
+package bt
 
 import (
 	"github.com/belarte/MyGoGame/engine/core/character"
