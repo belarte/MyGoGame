@@ -2,6 +2,7 @@ package ai
 
 import (
 	"github.com/belarte/MyGoGame/engine/action"
+	"github.com/belarte/MyGoGame/engine/ai/pathfinder"
 )
 
 // MoveToDestination moves the agent to the position set in the context.
@@ -13,7 +14,7 @@ type MoveToDestination struct {
 // NewMoveToDestination computes the path to context.destination and returns
 // the new task that will perform the MoveAction.
 func NewMoveToDestination(context *context) *MoveToDestination {
-	finder := NewPathFinder(context.lvl)
+	finder := pathfinder.New(context.lvl)
 	path := finder.ShortestPath(context.positionOfAgent, context.destination)
 	action := action.NewMoveAction(context.lvl, context.agent, &path)
 	return &MoveToDestination{context: context, moveAction: action}

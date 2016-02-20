@@ -1,4 +1,4 @@
-package ai
+package pathfinder
 
 import (
 	"math"
@@ -21,8 +21,8 @@ type PathFinder struct {
 	closedList, openList nodeList
 }
 
-// NewPathFinder constructs a new PathFinder
-func NewPathFinder(lvl *level.Level) *PathFinder {
+// New constructs a new PathFinder
+func New(lvl *level.Level) *PathFinder {
 	return &PathFinder{lvl, make(map[utils.Coord]node), make(map[utils.Coord]node)}
 }
 
