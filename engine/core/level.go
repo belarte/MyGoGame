@@ -2,29 +2,24 @@ package core
 
 import (
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/team"
 	"github.com/belarte/MyGoGame/engine/utils"
-)
-
-// Default max values.
-const (
-	MaxPlayersByTeam = 5
-	MaxPlayers       = 2 * MaxPlayersByTeam
 )
 
 // Level represents a level of the game.
 // It has a map and a list of teams.
 type Level struct {
 	maps  *Map
-	teams []*Team
+	teams []*team.Team
 }
 
 // NewLevel returns the new level.
 func NewLevel(size utils.Coord, numTeams int) *Level {
 	m := NewMap(size)
 
-	teams := make([]*Team, numTeams, numTeams)
+	teams := make([]*team.Team, numTeams, numTeams)
 	for i := 0; i < numTeams; i++ {
-		teams[i] = NewTeam()
+		teams[i] = team.NewTeam()
 	}
 
 	return &Level{m, teams}
@@ -45,7 +40,7 @@ func (lvl *Level) AddCharacter(c character.Character, pos utils.Coord, team int)
 }
 
 // GetTeamOf return the team of the given Character.
-func (lvl *Level) GetTeamOf(char character.Character) *Team {
+func (lvl *Level) GetTeamOf(char character.Character) *team.Team {
 	for _, team := range lvl.teams {
 		if c, _ := team.GetCharacter(char); c != nil {
 			return team

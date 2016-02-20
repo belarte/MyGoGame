@@ -1,8 +1,14 @@
-package core
+package team
 
 import (
 	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/utils"
+)
+
+// Default max values.
+const (
+	MaxPlayersByTeam = 5
+	MaxPlayers       = 2 * MaxPlayersByTeam
 )
 
 // Team represents a team of Character with given positions.

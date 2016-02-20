@@ -4,12 +4,13 @@ package action
 import (
 	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/team"
 )
 
 type actionBaseParameters struct {
 	level *core.Level
 	agent character.Character
-	team  *core.Team
+	team  *team.Team
 }
 
 func newActionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
