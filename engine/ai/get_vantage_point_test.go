@@ -3,8 +3,8 @@ package ai
 import (
 	"testing"
 
-	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -19,8 +19,8 @@ func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 	agent := &character.Fake{}
-	level := core.NewLevel(utils.Coord{0, 0}, 0)
-	context := &context{agent: agent, level: level, closestEnemyPosition: utils.Coord{0, 0}}
+	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 0}}
 	task := NewGetVantagePoint(context)
 
 	if !task.CheckConditions() {
@@ -30,9 +30,9 @@ func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	level := core.NewLevel(utils.Coord{1, 5}, 1)
-	level.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	context := &context{agent: agent, level: level, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.NewLevel(utils.Coord{1, 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -48,10 +48,10 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	level := core.NewLevel(utils.Coord{2, 5}, 1)
-	level.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	level.Map().SetCell(utils.Coord{0, 3}, core.WALL)
-	context := &context{agent: agent, level: level, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.NewLevel(utils.Coord{2, 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
+	lvl.Map().SetCell(utils.Coord{0, 3}, level.WALL)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -67,12 +67,12 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	agent := &character.Fake{FakeRange: 3}
-	level := core.NewLevel(utils.Coord{4, 5}, 1)
-	level.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	level.Map().SetCell(utils.Coord{0, 3}, core.WALL)
-	level.Map().SetCell(utils.Coord{1, 3}, core.WALL)
-	level.Map().SetCell(utils.Coord{2, 3}, core.WALL)
-	context := &context{agent: agent, level: level, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.NewLevel(utils.Coord{4, 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
+	lvl.Map().SetCell(utils.Coord{0, 3}, level.WALL)
+	lvl.Map().SetCell(utils.Coord{1, 3}, level.WALL)
+	lvl.Map().SetCell(utils.Coord{2, 3}, level.WALL)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {

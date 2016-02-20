@@ -2,18 +2,18 @@
 package action
 
 import (
-	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/core/team"
 )
 
 type actionBaseParameters struct {
-	level *core.Level
+	level *level.Level
 	agent character.Character
 	team  *team.Team
 }
 
-func newActionBaseParameters(level *core.Level, agent character.Character) actionBaseParameters {
+func newActionBaseParameters(level *level.Level, agent character.Character) actionBaseParameters {
 	team := level.GetTeamOf(agent)
 	return actionBaseParameters{level, agent, team}
 }

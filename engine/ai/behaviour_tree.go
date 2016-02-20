@@ -1,8 +1,8 @@
 package ai
 
 import (
-	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -13,7 +13,7 @@ type charPosDist struct {
 }
 
 type context struct {
-	level                *core.Level
+	lvl                  *level.Level
 	agent                character.Character
 	positionOfAgent      utils.Coord
 	visibleEnemies       []charPosDist
@@ -22,11 +22,11 @@ type context struct {
 	destination          utils.Coord
 }
 
-func newContext(level *core.Level, agent character.Character) *context {
+func newContext(lvl *level.Level, agent character.Character) *context {
 	return &context{
-		level:                level,
+		lvl:                  lvl,
 		agent:                agent,
-		positionOfAgent:      level.PositionOf(agent),
+		positionOfAgent:      lvl.PositionOf(agent),
 		visibleEnemies:       make([]charPosDist, 0, 4),
 		closestEnemyPosition: utils.NilCoord,
 		destination:          utils.NilCoord,

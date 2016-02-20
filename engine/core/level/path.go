@@ -1,4 +1,4 @@
-package core
+package level
 
 import (
 	"github.com/belarte/MyGoGame/engine/utils"

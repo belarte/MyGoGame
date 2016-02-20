@@ -13,9 +13,9 @@ type MoveToDestination struct {
 // NewMoveToDestination computes the path to context.destination and returns
 // the new task that will perform the MoveAction.
 func NewMoveToDestination(context *context) *MoveToDestination {
-	finder := NewPathFinder(context.level)
+	finder := NewPathFinder(context.lvl)
 	path := finder.ShortestPath(context.positionOfAgent, context.destination)
-	action := action.NewMoveAction(context.level, context.agent, &path)
+	action := action.NewMoveAction(context.lvl, context.agent, &path)
 	return &MoveToDestination{context: context, moveAction: action}
 }
 

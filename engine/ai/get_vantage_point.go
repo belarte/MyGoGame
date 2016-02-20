@@ -3,7 +3,7 @@ package ai
 import (
 	"math"
 
-	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -22,7 +22,7 @@ func NewGetVantagePoint(context *context) *GetVantagePoint {
 // CheckConditions checks that the level, the agent and the closest
 // enemy's position are not nil.
 func (task *GetVantagePoint) CheckConditions() bool {
-	return task.context.level != nil &&
+	return task.context.lvl != nil &&
 		task.context.agent != nil &&
 		task.context.closestEnemyPosition != utils.NilCoord
 }
@@ -34,7 +34,7 @@ func (task *GetVantagePoint) Perform() bool {
 
 	distance := math.MaxFloat64
 	task.context.destination = utils.NilCoord
-	maps := task.context.level.Map()
+	maps := task.context.lvl.Map()
 	for _, position := range positions {
 		if !maps.IsWithinBounds(position) || task.isSightBlocked(maps, position) {
 			continue
@@ -50,10 +50,10 @@ func (task *GetVantagePoint) Perform() bool {
 	return task.context.destination != utils.NilCoord
 }
 
-func (task *GetVantagePoint) isSightBlocked(maps *core.Map, pos utils.Coord) bool {
+func (task *GetVantagePoint) isSightBlocked(maps *level.Map, pos utils.Coord) bool {
 	line := utils.Line(task.context.closestEnemyPosition, pos)
 	for _, pos := range line {
-		if maps.GetCell(pos) == core.WALL {
+		if maps.GetCell(pos) == level.WALL {
 			return true
 		}
 	}

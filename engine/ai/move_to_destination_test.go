@@ -4,13 +4,13 @@ import (
 	"testing"
 
 	"github.com/belarte/MyGoGame/engine/action"
-	"github.com/belarte/MyGoGame/engine/core"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestMoveToDestinationConstruction(t *testing.T) {
 	context := &context{
-		level:           core.NewLevel(utils.Coord{1, 1}, 1),
+		lvl:             level.NewLevel(utils.Coord{1, 1}, 1),
 		positionOfAgent: utils.Coord{0, 0},
 		destination:     utils.Coord{0, 0},
 	}

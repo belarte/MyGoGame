@@ -1,8 +1,8 @@
 package action
 
 import (
-	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	l "github.com/belarte/MyGoGame/engine/log"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
@@ -10,11 +10,11 @@ import (
 // MoveAction move a character along the given path.
 type MoveAction struct {
 	actionBaseParameters
-	path *core.Path
+	path *level.Path
 }
 
 // NewMoveAction initialise a new Action.
-func NewMoveAction(lvl *core.Level, agent character.Character, path *core.Path) *MoveAction {
+func NewMoveAction(lvl *level.Level, agent character.Character, path *level.Path) *MoveAction {
 	return &MoveAction{newActionBaseParameters(lvl, agent), path}
 }
 

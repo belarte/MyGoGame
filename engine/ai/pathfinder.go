@@ -1,9 +1,10 @@
 package ai
 
 import (
-	"github.com/belarte/MyGoGame/engine/core"
-	"github.com/belarte/MyGoGame/engine/utils"
 	"math"
+
+	"github.com/belarte/MyGoGame/engine/core/level"
+	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 type node struct {
@@ -16,17 +17,17 @@ type nodeList map[utils.Coord]node
 // PathFinder compute the shortest path betwin two coordinates.
 // It handles the topography of the map.
 type PathFinder struct {
-	level                *core.Level
+	lvl                  *level.Level
 	closedList, openList nodeList
 }
 
 // NewPathFinder constructs a new PathFinder
-func NewPathFinder(level *core.Level) *PathFinder {
-	return &PathFinder{level, make(map[utils.Coord]node), make(map[utils.Coord]node)}
+func NewPathFinder(lvl *level.Level) *PathFinder {
+	return &PathFinder{lvl, make(map[utils.Coord]node), make(map[utils.Coord]node)}
 }
 
 // ShortestPath computes the shortest path.
-func (finder *PathFinder) ShortestPath(start, dest utils.Coord) core.Path {
+func (finder *PathFinder) ShortestPath(start, dest utils.Coord) level.Path {
 	finder.openList = make(map[utils.Coord]node)
 	finder.closedList = make(map[utils.Coord]node)
 
@@ -43,7 +44,7 @@ func (finder *PathFinder) ShortestPath(start, dest utils.Coord) core.Path {
 		finder.addAdjacentCells(current, dest)
 	}
 
-	var result core.Path
+	var result level.Path
 
 	if current == dest && start != dest {
 		result = finder.retrievePath(start, dest)
@@ -67,10 +68,10 @@ func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
 
 	for _, coord := range coords {
 		if !finder.isInList(coord, finder.closedList) &&
-			finder.level.Map().GetCell(coord) != core.WALL &&
-			!finder.level.IsCharacterAtPosition(coord) {
+			finder.lvl.Map().GetCell(coord) != level.WALL &&
+			!finder.lvl.IsCharacterAtPosition(coord) {
 
-			cellWeight := core.CellWeight(finder.level.Map().GetCell(coord))
+			cellWeight := level.CellWeight(finder.lvl.Map().GetCell(coord))
 			dist := utils.Distance(coord, c)
 			gcost := finder.closedList[c].gCost + dist*cellWeight
 			hcost := utils.Distance(coord, dest)
@@ -89,7 +90,7 @@ func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
 }
 
 func (finder *PathFinder) getAdjacentCells(c utils.Coord) []utils.Coord {
-	size := finder.level.Map().Size()
+	size := finder.lvl.Map().Size()
 
 	xx := make([]int, 0, 3)
 	xx = append(xx, c.X)
@@ -143,15 +144,15 @@ func (finder *PathFinder) addToCloseList(c utils.Coord) {
 	delete(finder.openList, c)
 }
 
-func (finder *PathFinder) retrievePath(start, dest utils.Coord) core.Path {
-	var result core.Path
+func (finder *PathFinder) retrievePath(start, dest utils.Coord) level.Path {
+	var result level.Path
 
 	tmp := finder.closedList[dest]
 	current := dest
 	previous := tmp.parent
 
 	for current != start {
-		weight := core.CellWeight(finder.level.Map().GetCell(current)) * utils.Distance(current, previous)
+		weight := level.CellWeight(finder.lvl.Map().GetCell(current)) * utils.Distance(current, previous)
 		result.Add(current, weight)
 
 		current = previous

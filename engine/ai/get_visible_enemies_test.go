@@ -3,8 +3,8 @@ package ai
 import (
 	"testing"
 
-	"github.com/belarte/MyGoGame/engine/core"
 	"github.com/belarte/MyGoGame/engine/core/character"
+	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -19,8 +19,8 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
-	level := core.NewLevel(utils.Coord{0, 0}, 0)
-	context := &context{level: level}
+	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
+	context := &context{lvl: lvl}
 	task := NewGetVisibleEnemies(context)
 
 	if task.CheckConditions() {
@@ -29,9 +29,9 @@ func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
-	level := core.NewLevel(utils.Coord{0, 0}, 0)
+	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
 	char := &character.Fake{}
-	context := newContext(level, char)
+	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
 
 	if !task.CheckConditions() {
@@ -40,10 +40,10 @@ func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
-	level := core.NewLevel(utils.Coord{0, 0}, 2)
+	lvl := level.NewLevel(utils.Coord{0, 0}, 2)
 	char := &character.Fake{}
-	level.AddCharacter(char, utils.Coord{0, 0}, 0)
-	context := newContext(level, char)
+	lvl.AddCharacter(char, utils.Coord{0, 0}, 0)
+	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
 
 	if task.Perform() {
@@ -59,12 +59,12 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
-	level := core.NewLevel(utils.Coord{1, 10}, 2)
+	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
-	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	level.AddCharacter(char2, utils.Coord{0, 9}, 1)
-	context := newContext(level, char1)
+	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{0, 9}, 1)
+	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
 	if task.Perform() {
@@ -80,13 +80,13 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
-	level := core.NewLevel(utils.Coord{1, 10}, 2)
-	level.Map().SetCell(utils.Coord{0, 1}, core.WALL)
+	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
+	lvl.Map().SetCell(utils.Coord{0, 1}, level.WALL)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
-	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	level.AddCharacter(char2, utils.Coord{0, 4}, 1)
-	context := newContext(level, char1)
+	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{0, 4}, 1)
+	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
 	if task.Perform() {
@@ -102,12 +102,12 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
-	level := core.NewLevel(utils.Coord{1, 10}, 2)
+	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
-	level.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	level.AddCharacter(char2, utils.Coord{0, 5}, 1)
-	context := newContext(level, char1)
+	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{0, 5}, 1)
+	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
 	if !task.Perform() {
