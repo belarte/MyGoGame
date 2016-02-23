@@ -16,8 +16,8 @@ type Team struct {
 	characters map[character.Character]utils.Coord
 }
 
-// NewTeam returns a new team.
-func NewTeam() *Team {
+// New returns a new team.
+func New() *Team {
 	characters := make(map[character.Character]utils.Coord)
 	return &Team{characters}
 }
