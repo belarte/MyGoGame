@@ -19,7 +19,7 @@ func NewLevel(size utils.Coord, numTeams int) *Level {
 
 	teams := make([]*team.Team, numTeams, numTeams)
 	for i := 0; i < numTeams; i++ {
-		teams[i] = team.NewTeam()
+		teams[i] = team.New()
 	}
 
 	return &Level{m, teams}
