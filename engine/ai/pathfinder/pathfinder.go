@@ -90,7 +90,7 @@ func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
 }
 
 func (finder *PathFinder) getAdjacentCells(c utils.Coord) []utils.Coord {
-	size := finder.lvl.Map().Size()
+	size := finder.lvl.Dimension()
 
 	xx := make([]int, 0, 3)
 	xx = append(xx, c.X)

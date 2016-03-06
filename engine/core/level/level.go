@@ -13,7 +13,7 @@ type Level struct {
 	teams []*team.Team
 }
 
-// NewLevel returns the new level.
+// New returns the new level.
 func New(size utils.Coord, numTeams int) *Level {
 	m := NewMap(size)
 
@@ -28,6 +28,11 @@ func New(size utils.Coord, numTeams int) *Level {
 // Map returns the map.
 func (lvl *Level) Map() *Map {
 	return lvl.maps
+}
+
+// Dimension returns the map's dimension
+func (lvl *Level) Dimension() utils.Coord {
+	return lvl.maps.Size()
 }
 
 // AddCharacter adds a Character at a position to the given team.
