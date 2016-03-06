@@ -14,7 +14,7 @@ type Level struct {
 }
 
 // NewLevel returns the new level.
-func NewLevel(size utils.Coord, numTeams int) *Level {
+func New(size utils.Coord, numTeams int) *Level {
 	m := NewMap(size)
 
 	teams := make([]*team.Team, numTeams, numTeams)

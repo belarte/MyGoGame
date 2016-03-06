@@ -9,7 +9,7 @@ import (
 )
 
 func TestIsDoableEmptyPath(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -21,7 +21,7 @@ func TestIsDoableEmptyPath(t *testing.T) {
 }
 
 func TestIsDoableNilPath(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -33,7 +33,7 @@ func TestIsDoableNilPath(t *testing.T) {
 }
 
 func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -47,7 +47,7 @@ func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 }
 
 func TestIsDoableOK(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -61,7 +61,7 @@ func TestIsDoableOK(t *testing.T) {
 }
 
 func TestPerformOk(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
@@ -85,7 +85,7 @@ func TestPerformOk(t *testing.T) {
 }
 
 func TestPerformNotEnoughMovePoints(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{FakeMovePoints: 1}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -111,7 +111,7 @@ func TestPerformNotEnoughMovePoints(t *testing.T) {
 }
 
 func TestPerformHasConsumedMovePoints(t *testing.T) {
-	lvl := level.NewLevel(Coord{1, 5}, 1)
+	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}

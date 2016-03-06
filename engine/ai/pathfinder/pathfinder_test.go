@@ -9,7 +9,7 @@ import (
 )
 
 func TestPathToSelfTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 1}, 0)
+	lvl := level.New(utils.Coord{1, 1}, 0)
 	finder := New(lvl)
 
 	shortest := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 0})
@@ -24,7 +24,7 @@ func TestPathToSelfTesting(t *testing.T) {
 }
 
 func TestPathInLineTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 5}, 0)
+	lvl := level.New(utils.Coord{1, 5}, 0)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
@@ -57,7 +57,7 @@ func TestPathInLineTesting(t *testing.T) {
 }
 
 func TestPathInColumnTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{5, 1}, 0)
+	lvl := level.New(utils.Coord{5, 1}, 0)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{4, 0})
@@ -90,7 +90,7 @@ func TestPathInColumnTesting(t *testing.T) {
 }
 
 func TestPathWithObstacleTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{2, 5}, 0)
+	lvl := level.New(utils.Coord{2, 5}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 2}, level.WALL)
 	finder := New(lvl)
 
@@ -124,7 +124,7 @@ func TestPathWithObstacleTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesOverTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{2, 5}, 0)
+	lvl := level.New(utils.Coord{2, 5}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 1}, level.DIFFICULT)
 	lvl.Map().SetCell(utils.Coord{0, 2}, level.DIFFICULT)
 	lvl.Map().SetCell(utils.Coord{0, 3}, level.DIFFICULT)
@@ -160,7 +160,7 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesCrossTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{2, 5}, 0)
+	lvl := level.New(utils.Coord{2, 5}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 1}, level.DIFFICULT)
 	lvl.Map().SetCell(utils.Coord{0, 2}, level.DIFFICULT)
 	lvl.Map().SetCell(utils.Coord{0, 3}, level.DIFFICULT)
@@ -198,7 +198,7 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 
 func TestPathWithProtagonistTesting(t *testing.T) {
 	char := &character.Fake{}
-	lvl := level.NewLevel(utils.Coord{2, 5}, 1)
+	lvl := level.New(utils.Coord{2, 5}, 1)
 	lvl.AddCharacter(char, utils.Coord{0, 2}, 0)
 
 	finder := New(lvl)
@@ -233,7 +233,7 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 }
 
 func TestPathNotPossibleTesting(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 5}, 0)
+	lvl := level.New(utils.Coord{1, 5}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 2}, level.WALL)
 	finder := New(lvl)
 
@@ -293,7 +293,7 @@ func TestIsInList(t *testing.T) {
 }
 
 func TestGetAdjacentCells(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{3, 3}, 0)
+	lvl := level.New(utils.Coord{3, 3}, 0)
 	finder := New(lvl)
 
 	results := [][]utils.Coord{finder.getAdjacentCells(utils.Coord{0, 0}),

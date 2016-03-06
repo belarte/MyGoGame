@@ -19,7 +19,7 @@ func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 	agent := &character.Fake{}
-	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
+	lvl := level.New(utils.Coord{0, 0}, 0)
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 0}}
 	task := NewGetVantagePoint(context)
 
@@ -30,7 +30,7 @@ func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	lvl := level.NewLevel(utils.Coord{1, 5}, 1)
+	lvl := level.New(utils.Coord{1, 5}, 1)
 	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
 	task := NewGetVantagePoint(context)
@@ -48,7 +48,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	lvl := level.NewLevel(utils.Coord{2, 5}, 1)
+	lvl := level.New(utils.Coord{2, 5}, 1)
 	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 3}, level.WALL)
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
@@ -67,7 +67,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	agent := &character.Fake{FakeRange: 3}
-	lvl := level.NewLevel(utils.Coord{4, 5}, 1)
+	lvl := level.New(utils.Coord{4, 5}, 1)
 	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
 	lvl.Map().SetCell(utils.Coord{0, 3}, level.WALL)
 	lvl.Map().SetCell(utils.Coord{1, 3}, level.WALL)

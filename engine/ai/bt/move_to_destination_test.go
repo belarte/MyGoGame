@@ -10,7 +10,7 @@ import (
 
 func TestMoveToDestinationConstruction(t *testing.T) {
 	context := &context{
-		lvl:             level.NewLevel(utils.Coord{1, 1}, 1),
+		lvl:             level.New(utils.Coord{1, 1}, 1),
 		positionOfAgent: utils.Coord{0, 0},
 		destination:     utils.Coord{0, 0},
 	}

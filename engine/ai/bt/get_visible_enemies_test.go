@@ -19,7 +19,7 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
+	lvl := level.New(utils.Coord{0, 0}, 0)
 	context := &context{lvl: lvl}
 	task := NewGetVisibleEnemies(context)
 
@@ -29,7 +29,7 @@ func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{0, 0}, 0)
+	lvl := level.New(utils.Coord{0, 0}, 0)
 	char := &character.Fake{}
 	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
@@ -40,7 +40,7 @@ func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{0, 0}, 2)
+	lvl := level.New(utils.Coord{0, 0}, 2)
 	char := &character.Fake{}
 	lvl.AddCharacter(char, utils.Coord{0, 0}, 0)
 	context := newContext(lvl, char)
@@ -59,7 +59,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
+	lvl := level.New(utils.Coord{1, 10}, 2)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
 	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
@@ -80,7 +80,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
+	lvl := level.New(utils.Coord{1, 10}, 2)
 	lvl.Map().SetCell(utils.Coord{0, 1}, level.WALL)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
@@ -102,7 +102,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
-	lvl := level.NewLevel(utils.Coord{1, 10}, 2)
+	lvl := level.New(utils.Coord{1, 10}, 2)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
 	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
