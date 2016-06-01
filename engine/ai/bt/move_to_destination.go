@@ -14,14 +14,14 @@ type MoveToDestination struct {
 // NewMoveToDestination computes the path to context.destination and returns
 // the new task that will perform the MoveAction.
 func NewMoveToDestination(context *context) *MoveToDestination {
-	finder := pathfinder.New(context.lvl)
-	path := finder.ShortestPath(context.positionOfAgent, context.destination)
-	action := action.NewMoveAction(context.lvl, context.agent, &path)
-	return &MoveToDestination{context: context, moveAction: action}
+	return &MoveToDestination{context: context, moveAction: nil}
 }
 
 // CheckConditions checks if the MoveAction is doable.
 func (task *MoveToDestination) CheckConditions() bool {
+	finder := pathfinder.New(task.context.lvl)
+	path := finder.ShortestPath(task.context.positionOfAgent, task.context.destination)
+	task.moveAction = action.NewMoveAction(task.context.lvl, task.context.agent, &path)
 	return task.moveAction.IsDoable()
 }
 
