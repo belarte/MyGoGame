@@ -4,31 +4,8 @@ import (
 	"testing"
 )
 
-/*
-type movePointsHandler struct {
-	currentMP, baseMP, bonus float64
-}
-
-func (handler *movePointsHandler) MovePoints() float64 {
-	return handler.currentMP
-}
-
-func (handler *movePointsHandler) ConsumeMovePoints(points float64) bool {
-	if points > handler.currentMP {
-		return false
-	}
-
-	handler.currentMP -= points
-	return true
-}
-
-func (handler *movePointsHandler) Reset() {
-	handler.currentMP = handler.baseMP + handler.bonus
-}
-*/
-
-func TestMPHandlerMovePoints(t *testing.T) {
-	handler := newMovePointsHandler(5, 1)
+func TestMovePoints(t *testing.T) {
+	handler := NewSimpleMovePointsComponent(5, 1)
 	expected := 6.0
 	result := handler.MovePoints()
 
@@ -37,8 +14,8 @@ func TestMPHandlerMovePoints(t *testing.T) {
 	}
 }
 
-func TestMPHandlerConsume(t *testing.T) {
-	handler := movePointsHandler{currentMP: 5}
+func TestConsumeMovePoints(t *testing.T) {
+	handler := SimpleMovePointsComponent{currentMP: 5}
 
 	var expected = []bool{true, true, false}
 	var results = []bool{handler.ConsumeMovePoints(2),
@@ -53,8 +30,8 @@ func TestMPHandlerConsume(t *testing.T) {
 	}
 }
 
-func TestMPHandlerReset(t *testing.T) {
-	handler := newMovePointsHandler(5, 1)
+func TestResetMovePoints(t *testing.T) {
+	handler := NewSimpleMovePointsComponent(5, 1)
 
 	var expected = []float64{6, 5, 1}
 	var results = []float64{handler.currentMP, handler.baseMP, handler.bonus}

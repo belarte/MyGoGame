@@ -16,8 +16,10 @@ func TestIntegration(t *testing.T) {
 	char1 := &character.Fake{
 		FakeVisibility: character.DefaultVisibility,
 		FakeRange:      character.DefaultRange,
-		FakeMovePoints: 10,
-		FakeConsumeMP:  true,
+		FakeMovePointsComponent: character.FakeMovePointsComponent{
+			FakeMovePoints: 10,
+			FakeConsumeMP:  true,
+		},
 	}
 	char2 := &character.Fake{}
 	char3 := &character.Fake{}

@@ -62,7 +62,9 @@ func TestIsDoableOK(t *testing.T) {
 
 func TestPerformOk(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
-	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
+	char := &character.Fake{
+		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
+	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
@@ -86,7 +88,9 @@ func TestPerformOk(t *testing.T) {
 
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
-	char := &character.Fake{FakeMovePoints: 1}
+	char := &character.Fake{
+		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 1},
+	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
 	var path level.Path
@@ -112,7 +116,9 @@ func TestPerformNotEnoughMovePoints(t *testing.T) {
 
 func TestPerformHasConsumedMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
-	char := &character.Fake{FakeMovePoints: 10, FakeConsumeMP: true}
+	char := &character.Fake{
+		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
+	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 	dest := Coord{0, 1}
 
