@@ -15,8 +15,6 @@ type Character interface {
 	ConsumeMovePoints(float64) bool
 	Reset()
 
-	ActionPoints() int
-
 	Visibility() int
 	Range() int
 }
@@ -36,11 +34,6 @@ func New() *Protagonist {
 // Name returns the name of the character.
 func (p *Protagonist) Name() string {
 	return p.name
-}
-
-// ActionPoints returns the current action points.
-func (p *Protagonist) ActionPoints() int {
-	return DefaultAP
 }
 
 // Visibility returns the visibility.
@@ -111,11 +104,6 @@ func (character *Fake) ConsumeMovePoints(points float64) bool {
 
 // Reset character
 func (character *Fake) Reset() {
-}
-
-// ActionPoints character
-func (character *Fake) ActionPoints() int {
-	return character.FakeActionPoints
 }
 
 // Visibility character
