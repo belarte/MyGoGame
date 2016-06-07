@@ -28,3 +28,23 @@ func (component *Position2DComponent) MoveTo(position utils.Coord) {
 func (component *Position2DComponent) IsAtPosition(position utils.Coord) bool {
 	return component.position == position
 }
+
+// FakePositionComponent for testing
+type FakePositionComponent struct {
+	FakePosition     utils.Coord
+	FakeIsAtPosition bool
+}
+
+// Position returns the current position.
+func (component *FakePositionComponent) Position() utils.Coord {
+	return component.FakePosition
+}
+
+// MoveTo sets a new position.
+func (component *FakePositionComponent) MoveTo(position utils.Coord) {
+}
+
+// IsAtPosition return true is the parameter match the current position.
+func (component *FakePositionComponent) IsAtPosition(position utils.Coord) bool {
+	return component.FakeIsAtPosition
+}

@@ -41,13 +41,14 @@ func (lvl *Level) AddCharacter(c character.Character, pos utils.Coord, team int)
 		return false
 	}
 
-	return lvl.teams[team].AddCharacter(c, pos)
+	c.MoveTo(pos)
+	return lvl.teams[team].AddCharacter(c)
 }
 
 // GetTeamOf return the team of the given Character.
 func (lvl *Level) GetTeamOf(char character.Character) *team.Team {
 	for _, team := range lvl.teams {
-		if c, _ := team.GetCharacter(char); c != nil {
+		if team.Contains(char) {
 			return team
 		}
 	}
@@ -66,10 +67,11 @@ func (lvl *Level) GetOpponentsOf(char character.Character) (result []character.C
 }
 
 // PositionOf returns the position of the given Character.
+//TODO check if actually useful.
 func (lvl *Level) PositionOf(c character.Character) utils.Coord {
 	for _, team := range lvl.teams {
-		if char, coord := team.GetCharacter(c); char != nil {
-			return coord
+		if team.Contains(c) {
+			return c.Position()
 		}
 	}
 

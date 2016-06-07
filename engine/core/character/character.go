@@ -9,6 +9,7 @@ const (
 
 // Character represents a player in the game.
 type Character interface {
+	PositionComponent
 	MovePointsComponent
 
 	Name() string
@@ -19,6 +20,7 @@ type Character interface {
 
 // Fake Character
 type Fake struct {
+	FakePositionComponent
 	FakeMovePointsComponent
 
 	FakeName       string

@@ -13,49 +13,49 @@ const (
 
 // Team represents a team of Character with given positions.
 type Team struct {
-	characters map[character.Character]utils.Coord
+	characters []character.Character
 }
 
 // New returns a new team.
 func New() *Team {
-	characters := make(map[character.Character]utils.Coord)
+	var characters []character.Character
 	return &Team{characters}
 }
 
 // AddCharacter adds a Character at a given position to the team.
-func (team *Team) AddCharacter(c character.Character, pos utils.Coord) bool {
+func (team *Team) AddCharacter(c character.Character) bool {
 	if team.IsFull() {
 		return false
 	}
 
-	team.characters[c] = pos
-
+	team.characters = append(team.characters, c)
 	return true
+}
+
+// Contains checks if the team contains the given character.
+func (team *Team) Contains(c character.Character) bool {
+	for _, member := range team.characters {
+		if member == c {
+			return true
+		}
+	}
+
+	return false
 }
 
 // GetCharacters returns a list of all the Characters in the team.
 func (team *Team) GetCharacters() (result []character.Character) {
-	for char := range team.characters {
-		result = append(result, char)
-	}
-
-	return
-}
-
-// GetCharacter return a Character and its position.
-func (team *Team) GetCharacter(char character.Character) (character.Character, utils.Coord) {
-	for c, pos := range team.characters {
-		if c == char {
-			return c, pos
-		}
-	}
-
-	return nil, utils.NilCoord
+	return team.characters
 }
 
 // MoveCharacter moves the given Character to the given position.
+//TODO check if actually useful.
 func (team *Team) MoveCharacter(char character.Character, pos utils.Coord) {
-	team.characters[char] = pos
+	for _, c := range team.characters {
+		if c == char {
+			c.MoveTo(pos)
+		}
+	}
 }
 
 // CharactersCount return the current number of Character in the team.
@@ -65,8 +65,8 @@ func (team *Team) CharactersCount() int {
 
 // IsCharacterAtPosition checks if one of the Character is at the given position.
 func (team *Team) IsCharacterAtPosition(pos utils.Coord) bool {
-	for _, p := range team.characters {
-		if p == pos {
+	for _, char := range team.characters {
+		if char.IsAtPosition(pos) {
 			return true
 		}
 	}
