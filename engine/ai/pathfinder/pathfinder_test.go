@@ -91,7 +91,7 @@ func TestPathInColumnTesting(t *testing.T) {
 
 func TestPathWithObstacleTesting(t *testing.T) {
 	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.WALL)
+	lvl.Map().SetCell(utils.Coord{0, 2}, level.WallCell)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
@@ -125,9 +125,9 @@ func TestPathWithObstacleTesting(t *testing.T) {
 
 func TestPathWithDifficultiesOverTesting(t *testing.T) {
 	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 1}, level.DIFFICULT)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.DIFFICULT)
-	lvl.Map().SetCell(utils.Coord{0, 3}, level.DIFFICULT)
+	lvl.Map().SetCell(utils.Coord{0, 1}, level.DifficultCell)
+	lvl.Map().SetCell(utils.Coord{0, 2}, level.DifficultCell)
+	lvl.Map().SetCell(utils.Coord{0, 3}, level.DifficultCell)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
@@ -161,10 +161,10 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 
 func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 1}, level.DIFFICULT)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.DIFFICULT)
-	lvl.Map().SetCell(utils.Coord{0, 3}, level.DIFFICULT)
-	lvl.Map().SetCell(utils.Coord{1, 2}, level.WALL)
+	lvl.Map().SetCell(utils.Coord{0, 1}, level.DifficultCell)
+	lvl.Map().SetCell(utils.Coord{0, 2}, level.DifficultCell)
+	lvl.Map().SetCell(utils.Coord{0, 3}, level.DifficultCell)
+	lvl.Map().SetCell(utils.Coord{1, 2}, level.WallCell)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
@@ -234,7 +234,7 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 
 func TestPathNotPossibleTesting(t *testing.T) {
 	lvl := level.New(utils.Coord{1, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.WALL)
+	lvl.Map().SetCell(utils.Coord{0, 2}, level.WallCell)
 	finder := New(lvl)
 
 	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})

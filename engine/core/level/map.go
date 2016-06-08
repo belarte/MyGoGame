@@ -16,6 +16,9 @@ type Map struct {
 //NewMap returns the new Map.
 func NewMap(size utils.Coord) *Map {
 	grid := make([]CellType, size.X*size.Y)
+	for i := range grid {
+		grid[i] = &NormalCell
+	}
 	return &Map{size, grid}
 }
 

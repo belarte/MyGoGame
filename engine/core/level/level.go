@@ -91,5 +91,5 @@ func (lvl *Level) IsCharacterAtPosition(pos utils.Coord) bool {
 
 // IsObstacleAtPosition checks for obstacles at given position.
 func (lvl *Level) IsObstacleAtPosition(pos utils.Coord) bool {
-	return lvl.maps.GetCell(pos) == WALL
+	return lvl.maps.GetCell(pos) == WallCell
 }

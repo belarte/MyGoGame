@@ -53,7 +53,7 @@ func (task *GetVantagePoint) Perform() bool {
 func (task *GetVantagePoint) isSightBlocked(maps *level.Map, pos utils.Coord) bool {
 	line := utils.Line(task.context.closestEnemyPosition, pos)
 	for _, pos := range line {
-		if maps.GetCell(pos) == level.WALL {
+		if maps.GetCell(pos) == level.WallCell {
 			return true
 		}
 	}
