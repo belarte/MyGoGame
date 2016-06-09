@@ -22,8 +22,8 @@ func NewMap(size utils.Coord) *Map {
 	return &Map{size, grid}
 }
 
-// Size returns the size of the grid.
-func (m *Map) Size() utils.Coord {
+// Dimension returns the size of the grid.
+func (m *Map) Dimension() utils.Coord {
 	return m.size
 }
 
@@ -51,6 +51,6 @@ func (m *Map) getIndex(coord utils.Coord) (int, error) {
 
 // IsWithinBounds checks if the given cell is within the grid.
 func (m *Map) IsWithinBounds(pos utils.Coord) bool {
-	size := m.Size()
+	size := m.Dimension()
 	return pos.X >= 0 && pos.X < size.X && pos.Y >= 0 && pos.Y < size.Y
 }

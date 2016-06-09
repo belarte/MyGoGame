@@ -32,7 +32,7 @@ func (lvl *Level) Map() *Map {
 
 // Dimension returns the map's dimension
 func (lvl *Level) Dimension() utils.Coord {
-	return lvl.maps.Size()
+	return lvl.maps.Dimension()
 }
 
 // AddCharacter adds a Character at a position to the given team.
