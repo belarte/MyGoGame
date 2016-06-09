@@ -66,18 +66,6 @@ func (lvl *Level) GetOpponentsOf(char character.Character) (result []character.C
 	return
 }
 
-// PositionOf returns the position of the given Character.
-//TODO check if actually useful.
-func (lvl *Level) PositionOf(c character.Character) utils.Coord {
-	for _, team := range lvl.teams {
-		if team.Contains(c) {
-			return c.Position()
-		}
-	}
-
-	return utils.NilCoord
-}
-
 // IsCharacterAtPosition checks if the given position is occupied by a Character.
 func (lvl *Level) IsCharacterAtPosition(pos utils.Coord) bool {
 	for _, team := range lvl.teams {

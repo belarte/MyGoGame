@@ -77,7 +77,7 @@ func TestPerformOk(t *testing.T) {
 		t.Error("Move action should have performed.")
 	}
 
-	pos := lvl.PositionOf(char)
+	pos := char.Position()
 	if pos != dest {
 		t.Errorf("Desitnation not reached, expected %+v, is %+v.", dest, pos)
 	}
@@ -104,7 +104,7 @@ func TestPerformNotEnoughMovePoints(t *testing.T) {
 		t.Errorf("Should not be able to perfrom: path=%+v, action=%+v", path, action)
 	}
 
-	pos := lvl.PositionOf(char)
+	pos := char.Position()
 	dest := Coord{0, 3}
 	if pos == dest {
 		t.Errorf("Position of character is %+v, should be different than %+v", pos, dest)

@@ -48,16 +48,6 @@ func (team *Team) GetCharacters() (result []character.Character) {
 	return team.characters
 }
 
-// MoveCharacter moves the given Character to the given position.
-//TODO check if actually useful.
-func (team *Team) MoveCharacter(char character.Character, pos utils.Coord) {
-	for _, c := range team.characters {
-		if c == char {
-			c.MoveTo(pos)
-		}
-	}
-}
-
 // CharactersCount return the current number of Character in the team.
 func (team *Team) CharactersCount() int {
 	return len(team.characters)

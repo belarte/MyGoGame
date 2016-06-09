@@ -15,7 +15,6 @@ type charPosDist struct {
 type context struct {
 	lvl                  *level.Level
 	agent                character.Character
-	positionOfAgent      utils.Coord
 	visibleEnemies       []charPosDist
 	closestEnemy         character.Character
 	closestEnemyPosition utils.Coord
@@ -26,7 +25,6 @@ func newContext(lvl *level.Level, agent character.Character) *context {
 	return &context{
 		lvl:                  lvl,
 		agent:                agent,
-		positionOfAgent:      lvl.PositionOf(agent),
 		visibleEnemies:       make([]charPosDist, 0, 4),
 		closestEnemyPosition: utils.NilCoord,
 		destination:          utils.NilCoord,

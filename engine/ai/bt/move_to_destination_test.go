@@ -4,15 +4,20 @@ import (
 	"testing"
 
 	"github.com/belarte/MyGoGame/engine/action"
+	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
 func TestMoveToDestinationConstruction(t *testing.T) {
 	context := &context{
-		lvl:             level.New(utils.Coord{1, 1}, 1),
-		positionOfAgent: utils.Coord{0, 0},
-		destination:     utils.Coord{0, 0},
+		lvl: level.New(utils.Coord{1, 1}, 1),
+		agent: &character.Fake{
+			FakePositionComponent: character.FakePositionComponent{
+				FakePosition: utils.Coord{X: 0, Y: 0},
+			},
+		},
+		destination: utils.Coord{0, 0},
 	}
 
 	task := NewMoveToDestination(context)

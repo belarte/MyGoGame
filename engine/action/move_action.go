@@ -25,7 +25,7 @@ func (action *MoveAction) IsDoable() bool {
 		return false
 	}
 
-	if !utils.AreAdjacent(action.level.PositionOf(action.agent), action.path.Path[0].Coord) {
+	if !utils.AreAdjacent(action.agent.Position(), action.path.Path[0].Coord) {
 		l.Log("Inconsistant path: does not start next to agent.")
 		return false
 	}
@@ -46,11 +46,11 @@ func (action *MoveAction) Perform() bool {
 			break
 		}
 
-		action.team.MoveCharacter(action.agent, step.Coord)
+		action.agent.MoveTo(step.Coord)
 		// TODO: implement events
 	}
 
-	result := action.level.PositionOf(action.agent) == action.path.Path[len(action.path.Path)-1].Coord
+	result := action.agent.Position() == action.path.Path[len(action.path.Path)-1].Coord
 	if result {
 		l.Log(action.agent.Name() + " arrived at destination.")
 	} else {

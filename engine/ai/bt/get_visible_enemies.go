@@ -31,8 +31,8 @@ func (task *GetVisibleEnemies) Perform() bool {
 	}
 
 	for _, opponent := range opponents {
-		position := task.context.lvl.PositionOf(opponent)
-		distance := utils.Distance(task.context.positionOfAgent, position)
+		position := opponent.Position()
+		distance := utils.Distance(task.context.agent.Position(), position)
 		if distance <= float64(task.context.agent.Visibility()) {
 			if task.isEnemyAtPositionVisible(position) {
 				char := charPosDist{opponent, position, distance}
@@ -45,7 +45,7 @@ func (task *GetVisibleEnemies) Perform() bool {
 }
 
 func (task *GetVisibleEnemies) isEnemyAtPositionVisible(pos utils.Coord) bool {
-	path := utils.Line(task.context.positionOfAgent, pos)
+	path := utils.Line(task.context.agent.Position(), pos)
 
 	for _, coord := range path {
 		if task.context.lvl.IsObstacleAtPosition(coord) {

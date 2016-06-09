@@ -40,7 +40,7 @@ func (task *GetVantagePoint) Perform() bool {
 			continue
 		}
 
-		distToAgent := utils.Distance(task.context.positionOfAgent, position)
+		distToAgent := utils.Distance(task.context.agent.Position(), position)
 		if distToAgent < distance {
 			distance = distToAgent
 			task.context.destination = position
