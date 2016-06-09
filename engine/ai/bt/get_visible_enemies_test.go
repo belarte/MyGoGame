@@ -86,7 +86,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	lvl := level.New(utils.Coord{1, 10}, 2)
-	lvl.Map().SetCell(utils.Coord{0, 1}, level.WallCell)
+	lvl.SetCell(utils.Coord{0, 1}, level.WallCell)
 	char1 := &character.Fake{
 		FakeVisibility:        character.DefaultVisibility,
 		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 0}},

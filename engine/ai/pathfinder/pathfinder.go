@@ -68,10 +68,10 @@ func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
 
 	for _, coord := range coords {
 		if !finder.isInList(coord, finder.closedList) &&
-			finder.lvl.Map().GetCell(coord) != level.WallCell &&
+			finder.lvl.GetCell(coord) != level.WallCell &&
 			!finder.lvl.IsCharacterAtPosition(coord) {
 
-			cellWeight := finder.lvl.Map().GetCell(coord).Cost()
+			cellWeight := finder.lvl.GetCell(coord).Cost()
 			dist := utils.Distance(coord, c)
 			gcost := finder.closedList[c].gCost + dist*cellWeight
 			hcost := utils.Distance(coord, dest)
@@ -116,7 +116,7 @@ func (finder *PathFinder) getAdjacentCells(c utils.Coord) []utils.Coord {
 	for _, x := range xx {
 		for _, y := range yy {
 			if !(x == c.X && y == c.Y) {
-				result = append(result, utils.Coord{x, y})
+				result = append(result, utils.Coord{X: x, Y: y})
 			}
 		}
 	}
@@ -152,7 +152,7 @@ func (finder *PathFinder) retrievePath(start, dest utils.Coord) level.Path {
 	previous := tmp.parent
 
 	for current != start {
-		weight := finder.lvl.Map().GetCell(current).Cost() * utils.Distance(current, previous)
+		weight := finder.lvl.GetCell(current).Cost() * utils.Distance(current, previous)
 		result.Add(current, weight)
 
 		current = previous

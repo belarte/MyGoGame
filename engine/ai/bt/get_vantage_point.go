@@ -34,9 +34,9 @@ func (task *GetVantagePoint) Perform() bool {
 
 	distance := math.MaxFloat64
 	task.context.destination = utils.NilCoord
-	maps := task.context.lvl.Map()
+	lvl := task.context.lvl
 	for _, position := range positions {
-		if !maps.IsWithinBounds(position) || task.isSightBlocked(maps, position) {
+		if !lvl.IsWithinBounds(position) || task.isSightBlocked(lvl, position) {
 			continue
 		}
 
@@ -50,10 +50,10 @@ func (task *GetVantagePoint) Perform() bool {
 	return task.context.destination != utils.NilCoord
 }
 
-func (task *GetVantagePoint) isSightBlocked(maps *level.Map, pos utils.Coord) bool {
+func (task *GetVantagePoint) isSightBlocked(lvl *level.Level, pos utils.Coord) bool {
 	line := utils.Line(task.context.closestEnemyPosition, pos)
 	for _, pos := range line {
-		if maps.GetCell(pos) == level.WallCell {
+		if lvl.GetCell(pos) == level.WallCell {
 			return true
 		}
 	}

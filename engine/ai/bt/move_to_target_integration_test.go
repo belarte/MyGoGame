@@ -36,9 +36,9 @@ func TestIntegration(t *testing.T) {
 	}
 
 	lvl := level.New(utils.Coord{X: 19, Y: 17}, 2)
-	lvl.Map().SetCell(utils.Coord{X: 7, Y: 6}, level.WallCell)
-	lvl.Map().SetCell(utils.Coord{X: 8, Y: 6}, level.WallCell)
-	lvl.Map().SetCell(utils.Coord{X: 9, Y: 6}, level.WallCell)
+	lvl.SetCell(utils.Coord{X: 7, Y: 6}, level.WallCell)
+	lvl.SetCell(utils.Coord{X: 8, Y: 6}, level.WallCell)
+	lvl.SetCell(utils.Coord{X: 9, Y: 6}, level.WallCell)
 	lvl.AddCharacter(char1, utils.Coord{X: 8, Y: 8}, 0)
 	lvl.AddCharacter(char2, utils.Coord{X: 3, Y: 9}, 1)
 	lvl.AddCharacter(char3, utils.Coord{X: 8, Y: 5}, 1)

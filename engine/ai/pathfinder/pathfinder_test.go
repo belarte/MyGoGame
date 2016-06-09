@@ -9,10 +9,10 @@ import (
 )
 
 func TestPathToSelfTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 1}, 0)
+	lvl := level.New(utils.Coord{X: 1, Y: 1}, 0)
 	finder := New(lvl)
 
-	shortest := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 0})
+	shortest := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 0})
 
 	if shortest.Size() != 0 {
 		t.Error("shortest.Size(): expected 0, got ", shortest.Size())
@@ -24,11 +24,11 @@ func TestPathToSelfTesting(t *testing.T) {
 }
 
 func TestPathInLineTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 5}, 0)
+	lvl := level.New(utils.Coord{X: 1, Y: 5}, 0)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -57,11 +57,11 @@ func TestPathInLineTesting(t *testing.T) {
 }
 
 func TestPathInColumnTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{5, 1}, 0)
+	lvl := level.New(utils.Coord{X: 5, Y: 1}, 0)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{4, 0})
-	shortest2 := finder.ShortestPath(utils.Coord{4, 0}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 4, Y: 0})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 4, Y: 0}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -90,12 +90,12 @@ func TestPathInColumnTesting(t *testing.T) {
 }
 
 func TestPathWithObstacleTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.WallCell)
+	lvl := level.New(utils.Coord{X: 2, Y: 5}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 2}, level.WallCell)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -124,14 +124,14 @@ func TestPathWithObstacleTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesOverTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 1}, level.DifficultCell)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.DifficultCell)
-	lvl.Map().SetCell(utils.Coord{0, 3}, level.DifficultCell)
+	lvl := level.New(utils.Coord{X: 2, Y: 5}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 1}, level.DifficultCell)
+	lvl.SetCell(utils.Coord{X: 0, Y: 2}, level.DifficultCell)
+	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.DifficultCell)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -160,15 +160,15 @@ func TestPathWithDifficultiesOverTesting(t *testing.T) {
 }
 
 func TestPathWithDifficultiesCrossTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{2, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 1}, level.DifficultCell)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.DifficultCell)
-	lvl.Map().SetCell(utils.Coord{0, 3}, level.DifficultCell)
-	lvl.Map().SetCell(utils.Coord{1, 2}, level.WallCell)
+	lvl := level.New(utils.Coord{X: 2, Y: 5}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 1}, level.DifficultCell)
+	lvl.SetCell(utils.Coord{X: 0, Y: 2}, level.DifficultCell)
+	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.DifficultCell)
+	lvl.SetCell(utils.Coord{X: 1, Y: 2}, level.WallCell)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -198,13 +198,13 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 
 func TestPathWithProtagonistTesting(t *testing.T) {
 	char := &character.Fake{}
-	lvl := level.New(utils.Coord{2, 5}, 1)
-	lvl.AddCharacter(char, utils.Coord{0, 2}, 0)
+	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)
+	lvl.AddCharacter(char, utils.Coord{X: 0, Y: 2}, 0)
 
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -233,12 +233,12 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 }
 
 func TestPathNotPossibleTesting(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 5}, 0)
-	lvl.Map().SetCell(utils.Coord{0, 2}, level.WallCell)
+	lvl := level.New(utils.Coord{X: 1, Y: 5}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 2}, level.WallCell)
 	finder := New(lvl)
 
-	shortest1 := finder.ShortestPath(utils.Coord{0, 0}, utils.Coord{0, 4})
-	shortest2 := finder.ShortestPath(utils.Coord{0, 4}, utils.Coord{0, 0})
+	shortest1 := finder.ShortestPath(utils.Coord{X: 0, Y: 0}, utils.Coord{X: 0, Y: 4})
+	shortest2 := finder.ShortestPath(utils.Coord{X: 0, Y: 4}, utils.Coord{X: 0, Y: 0})
 
 	var sizes = []int{
 		shortest1.Size(),
@@ -267,20 +267,20 @@ func TestPathNotPossibleTesting(t *testing.T) {
 }
 
 func TestIsInList(t *testing.T) {
-	fakeNode := node{0, 0, 0, utils.Coord{0, 0}}
-	list := nodeList{utils.Coord{0, 0}: fakeNode,
-		utils.Coord{2, 1}: fakeNode,
-		utils.Coord{5, 6}: fakeNode,
+	fakeNode := node{0, 0, 0, utils.Coord{X: 0, Y: 0}}
+	list := nodeList{utils.Coord{X: 0, Y: 0}: fakeNode,
+		utils.Coord{X: 2, Y: 1}: fakeNode,
+		utils.Coord{X: 5, Y: 6}: fakeNode,
 	}
 
 	finder := New(nil)
 
-	results := []bool{finder.isInList(utils.Coord{0, 0}, list),
-		finder.isInList(utils.Coord{1, 1}, list),
-		finder.isInList(utils.Coord{2, 1}, list),
-		finder.isInList(utils.Coord{1, 2}, list),
-		finder.isInList(utils.Coord{5, 6}, list),
-		finder.isInList(utils.Coord{6, 7}, list),
+	results := []bool{finder.isInList(utils.Coord{X: 0, Y: 0}, list),
+		finder.isInList(utils.Coord{X: 1, Y: 1}, list),
+		finder.isInList(utils.Coord{X: 2, Y: 1}, list),
+		finder.isInList(utils.Coord{X: 1, Y: 2}, list),
+		finder.isInList(utils.Coord{X: 5, Y: 6}, list),
+		finder.isInList(utils.Coord{X: 6, Y: 7}, list),
 	}
 
 	expected := []bool{true, false, true, false, true, false}
@@ -293,18 +293,18 @@ func TestIsInList(t *testing.T) {
 }
 
 func TestGetAdjacentCells(t *testing.T) {
-	lvl := level.New(utils.Coord{3, 3}, 0)
+	lvl := level.New(utils.Coord{X: 3, Y: 3}, 0)
 	finder := New(lvl)
 
-	results := [][]utils.Coord{finder.getAdjacentCells(utils.Coord{0, 0}),
-		finder.getAdjacentCells(utils.Coord{0, 1}),
-		finder.getAdjacentCells(utils.Coord{0, 2}),
-		finder.getAdjacentCells(utils.Coord{1, 0}),
-		finder.getAdjacentCells(utils.Coord{1, 1}),
-		finder.getAdjacentCells(utils.Coord{1, 2}),
-		finder.getAdjacentCells(utils.Coord{2, 0}),
-		finder.getAdjacentCells(utils.Coord{2, 1}),
-		finder.getAdjacentCells(utils.Coord{2, 2}),
+	results := [][]utils.Coord{finder.getAdjacentCells(utils.Coord{X: 0, Y: 0}),
+		finder.getAdjacentCells(utils.Coord{X: 0, Y: 1}),
+		finder.getAdjacentCells(utils.Coord{X: 0, Y: 2}),
+		finder.getAdjacentCells(utils.Coord{X: 1, Y: 0}),
+		finder.getAdjacentCells(utils.Coord{X: 1, Y: 1}),
+		finder.getAdjacentCells(utils.Coord{X: 1, Y: 2}),
+		finder.getAdjacentCells(utils.Coord{X: 2, Y: 0}),
+		finder.getAdjacentCells(utils.Coord{X: 2, Y: 1}),
+		finder.getAdjacentCells(utils.Coord{X: 2, Y: 2}),
 	}
 
 	expected := []int{3, 5, 3, 5, 8, 5, 3, 5, 3}

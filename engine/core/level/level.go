@@ -9,7 +9,7 @@ import (
 // Level represents a level of the game.
 // It has a map and a list of teams.
 type Level struct {
-	maps  *Map
+	Map
 	teams []*team.Team
 }
 
@@ -25,19 +25,9 @@ func New(size utils.Coord, numTeams int) *Level {
 	return &Level{m, teams}
 }
 
-// Map returns the map.
-func (lvl *Level) Map() *Map {
-	return lvl.maps
-}
-
-// Dimension returns the map's dimension
-func (lvl *Level) Dimension() utils.Coord {
-	return lvl.maps.Dimension()
-}
-
 // AddCharacter adds a Character at a position to the given team.
 func (lvl *Level) AddCharacter(c character.Character, pos utils.Coord, team int) bool {
-	if !lvl.maps.IsWithinBounds(pos) {
+	if !lvl.IsWithinBounds(pos) {
 		return false
 	}
 
@@ -79,5 +69,5 @@ func (lvl *Level) IsCharacterAtPosition(pos utils.Coord) bool {
 
 // IsObstacleAtPosition checks for obstacles at given position.
 func (lvl *Level) IsObstacleAtPosition(pos utils.Coord) bool {
-	return lvl.maps.GetCell(pos) == WallCell
+	return lvl.GetCell(pos) == WallCell
 }
