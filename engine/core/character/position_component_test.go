@@ -7,12 +7,12 @@ import (
 )
 
 var expected = []utils.Coord{
-	utils.Coord{1, 2},
-	utils.Coord{3, 2},
-	utils.Coord{1, 4},
-	utils.Coord{5, 4},
-	utils.Coord{1, 6},
-	utils.Coord{7, 6},
+	utils.Coord{X: 1, Y: 2},
+	utils.Coord{X: 3, Y: 2},
+	utils.Coord{X: 1, Y: 4},
+	utils.Coord{X: 5, Y: 4},
+	utils.Coord{X: 1, Y: 6},
+	utils.Coord{X: 7, Y: 6},
 }
 
 func Test2DPosition(t *testing.T) {

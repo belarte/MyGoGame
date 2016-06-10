@@ -11,13 +11,13 @@ import (
 
 func TestMoveToDestinationConstruction(t *testing.T) {
 	context := &context{
-		lvl: level.New(utils.Coord{1, 1}, 1),
+		lvl: level.New(utils.Coord{X: 1, Y: 1}, 1),
 		agent: &character.Fake{
 			FakePositionComponent: character.FakePositionComponent{
 				FakePosition: utils.Coord{X: 0, Y: 0},
 			},
 		},
-		destination: utils.Coord{0, 0},
+		destination: utils.Coord{X: 0, Y: 0},
 	}
 
 	task := NewMoveToDestination(context)

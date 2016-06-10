@@ -19,8 +19,8 @@ func TestGetVantagePointCheckConditionsNoClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 	agent := &character.Fake{}
-	lvl := level.New(utils.Coord{0, 0}, 0)
-	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 0}}
+	lvl := level.New(utils.Coord{X: 0, Y: 0}, 0)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 0}}
 	task := NewGetVantagePoint(context)
 
 	if !task.CheckConditions() {
@@ -30,9 +30,9 @@ func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	lvl := level.New(utils.Coord{1, 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.New(utils.Coord{X: 1, Y: 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -40,7 +40,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	}
 
 	charPosition := context.destination
-	expectedPosition := utils.Coord{0, 3}
+	expectedPosition := utils.Coord{X: 0, Y: 3}
 	if charPosition != expectedPosition {
 		t.Errorf("Expected position: %+v, got %+v", expectedPosition, charPosition)
 	}
@@ -48,10 +48,10 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacle(t *testing.T) {
 	agent := &character.Fake{FakeRange: character.DefaultRange}
-	lvl := level.New(utils.Coord{2, 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	lvl.SetCell(utils.Coord{0, 3}, level.WallCell)
-	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.WallCell)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -59,7 +59,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 	}
 
 	charPosition := context.destination
-	expectedPosition := utils.Coord{1, 3}
+	expectedPosition := utils.Coord{X: 1, Y: 3}
 	if charPosition != expectedPosition {
 		t.Errorf("Expected position: %+v, got %+v", expectedPosition, charPosition)
 	}
@@ -67,12 +67,12 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	agent := &character.Fake{FakeRange: 3}
-	lvl := level.New(utils.Coord{4, 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{0, 0}, 0)
-	lvl.SetCell(utils.Coord{0, 3}, level.WallCell)
-	lvl.SetCell(utils.Coord{1, 3}, level.WallCell)
-	lvl.SetCell(utils.Coord{2, 3}, level.WallCell)
-	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{0, 4}}
+	lvl := level.New(utils.Coord{X: 4, Y: 5}, 1)
+	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.WallCell)
+	lvl.SetCell(utils.Coord{X: 1, Y: 3}, level.WallCell)
+	lvl.SetCell(utils.Coord{X: 2, Y: 3}, level.WallCell)
+	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
 	if !task.Perform() {
@@ -80,7 +80,7 @@ func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	}
 
 	charPosition := context.destination
-	expectedPosition := utils.Coord{3, 4}
+	expectedPosition := utils.Coord{X: 3, Y: 4}
 	if charPosition != expectedPosition {
 		t.Errorf("Expected position: %+v, got %+v", expectedPosition, charPosition)
 	}

@@ -19,7 +19,7 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
-	lvl := level.New(utils.Coord{0, 0}, 0)
+	lvl := level.New(utils.Coord{X: 0, Y: 0}, 0)
 	context := &context{lvl: lvl}
 	task := NewGetVisibleEnemies(context)
 
@@ -29,7 +29,7 @@ func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
-	lvl := level.New(utils.Coord{0, 0}, 0)
+	lvl := level.New(utils.Coord{X: 0, Y: 0}, 0)
 	char := &character.Fake{}
 	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
@@ -40,9 +40,9 @@ func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
-	lvl := level.New(utils.Coord{0, 0}, 2)
+	lvl := level.New(utils.Coord{X: 0, Y: 0}, 2)
 	char := &character.Fake{}
-	lvl.AddCharacter(char, utils.Coord{0, 0}, 0)
+	lvl.AddCharacter(char, utils.Coord{X: 0, Y: 0}, 0)
 	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
 
@@ -59,7 +59,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 10}, 2)
+	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
 	char1 := &character.Fake{
 		FakeVisibility:        character.DefaultVisibility,
 		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 0}},
@@ -67,8 +67,8 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 	char2 := &character.Fake{
 		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 9}},
 	}
-	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{0, 9}, 1)
+	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 9}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
@@ -85,8 +85,8 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 }
 
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 10}, 2)
-	lvl.SetCell(utils.Coord{0, 1}, level.WallCell)
+	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
+	lvl.SetCell(utils.Coord{X: 0, Y: 1}, level.WallCell)
 	char1 := &character.Fake{
 		FakeVisibility:        character.DefaultVisibility,
 		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 0}},
@@ -94,8 +94,8 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	char2 := &character.Fake{
 		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 4}},
 	}
-	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{0, 4}, 1)
+	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 4}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
@@ -112,11 +112,11 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 }
 
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
-	lvl := level.New(utils.Coord{1, 10}, 2)
+	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
 	char1 := &character.Fake{FakeVisibility: character.DefaultVisibility}
 	char2 := &character.Fake{}
-	lvl.AddCharacter(char1, utils.Coord{0, 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{0, 5}, 1)
+	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 5}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
