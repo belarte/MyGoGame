@@ -22,7 +22,7 @@ func TestFullTeamIsFull(t *testing.T) {
 	team := New()
 	for i := 0; i < MaxPlayersByTeam; i++ {
 		team.AddCharacter(&character.Fake{
-			FakePositionComponent: character.FakePositionComponent{FakePosition: utils.NilCoord},
+			PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 		})
 	}
 
@@ -48,7 +48,7 @@ func TestFullTeamReturnsAFullList(t *testing.T) {
 	team := New()
 	for i := 0; i < MaxPlayersByTeam; i++ {
 		team.AddCharacter(&character.Fake{
-			FakePositionComponent: character.FakePositionComponent{FakePosition: utils.NilCoord},
+			PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 		})
 	}
 
@@ -63,8 +63,8 @@ func TestGetCharactersReturnsValidList(t *testing.T) {
 	expectedName := "Bob"
 	team := New()
 	team.AddCharacter(&character.Fake{
-		FakeName:              expectedName,
-		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.NilCoord},
+		FakeName:          expectedName,
+		PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 	})
 
 	list := team.GetCharacters()
@@ -78,12 +78,12 @@ func TestCannotAddCharacterToFullTeam(t *testing.T) {
 	team := New()
 	for i := 0; i < MaxPlayersByTeam; i++ {
 		team.AddCharacter(&character.Fake{
-			FakePositionComponent: character.FakePositionComponent{FakePosition: utils.NilCoord},
+			PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 		})
 	}
 
 	result := team.AddCharacter(&character.Fake{
-		FakePositionComponent: character.FakePositionComponent{FakePosition: utils.NilCoord},
+		PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 	})
 	expected := false
 

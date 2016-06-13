@@ -20,7 +20,7 @@ type Character interface {
 
 // Fake Character
 type Fake struct {
-	FakePositionComponent
+	PositionComponent
 	FakeMovePointsComponent
 
 	FakeName       string
