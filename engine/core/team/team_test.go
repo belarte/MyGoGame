@@ -63,7 +63,7 @@ func TestGetCharactersReturnsValidList(t *testing.T) {
 	expectedName := "Bob"
 	team := New()
 	team.AddCharacter(&character.Fake{
-		FakeName:          expectedName,
+		StatsComponent:    &character.FakeStatsComponent{FakeName: expectedName},
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.NilCoord},
 	})
 

@@ -11,6 +11,7 @@ import (
 func TestIsDoableEmptyPath(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
+		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
@@ -25,6 +26,7 @@ func TestIsDoableEmptyPath(t *testing.T) {
 func TestIsDoableNilPath(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
+		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
@@ -39,6 +41,7 @@ func TestIsDoableNilPath(t *testing.T) {
 func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
+		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
@@ -55,6 +58,7 @@ func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 func TestIsDoableOK(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
+		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
@@ -72,6 +76,7 @@ func TestPerformOk(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	dest := Coord{0, 1}
 	char := &character.Fake{
+		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
 		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
 		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
 	}
@@ -94,6 +99,7 @@ func TestPerformOk(t *testing.T) {
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
+		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
 		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 1},
 		PositionComponent:   &character.FakePositionComponent{},
 	}
@@ -124,6 +130,7 @@ func TestPerformHasConsumedMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	dest := Coord{0, 1}
 	char := &character.Fake{
+		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
 		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
 		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
 	}

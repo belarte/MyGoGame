@@ -14,8 +14,10 @@ import (
 // Get to the closest
 func TestIntegration(t *testing.T) {
 	char1 := &character.Fake{
-		FakeVisibility:    character.DefaultVisibility,
-		FakeRange:         character.DefaultRange,
+		StatsComponent: &character.FakeStatsComponent{
+			FakeVisibility: character.DefaultVisibility,
+			FakeRange:      character.DefaultRange,
+		},
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 8, Y: 8}},
 		MovePointsComponent: &character.FakeMovePointsComponent{
 			FakeMovePoints: 10,

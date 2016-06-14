@@ -30,7 +30,7 @@ func TestGetVantagePointCheckConditionsClosestEnemy(t *testing.T) {
 
 func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	agent := &character.Fake{
-		FakeRange:         character.DefaultRange,
+		StatsComponent:    &character.FakeStatsComponent{FakeRange: character.DefaultRange},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 1, Y: 5}, 1)
@@ -51,7 +51,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacle(t *testing.T) {
 	agent := &character.Fake{
-		FakeRange:         character.DefaultRange,
+		StatsComponent:    &character.FakeStatsComponent{FakeRange: character.DefaultRange},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)
@@ -73,7 +73,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 
 func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	agent := &character.Fake{
-		FakeRange:         3,
+		StatsComponent:    &character.FakeStatsComponent{FakeRange: 3},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 4, Y: 5}, 1)

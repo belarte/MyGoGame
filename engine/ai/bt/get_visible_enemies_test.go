@@ -61,7 +61,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T) {
 	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
 	char1 := &character.Fake{
-		FakeVisibility:    character.DefaultVisibility,
+		StatsComponent:    &character.FakeStatsComponent{FakeVisibility: character.DefaultVisibility},
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 0}},
 	}
 	char2 := &character.Fake{
@@ -88,7 +88,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
 	lvl.SetCell(utils.Coord{X: 0, Y: 1}, level.WallCell)
 	char1 := &character.Fake{
-		FakeVisibility:    character.DefaultVisibility,
+		StatsComponent:    &character.FakeStatsComponent{FakeVisibility: character.DefaultVisibility},
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 0}},
 	}
 	char2 := &character.Fake{
@@ -114,7 +114,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 	lvl := level.New(utils.Coord{X: 1, Y: 10}, 2)
 	char1 := &character.Fake{
-		FakeVisibility:    character.DefaultVisibility,
+		StatsComponent:    &character.FakeStatsComponent{FakeVisibility: character.DefaultVisibility},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	char2 := &character.Fake{
