@@ -7,21 +7,21 @@ import (
 )
 
 type charPosDist struct {
-	char character.Character
+	char *character.Actor
 	pos  utils.Coord
 	dist float64
 }
 
 type context struct {
 	lvl                  *level.Level
-	agent                character.Character
+	agent                *character.Actor
 	visibleEnemies       []charPosDist
-	closestEnemy         character.Character
+	closestEnemy         *character.Actor
 	closestEnemyPosition utils.Coord
 	destination          utils.Coord
 }
 
-func newContext(lvl *level.Level, agent character.Character) *context {
+func newContext(lvl *level.Level, agent *character.Actor) *context {
 	return &context{
 		lvl:                  lvl,
 		agent:                agent,

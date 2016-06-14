@@ -18,7 +18,7 @@ func TestGetVisibleEnemiesCheckConditionsNilLevel(t *testing.T) {
 	}
 }
 
-func TestGetVisibleEnemiesCheckConditionsNilCharacter(t *testing.T) {
+func TestGetVisibleEnemiesCheckConditionsNilActor(t *testing.T) {
 	lvl := level.New(utils.Coord{X: 0, Y: 0}, 0)
 	context := &context{lvl: lvl}
 	task := NewGetVisibleEnemies(context)
@@ -42,7 +42,7 @@ func TestGetVisibleEnemiesCheckConditionsNotNilLevel(t *testing.T) {
 func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 	lvl := level.New(utils.Coord{X: 0, Y: 0}, 2)
 	char := &character.Actor{}
-	lvl.AddCharacter(char, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(char, utils.Coord{X: 0, Y: 0}, 0)
 	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
 
@@ -67,8 +67,8 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 	char2 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 9}},
 	}
-	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 9}, 1)
+	lvl.AddActor(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(char2, utils.Coord{X: 0, Y: 9}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
@@ -94,8 +94,8 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	char2 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 0, Y: 4}},
 	}
-	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 4}, 1)
+	lvl.AddActor(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(char2, utils.Coord{X: 0, Y: 4}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
@@ -120,8 +120,8 @@ func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 	char2 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{},
 	}
-	lvl.AddCharacter(char1, utils.Coord{X: 0, Y: 0}, 0)
-	lvl.AddCharacter(char2, utils.Coord{X: 0, Y: 5}, 1)
+	lvl.AddActor(char1, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(char2, utils.Coord{X: 0, Y: 5}, 1)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 

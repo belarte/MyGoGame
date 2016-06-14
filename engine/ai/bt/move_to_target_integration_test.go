@@ -41,11 +41,11 @@ func TestIntegration(t *testing.T) {
 	lvl.SetCell(utils.Coord{X: 7, Y: 6}, level.WallCell)
 	lvl.SetCell(utils.Coord{X: 8, Y: 6}, level.WallCell)
 	lvl.SetCell(utils.Coord{X: 9, Y: 6}, level.WallCell)
-	lvl.AddCharacter(char1, utils.Coord{X: 8, Y: 8}, 0)
-	lvl.AddCharacter(char2, utils.Coord{X: 3, Y: 9}, 1)
-	lvl.AddCharacter(char3, utils.Coord{X: 8, Y: 5}, 1)
-	lvl.AddCharacter(char4, utils.Coord{X: 13, Y: 13}, 1)
-	lvl.AddCharacter(char5, utils.Coord{X: 18, Y: 3}, 1)
+	lvl.AddActor(char1, utils.Coord{X: 8, Y: 8}, 0)
+	lvl.AddActor(char2, utils.Coord{X: 3, Y: 9}, 1)
+	lvl.AddActor(char3, utils.Coord{X: 8, Y: 5}, 1)
+	lvl.AddActor(char4, utils.Coord{X: 13, Y: 13}, 1)
+	lvl.AddActor(char5, utils.Coord{X: 18, Y: 3}, 1)
 
 	c := newContext(lvl, char1)
 

@@ -201,7 +201,7 @@ func TestPathWithProtagonistTesting(t *testing.T) {
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)
-	lvl.AddCharacter(char, utils.Coord{X: 0, Y: 2}, 0)
+	lvl.AddActor(char, utils.Coord{X: 0, Y: 2}, 0)
 
 	finder := New(lvl)
 

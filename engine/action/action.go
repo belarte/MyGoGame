@@ -1,4 +1,4 @@
-// Package action implements actions doable by a Character.
+// Package action implements actions doable by a Actor.
 package action
 
 import (
@@ -9,11 +9,11 @@ import (
 
 type actionBaseParameters struct {
 	level *level.Level
-	agent character.Character
+	agent *character.Actor
 	team  *team.Team
 }
 
-func newActionBaseParameters(level *level.Level, agent character.Character) actionBaseParameters {
+func newActionBaseParameters(level *level.Level, agent *character.Actor) actionBaseParameters {
 	team := level.GetTeamOf(agent)
 	return actionBaseParameters{level, agent, team}
 }

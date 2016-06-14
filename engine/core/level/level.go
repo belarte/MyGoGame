@@ -25,18 +25,18 @@ func New(size utils.Coord, numTeams int) *Level {
 	return &Level{m, teams}
 }
 
-// AddCharacter adds a Character at a position to the given team.
-func (lvl *Level) AddCharacter(c character.Character, pos utils.Coord, team int) bool {
+// AddActor adds a Actor at a position to the given team.
+func (lvl *Level) AddActor(c *character.Actor, pos utils.Coord, team int) bool {
 	if !lvl.IsWithinBounds(pos) {
 		return false
 	}
 
 	c.MoveTo(pos)
-	return lvl.teams[team].AddCharacter(c)
+	return lvl.teams[team].AddActor(c)
 }
 
-// GetTeamOf return the team of the given Character.
-func (lvl *Level) GetTeamOf(char character.Character) *team.Team {
+// GetTeamOf return the team of the given Actor.
+func (lvl *Level) GetTeamOf(char *character.Actor) *team.Team {
 	for _, team := range lvl.teams {
 		if team.Contains(char) {
 			return team
@@ -45,21 +45,21 @@ func (lvl *Level) GetTeamOf(char character.Character) *team.Team {
 	return nil
 }
 
-// GetOpponentsOf returns all the Characters that are not in the team of the given Character.
-func (lvl *Level) GetOpponentsOf(char character.Character) (result []character.Character) {
+// GetOpponentsOf returns all the Actors that are not in the team of the given Actor.
+func (lvl *Level) GetOpponentsOf(char *character.Actor) (result []*character.Actor) {
 	team := lvl.GetTeamOf(char)
 	for _, t := range lvl.teams {
 		if t != team {
-			result = append(result, t.GetCharacters()...)
+			result = append(result, t.GetActors()...)
 		}
 	}
 	return
 }
 
-// IsCharacterAtPosition checks if the given position is occupied by a Character.
-func (lvl *Level) IsCharacterAtPosition(pos utils.Coord) bool {
+// IsActorAtPosition checks if the given position is occupied by a Actor.
+func (lvl *Level) IsActorAtPosition(pos utils.Coord) bool {
 	for _, team := range lvl.teams {
-		if team.IsCharacterAtPosition(pos) {
+		if team.IsActorAtPosition(pos) {
 			return true
 		}
 	}

@@ -34,7 +34,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 1, Y: 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(agent, utils.Coord{X: 0, Y: 0}, 0)
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
@@ -55,7 +55,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(agent, utils.Coord{X: 0, Y: 0}, 0)
 	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.WallCell)
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
@@ -77,7 +77,7 @@ func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 4, Y: 5}, 1)
-	lvl.AddCharacter(agent, utils.Coord{X: 0, Y: 0}, 0)
+	lvl.AddActor(agent, utils.Coord{X: 0, Y: 0}, 0)
 	lvl.SetCell(utils.Coord{X: 0, Y: 3}, level.WallCell)
 	lvl.SetCell(utils.Coord{X: 1, Y: 3}, level.WallCell)
 	lvl.SetCell(utils.Coord{X: 2, Y: 3}, level.WallCell)

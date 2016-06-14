@@ -14,7 +14,7 @@ type MoveAction struct {
 }
 
 // NewMoveAction initialise a new Action.
-func NewMoveAction(lvl *level.Level, agent character.Character, path *level.Path) *MoveAction {
+func NewMoveAction(lvl *level.Level, agent *character.Actor, path *level.Path) *MoveAction {
 	return &MoveAction{newActionBaseParameters(lvl, agent), path}
 }
 

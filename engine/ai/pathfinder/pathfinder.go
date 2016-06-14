@@ -69,7 +69,7 @@ func (finder *PathFinder) addAdjacentCells(c, dest utils.Coord) {
 	for _, coord := range coords {
 		if !finder.isInList(coord, finder.closedList) &&
 			finder.lvl.GetCell(coord) != level.WallCell &&
-			!finder.lvl.IsCharacterAtPosition(coord) {
+			!finder.lvl.IsActorAtPosition(coord) {
 
 			cellWeight := finder.lvl.GetCell(coord).Cost()
 			dist := utils.Distance(coord, c)

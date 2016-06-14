@@ -11,19 +11,19 @@ const (
 	MaxPlayers       = 2 * MaxPlayersByTeam
 )
 
-// Team represents a team of Character with given positions.
+// Team represents a team of Actor with given positions.
 type Team struct {
-	characters []character.Character
+	characters []*character.Actor
 }
 
 // New returns a new team.
 func New() *Team {
-	var characters []character.Character
+	var characters []*character.Actor
 	return &Team{characters}
 }
 
-// AddCharacter adds a Character at a given position to the team.
-func (team *Team) AddCharacter(c character.Character) bool {
+// AddActor adds a Actor at a given position to the team.
+func (team *Team) AddActor(c *character.Actor) bool {
 	if team.IsFull() {
 		return false
 	}
@@ -33,7 +33,7 @@ func (team *Team) AddCharacter(c character.Character) bool {
 }
 
 // Contains checks if the team contains the given character.
-func (team *Team) Contains(c character.Character) bool {
+func (team *Team) Contains(c *character.Actor) bool {
 	for _, member := range team.characters {
 		if member == c {
 			return true
@@ -43,18 +43,18 @@ func (team *Team) Contains(c character.Character) bool {
 	return false
 }
 
-// GetCharacters returns a list of all the Characters in the team.
-func (team *Team) GetCharacters() (result []character.Character) {
+// GetActors returns a list of all the Actors in the team.
+func (team *Team) GetActors() (result []*character.Actor) {
 	return team.characters
 }
 
-// CharactersCount return the current number of Character in the team.
-func (team *Team) CharactersCount() int {
+// ActorsCount return the current number of Actor in the team.
+func (team *Team) ActorsCount() int {
 	return len(team.characters)
 }
 
-// IsCharacterAtPosition checks if one of the Character is at the given position.
-func (team *Team) IsCharacterAtPosition(pos utils.Coord) bool {
+// IsActorAtPosition checks if one of the Actor is at the given position.
+func (team *Team) IsActorAtPosition(pos utils.Coord) bool {
 	for _, char := range team.characters {
 		if char.IsAtPosition(pos) {
 			return true
