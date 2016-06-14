@@ -197,7 +197,7 @@ func TestPathWithDifficultiesCrossTesting(t *testing.T) {
 }
 
 func TestPathWithProtagonistTesting(t *testing.T) {
-	char := &character.Fake{
+	char := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl := level.New(utils.Coord{X: 2, Y: 5}, 1)

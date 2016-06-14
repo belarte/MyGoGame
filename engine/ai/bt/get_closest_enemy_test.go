@@ -26,7 +26,7 @@ func TestGetClosestEnemyCheckConditionsVisibleEnemies(t *testing.T) {
 }
 
 func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
-	char := &character.Fake{}
+	char := &character.Actor{}
 	position := utils.Coord{X: 0, Y: 1}
 	opponents := []charPosDist{charPosDist{char, position, 1}}
 	context := &context{visibleEnemies: opponents}
@@ -46,9 +46,9 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 }
 
 func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
-	char1 := &character.Fake{}
-	char2 := &character.Fake{}
-	char3 := &character.Fake{}
+	char1 := &character.Actor{}
+	char2 := &character.Actor{}
+	char3 := &character.Actor{}
 	position1 := utils.Coord{X: 0, Y: 1}
 	position2 := utils.Coord{X: 0, Y: 2}
 	position3 := utils.Coord{X: 0, Y: 3}

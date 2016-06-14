@@ -13,7 +13,7 @@ import (
 // Two are visible
 // Get to the closest
 func TestIntegration(t *testing.T) {
-	char1 := &character.Fake{
+	char1 := &character.Actor{
 		StatsComponent: &character.FakeStatsComponent{
 			FakeVisibility: character.DefaultVisibility,
 			FakeRange:      character.DefaultRange,
@@ -24,16 +24,16 @@ func TestIntegration(t *testing.T) {
 			FakeConsumeMP:  true,
 		},
 	}
-	char2 := &character.Fake{
+	char2 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 3, Y: 9}},
 	}
-	char3 := &character.Fake{
+	char3 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 8, Y: 5}},
 	}
-	char4 := &character.Fake{
+	char4 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 13, Y: 13}},
 	}
-	char5 := &character.Fake{
+	char5 := &character.Actor{
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 18, Y: 3}},
 	}
 
