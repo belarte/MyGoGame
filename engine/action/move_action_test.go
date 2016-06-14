@@ -72,8 +72,8 @@ func TestPerformOk(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	dest := Coord{0, 1}
 	char := &character.Fake{
-		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
-		PositionComponent:       &character.FakePositionComponent{FakePosition: dest},
+		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
+		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -94,8 +94,8 @@ func TestPerformOk(t *testing.T) {
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Fake{
-		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 1},
-		PositionComponent:       &character.FakePositionComponent{},
+		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 1},
+		PositionComponent:   &character.FakePositionComponent{},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 
@@ -124,8 +124,8 @@ func TestPerformHasConsumedMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	dest := Coord{0, 1}
 	char := &character.Fake{
-		FakeMovePointsComponent: character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
-		PositionComponent:       &character.FakePositionComponent{FakePosition: dest},
+		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
+		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
 	}
 	lvl.AddCharacter(char, Coord{0, 0}, 0)
 

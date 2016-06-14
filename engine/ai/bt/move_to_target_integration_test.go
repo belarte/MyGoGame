@@ -17,7 +17,7 @@ func TestIntegration(t *testing.T) {
 		FakeVisibility:    character.DefaultVisibility,
 		FakeRange:         character.DefaultRange,
 		PositionComponent: &character.FakePositionComponent{FakePosition: utils.Coord{X: 8, Y: 8}},
-		FakeMovePointsComponent: character.FakeMovePointsComponent{
+		MovePointsComponent: &character.FakeMovePointsComponent{
 			FakeMovePoints: 10,
 			FakeConsumeMP:  true,
 		},
