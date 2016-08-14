@@ -13,7 +13,7 @@ func TestExecuteDoesMoveAgentToDestination(t *testing.T) {
 		PositionComponent: &character.Position2DComponent{},
 	}
 
-	command := NewMoveCommand(c, to)
+	command := NewMove(c, to)
 	command.Execute()
 
 	if c.Position() != to {
@@ -28,7 +28,7 @@ func TestRevertDoesNothingIfCommandHasNotBeenExecuted(t *testing.T) {
 	from := c.Position()
 	to := utils.Coord{X: 1, Y: 1}
 
-	command := NewMoveCommand(c, to)
+	command := NewMove(c, to)
 	command.Revert()
 
 	if c.Position() != from {
@@ -44,7 +44,7 @@ func TestRevertDoesMoveAgentToInitialPosition(t *testing.T) {
 	}
 	c.MoveTo(from)
 
-	command := NewMoveCommand(c, to)
+	command := NewMove(c, to)
 	command.Execute()
 	command.Revert()
 
@@ -59,7 +59,7 @@ func TestExecuteTwiceDoesNothing(t *testing.T) {
 		PositionComponent: &character.Position2DComponent{},
 	}
 
-	command := NewMoveCommand(c, to)
+	command := NewMove(c, to)
 	command.Execute()
 	command.Execute()
 
