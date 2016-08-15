@@ -4,9 +4,9 @@ import "math"
 
 // Differents values for CellType.
 var (
-	NormalCell    = NormalCellType{}
-	DifficultCell = DifficultCellType{}
-	WallCell      = WallCellType{}
+	NormalCell    = &NormalCellType{}
+	DifficultCell = &DifficultCellType{}
+	WallCell      = &WallCellType{}
 )
 
 // CellType represents the type of a cell in a Map.
