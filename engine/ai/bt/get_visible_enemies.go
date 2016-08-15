@@ -24,7 +24,7 @@ func (task *GetVisibleEnemies) CheckConditions() bool {
 // It fails if no visible enemies are found.
 func (task *GetVisibleEnemies) Perform() bool {
 	opponents := task.context.lvl.GetOpponentsOf(task.context.agent)
-	task.context.visibleEnemies = make([]charPosDist, 0, 4)
+	task.context.visibleEnemies = make([]charDist, 0, 4)
 
 	if len(opponents) == 0 {
 		return false
@@ -35,7 +35,7 @@ func (task *GetVisibleEnemies) Perform() bool {
 		distance := utils.Distance(task.context.agent.Position(), position)
 		if distance <= float64(task.context.agent.Visibility()) {
 			if task.isEnemyAtPositionVisible(position) {
-				char := charPosDist{opponent, position, distance}
+				char := charDist{opponent, distance}
 				task.context.visibleEnemies = append(task.context.visibleEnemies, char)
 			}
 		}

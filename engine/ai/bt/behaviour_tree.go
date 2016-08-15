@@ -6,16 +6,15 @@ import (
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
-type charPosDist struct {
+type charDist struct {
 	char *character.Actor
-	pos  utils.Coord
 	dist float64
 }
 
 type context struct {
 	lvl                  *level.Level
 	agent                *character.Actor
-	visibleEnemies       []charPosDist
+	visibleEnemies       []charDist
 	closestEnemy         *character.Actor
 	closestEnemyPosition utils.Coord
 	destination          utils.Coord
@@ -25,7 +24,7 @@ func newContext(lvl *level.Level, agent *character.Actor) *context {
 	return &context{
 		lvl:                  lvl,
 		agent:                agent,
-		visibleEnemies:       make([]charPosDist, 0, 4),
+		visibleEnemies:       make([]charDist, 0, 4),
 		closestEnemyPosition: utils.NilCoord,
 		destination:          utils.NilCoord,
 	}

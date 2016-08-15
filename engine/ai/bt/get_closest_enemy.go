@@ -29,7 +29,7 @@ func (task *GetClosestEnemy) Perform() bool {
 	for _, opponent := range task.context.visibleEnemies {
 		if opponent.dist < distance {
 			task.context.closestEnemy = opponent.char
-			task.context.closestEnemyPosition = opponent.pos
+			task.context.closestEnemyPosition = opponent.char.Position()
 			distance = opponent.dist
 		}
 	}
