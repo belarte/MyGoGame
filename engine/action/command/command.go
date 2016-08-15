@@ -28,3 +28,12 @@ func (c *status) revertIf(command func()) {
 		c.done = false
 	}
 }
+
+// Fake command.
+type Fake struct{}
+
+// Execute fake command.
+func (c *Fake) Execute() {}
+
+// Revert fake command.
+func (c *Fake) Revert() {}
