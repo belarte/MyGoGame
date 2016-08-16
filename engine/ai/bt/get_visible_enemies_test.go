@@ -46,7 +46,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesOnLevel(t *testing.T) {
 	context := newContext(lvl, char)
 	task := NewGetVisibleEnemies(context)
 
-	if task.Perform() {
+	if task.Perform() == success {
 		t.Errorf("Perform should be false, context=%+v", context)
 	}
 
@@ -72,7 +72,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfDistance(t *testing.T)
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
-	if task.Perform() {
+	if task.Perform() == success {
 		t.Errorf("Perform should be false, context=%+v", context)
 	}
 
@@ -99,7 +99,7 @@ func TestGetVisibleEnemiesPerformNoEnemiesVisibleBecauseOfWall(t *testing.T) {
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
-	if task.Perform() {
+	if task.Perform() == success {
 		t.Errorf("Perform should be false, context=%+v", context)
 	}
 
@@ -125,7 +125,7 @@ func TestGetVisibleEnemiesPerformVisibleEnemies(t *testing.T) {
 	context := newContext(lvl, char1)
 	task := NewGetVisibleEnemies(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should be true, context=%+v", context)
 	}
 

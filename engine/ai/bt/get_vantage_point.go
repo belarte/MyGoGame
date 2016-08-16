@@ -29,7 +29,7 @@ func (task *GetVantagePoint) CheckConditions() bool {
 
 // Perform computes the targeted position. It Computes the circle with radius agent.range
 // from where the target will be reachable for a direct attack.
-func (task *GetVantagePoint) Perform() bool {
+func (task *GetVantagePoint) Perform() Status {
 	positions := utils.Circle(task.context.closestEnemyPosition, task.context.agent.Range())
 
 	distance := math.MaxFloat64
@@ -47,7 +47,10 @@ func (task *GetVantagePoint) Perform() bool {
 		}
 	}
 
-	return task.context.destination != utils.NilCoord
+	if task.context.destination == utils.NilCoord {
+		return failure
+	}
+	return success
 }
 
 func (task *GetVantagePoint) isSightBlocked(lvl *level.Level, pos utils.Coord) bool {

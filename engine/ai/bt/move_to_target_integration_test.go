@@ -59,7 +59,7 @@ func TestIntegration(t *testing.T) {
 		t.Error("Tasks should have been checked ok")
 	}
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Error("Tasks should have been performed")
 	}
 

@@ -22,12 +22,12 @@ func (task *GetVisibleEnemies) CheckConditions() bool {
 
 // Perform gets the visible enemies.
 // It fails if no visible enemies are found.
-func (task *GetVisibleEnemies) Perform() bool {
+func (task *GetVisibleEnemies) Perform() Status {
 	opponents := task.context.lvl.GetOpponentsOf(task.context.agent)
 	task.context.visibleEnemies = make([]charDist, 0, 4)
 
 	if len(opponents) == 0 {
-		return false
+		return failure
 	}
 
 	for _, opponent := range opponents {
@@ -41,7 +41,10 @@ func (task *GetVisibleEnemies) Perform() bool {
 		}
 	}
 
-	return len(task.context.visibleEnemies) > 0
+	if len(task.context.visibleEnemies) > 0 {
+		return success
+	}
+	return failure
 }
 
 func (task *GetVisibleEnemies) isEnemyAtPositionVisible(pos utils.Coord) bool {

@@ -24,7 +24,7 @@ func (task *GetClosestEnemy) CheckConditions() bool {
 
 // Perform finds the enemy with the shortest Euclidian distance
 // from the agent.
-func (task *GetClosestEnemy) Perform() bool {
+func (task *GetClosestEnemy) Perform() Status {
 	distance := math.MaxFloat64
 	for _, opponent := range task.context.visibleEnemies {
 		if opponent.dist < distance {
@@ -34,5 +34,5 @@ func (task *GetClosestEnemy) Perform() bool {
 		}
 	}
 
-	return true
+	return success
 }

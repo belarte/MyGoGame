@@ -30,18 +30,27 @@ func newContext(lvl *level.Level, agent *character.Actor) *context {
 	}
 }
 
+type Status int
+
+const (
+	ready Status = iota
+	running
+	success
+	failure
+)
+
 // Task represents an abstract task.
 // A task is composed by two methods:
 // CheckConditions and Perform.
 type Task interface {
 	CheckConditions() bool
-	Perform() bool
+	Perform() Status
 }
 
 // Fake is a task implementation for testing purposes.
 type Fake struct {
 	FakeCheckConditions bool
-	FakePerform         bool
+	FakePerform         Status
 }
 
 // CheckConditions implementation for MockTask
@@ -50,6 +59,6 @@ func (task *Fake) CheckConditions() bool {
 }
 
 // Perform implementation for MockTask.
-func (task *Fake) Perform() bool {
+func (task *Fake) Perform() Status {
 	return task.FakePerform
 }

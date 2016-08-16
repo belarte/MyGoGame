@@ -26,6 +26,9 @@ func (task *MoveToDestination) CheckConditions() bool {
 }
 
 // Perform performs the MoveAction
-func (task *MoveToDestination) Perform() bool {
-	return task.moveAction.Perform()
+func (task *MoveToDestination) Perform() Status {
+	if task.moveAction.Perform() {
+		return success
+	}
+	return failure
 }

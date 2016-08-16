@@ -38,7 +38,7 @@ func TestGetVantagePointPerformNoObstacle(t *testing.T) {
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should return true, context=%+v", context)
 	}
 
@@ -60,7 +60,7 @@ func TestGetVantagePointPerformObstacle(t *testing.T) {
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should return true, context=%+v", context)
 	}
 
@@ -84,7 +84,7 @@ func TestGetVantagePointPerformObstacleAtDistance(t *testing.T) {
 	context := &context{agent: agent, lvl: lvl, closestEnemyPosition: utils.Coord{X: 0, Y: 4}}
 	task := NewGetVantagePoint(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should return true, context=%+v", context)
 	}
 

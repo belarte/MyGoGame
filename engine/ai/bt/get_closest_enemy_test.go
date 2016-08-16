@@ -34,7 +34,7 @@ func TestGetClosestEnemyPerformOneEnemy(t *testing.T) {
 	context := &context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should be true, context=%+v", context)
 	}
 
@@ -69,7 +69,7 @@ func TestGetClosestEnemyPerformThreeEnemies(t *testing.T) {
 	context := &context{visibleEnemies: opponents}
 	task := NewGetClosestEnemies(context)
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("Perform should be true, context=%+v", context)
 	}
 

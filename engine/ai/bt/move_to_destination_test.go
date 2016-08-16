@@ -58,7 +58,7 @@ func TestMoveToDestinationPerformActionPerformSuccess(t *testing.T) {
 	action := &action.Fake{FakePerform: true}
 	task := MoveToDestination{moveAction: action}
 
-	if !task.Perform() {
+	if task.Perform() == failure {
 		t.Errorf("CheckConditions should return true: task=%+v", task)
 	}
 }

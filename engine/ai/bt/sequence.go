@@ -27,12 +27,12 @@ func (task *Sequence) CheckConditions() bool {
 }
 
 // Perform executes each tasks in the given order.
-func (task *Sequence) Perform() bool {
+func (task *Sequence) Perform() Status {
 	for _, t := range task.tasks {
-		if !t.CheckConditions() || !t.Perform() {
-			return false
+		if !t.CheckConditions() || t.Perform() == failure {
+			return failure
 		}
 	}
 
-	return true
+	return success
 }
