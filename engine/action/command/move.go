@@ -11,15 +11,17 @@ type Move struct {
 	agent       *character.Actor
 	destination utils.Coord
 	oldPosition utils.Coord
+	cost        float64
 }
 
 // NewMove return a pointer to a MoveCommand.
-func NewMove(c *character.Actor, pos utils.Coord) *Move {
+func NewMove(c *character.Actor, pos utils.Coord, cost float64) *Move {
 	return &Move{
 		status:      newStatus(),
 		agent:       c,
 		destination: pos,
 		oldPosition: c.Position(),
+		cost:        cost,
 	}
 }
 
@@ -27,6 +29,7 @@ func NewMove(c *character.Actor, pos utils.Coord) *Move {
 func (c *Move) Execute() {
 	c.status.executeIf(func() {
 		c.agent.MoveTo(c.destination)
+		c.agent.ConsumeMovePoints(c.cost)
 	})
 }
 
@@ -34,5 +37,6 @@ func (c *Move) Execute() {
 func (c *Move) Revert() {
 	c.status.revertIf(func() {
 		c.agent.MoveTo(c.oldPosition)
+		c.agent.ConsumeMovePoints(-c.cost)
 	})
 }
