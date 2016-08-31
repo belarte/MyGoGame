@@ -1,6 +1,7 @@
 package bt
 
 import (
+	"github.com/belarte/MyGoGame/engine/action/command"
 	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/utils"
@@ -12,6 +13,7 @@ type charDist struct {
 }
 
 type context struct {
+	queue                command.Queue
 	lvl                  *level.Level
 	agent                *character.Actor
 	visibleEnemies       []charDist

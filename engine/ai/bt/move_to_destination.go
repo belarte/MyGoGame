@@ -21,7 +21,7 @@ func NewMoveToDestination(context *context) *MoveToDestination {
 func (task *MoveToDestination) CheckConditions() bool {
 	finder := pathfinder.New(task.context.lvl)
 	path := finder.ShortestPath(task.context.agent.Position(), task.context.destination)
-	task.moveAction = action.NewMoveAction(task.context.lvl, task.context.agent, &path)
+	task.moveAction = action.NewMoveAction(task.context.queue, task.context.lvl, task.context.agent, &path)
 	return task.moveAction.IsDoable()
 }
 
