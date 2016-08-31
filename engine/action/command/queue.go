@@ -47,3 +47,28 @@ func (q *queueImpl) Flush() {
 		<-q.queue
 	}
 }
+
+// FakeQueue struct
+type FakeQueue struct {
+	count int
+}
+
+// Add for fake queue
+func (q *FakeQueue) Add(c Command) {
+	q.count++
+}
+
+// ProcessNext for fake queue
+func (q *FakeQueue) ProcessNext() {
+	q.count--
+}
+
+// Size of fake queue
+func (q *FakeQueue) Size() int {
+	return q.count
+}
+
+// Flush fake queue
+func (q *FakeQueue) Flush() {
+	q.count = 0
+}

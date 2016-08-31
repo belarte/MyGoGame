@@ -2,20 +2,22 @@
 package action
 
 import (
+	"github.com/belarte/MyGoGame/engine/action/command"
 	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/core/level"
 	"github.com/belarte/MyGoGame/engine/core/team"
 )
 
 type actionBaseParameters struct {
+	queue command.Queue
 	level *level.Level
 	agent *character.Actor
 	team  *team.Team
 }
 
-func newActionBaseParameters(level *level.Level, agent *character.Actor) actionBaseParameters {
+func newActionBaseParameters(queue command.Queue, level *level.Level, agent *character.Actor) actionBaseParameters {
 	team := level.GetTeamOf(agent)
-	return actionBaseParameters{level, agent, team}
+	return actionBaseParameters{queue, level, agent, team}
 }
 
 // Action defines an action that is doable by a character on a level.

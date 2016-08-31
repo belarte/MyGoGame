@@ -1,9 +1,9 @@
 package action
 
 import (
+	"github.com/belarte/MyGoGame/engine/action/command"
 	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/core/level"
-	l "github.com/belarte/MyGoGame/engine/log"
 	"github.com/belarte/MyGoGame/engine/utils"
 )
 
@@ -14,23 +14,20 @@ type MoveAction struct {
 }
 
 // NewMoveAction initialise a new Action.
-func NewMoveAction(lvl *level.Level, agent *character.Actor, path *level.Path) *MoveAction {
-	return &MoveAction{newActionBaseParameters(lvl, agent), path}
+func NewMoveAction(q command.Queue, lvl *level.Level, agent *character.Actor, path *level.Path) *MoveAction {
+	return &MoveAction{newActionBaseParameters(q, lvl, agent), path}
 }
 
 // IsDoable checks if the path is valid.
 func (action *MoveAction) IsDoable() bool {
 	if action.path == nil || action.path.Size() == 0 {
-		l.Log(action.agent.Name() + " cannot move: empty path.")
 		return false
 	}
 
 	if !utils.AreAdjacent(action.agent.Position(), action.path.Path[0].Coord) {
-		l.Log("Inconsistant path: does not start next to agent.")
 		return false
 	}
 
-	l.Log(action.agent.Name() + " can move.")
 	return true
 }
 
@@ -39,22 +36,17 @@ func (action *MoveAction) IsDoable() bool {
 // Return false if the agent lacked MP to reach destination
 // or if an event occured while moving.
 func (action *MoveAction) Perform() bool {
+	movePoints := action.agent.MovePoints()
+	aggregatedMovePoints := 0.
 	for _, step := range action.path.Path {
-		consumed := action.agent.ConsumeMovePoints(step.Cost)
-		if !consumed {
-			l.Log(action.agent.Name() + "  does not have enough move points, action terminated. ")
+		aggregatedMovePoints += step.Cost
+		if aggregatedMovePoints > movePoints {
 			break
 		}
 
-		action.agent.MoveTo(step.Coord)
-		// TODO: implement events
+		c := command.NewMove(action.agent, step.Coord, step.Cost)
+		action.queue.Add(c)
 	}
 
-	result := action.agent.Position() == action.path.Path[len(action.path.Path)-1].Coord
-	if result {
-		l.Log(action.agent.Name() + " arrived at destination.")
-	} else {
-		l.Log("Something happened to " + action.agent.Name() + " while moving.")
-	}
-	return result
+	return aggregatedMovePoints < movePoints
 }

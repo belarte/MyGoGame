@@ -3,6 +3,7 @@ package action
 import (
 	"testing"
 
+	"github.com/belarte/MyGoGame/engine/action/command"
 	"github.com/belarte/MyGoGame/engine/core/character"
 	"github.com/belarte/MyGoGame/engine/core/level"
 	. "github.com/belarte/MyGoGame/engine/utils"
@@ -11,12 +12,11 @@ import (
 func TestIsDoableEmptyPath(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Actor{
-		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
-	action := NewMoveAction(lvl, char, &level.Path{})
+	action := NewMoveAction(nil, lvl, char, &level.Path{})
 
 	if action.IsDoable() {
 		t.Error("Move action should not be doable")
@@ -26,12 +26,11 @@ func TestIsDoableEmptyPath(t *testing.T) {
 func TestIsDoableNilPath(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Actor{
-		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
-	action := NewMoveAction(lvl, char, nil)
+	action := NewMoveAction(nil, lvl, char, nil)
 
 	if action.IsDoable() {
 		t.Error("Move action should not be doable")
@@ -41,14 +40,13 @@ func TestIsDoableNilPath(t *testing.T) {
 func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Actor{
-		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
 	var path level.Path
 	path.Add(Coord{0, 4}, 1)
-	action := NewMoveAction(lvl, char, &path)
+	action := NewMoveAction(nil, lvl, char, &path)
 
 	if action.IsDoable() {
 		t.Error("Move action should not be doable")
@@ -58,14 +56,13 @@ func TestIsDoablePathDoesNotStartNextToAgent(t *testing.T) {
 func TestIsDoableOK(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
 	char := &character.Actor{
-		StatsComponent:    &character.FakeStatsComponent{FakeName: ""},
 		PositionComponent: &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
 	var path level.Path
 	path.Add(Coord{0, 1}, 1)
-	action := NewMoveAction(lvl, char, &path)
+	action := NewMoveAction(nil, lvl, char, &path)
 
 	if !action.IsDoable() {
 		t.Error("Move action should be doable")
@@ -74,79 +71,52 @@ func TestIsDoableOK(t *testing.T) {
 
 func TestPerformOk(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
-	dest := Coord{0, 1}
+	pathCoords := []Coord{Coord{0, 1}, Coord{0, 2}, Coord{0, 3}, Coord{0, 4}}
 	char := &character.Actor{
-		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
 		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
-		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
+		PositionComponent:   &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
+	queue := &command.FakeQueue{}
 	var path level.Path
-	path.Add(dest, 1)
-	action := NewMoveAction(lvl, char, &path)
+	for _, coord := range pathCoords {
+		path.Add(coord, 1)
+	}
+	action := NewMoveAction(queue, lvl, char, &path)
 
 	if !action.Perform() {
 		t.Error("Move action should have performed.")
 	}
 
-	pos := char.Position()
-	if pos != dest {
-		t.Errorf("Desitnation not reached, expected %+v, is %+v.", dest, pos)
+	expectedSize := 4
+	if queue.Size() != expectedSize {
+		t.Errorf("Wrong number of Command. Expected: %d, but is: %d", expectedSize, queue.Size())
 	}
 }
 
 func TestPerformNotEnoughMovePoints(t *testing.T) {
 	lvl := level.New(Coord{1, 5}, 1)
+	pathCoords := []Coord{Coord{0, 1}, Coord{0, 2}, Coord{0, 3}, Coord{0, 4}}
 	char := &character.Actor{
-		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
-		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 1},
+		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 2, FakeConsumeMP: true},
 		PositionComponent:   &character.FakePositionComponent{},
 	}
 	lvl.AddActor(char, Coord{0, 0}, 0)
 
+	queue := &command.FakeQueue{}
 	var path level.Path
-	path.Add(Coord{0, 1}, 1)
-	path.Add(Coord{0, 2}, 1)
-	path.Add(Coord{0, 3}, 1)
-	action := NewMoveAction(lvl, char, &path)
-
-	if !action.IsDoable() {
-		t.Error("Move action should be doable")
+	for _, coord := range pathCoords {
+		path.Add(coord, 1)
 	}
+	action := NewMoveAction(queue, lvl, char, &path)
 
 	if action.Perform() {
-		t.Errorf("Should not be able to perfrom: path=%+v, action=%+v", path, action)
+		t.Error("Move action should not have performed successfully.")
 	}
 
-	pos := char.Position()
-	dest := Coord{0, 3}
-	if pos == dest {
-		t.Errorf("Position of character is %+v, should be different than %+v", pos, dest)
-	}
-}
-
-func TestPerformHasConsumedMovePoints(t *testing.T) {
-	lvl := level.New(Coord{1, 5}, 1)
-	dest := Coord{0, 1}
-	char := &character.Actor{
-		StatsComponent:      &character.FakeStatsComponent{FakeName: ""},
-		MovePointsComponent: &character.FakeMovePointsComponent{FakeMovePoints: 10, FakeConsumeMP: true},
-		PositionComponent:   &character.FakePositionComponent{FakePosition: dest},
-	}
-	lvl.AddActor(char, Coord{0, 0}, 0)
-
-	var path level.Path
-	path.Add(dest, 1)
-	action := NewMoveAction(lvl, char, &path)
-
-	oldValue := char.MovePoints()
-	if !action.Perform() {
-		t.Error("Move action should have performed.")
-	}
-
-	newValue := char.MovePoints()
-	if oldValue == newValue {
-		t.Error("Move points should have been consumed.")
+	expectedSize := 2
+	if queue.Size() != expectedSize {
+		t.Errorf("Wrong number of Command. Expected: %d, but is: %d", expectedSize, queue.Size())
 	}
 }
